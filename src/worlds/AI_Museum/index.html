@@ -26,12 +26,22 @@
 					src="https://www.shutterstock.com/shutterstock/photos/2065712915/display_1500/stock-vector-vector-illustration-of-sample-red-grunge-stamp-isolated-in-transparent-background-png-2065712915.jpg" 
 					crossorigin="anonymous"/> <!--sample image to be replace with AI image-->
 
+		<a-asset-item id="museum-model" src="/src/worlds/AI_Museum/assets/models/museum_old_v1.gltf"></a-asset-item>
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets/>
       </a-assets>
 
-      <!--Environment-->
+      		<!--Environment-->
 			<a-entity id="env" environment="preset: default"></a-entity>
+
+			<!--Museum Model-->
+			<a-entity
+				id="museum"
+				gltf-model="#museum-model"
+				position="0 0 0"
+				rotation="0 0 0"
+				scale="0.1 0.1 0.1"
+			></a-entity>
 
 			<!--Camera-->
 			<a-entity
