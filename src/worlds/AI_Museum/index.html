@@ -22,11 +22,12 @@
       <a-assets>
         <!-- ASSETS -->
         <img
-					id="image"
-					src="https://www.shutterstock.com/shutterstock/photos/2065712915/display_1500/stock-vector-vector-illustration-of-sample-red-grunge-stamp-isolated-in-transparent-background-png-2065712915.jpg" 
-					crossorigin="anonymous"/> <!--sample image to be replace with AI image-->
+			id="image"
+			src="https://www.shutterstock.com/shutterstock/photos/2065712915/display_1500/stock-vector-vector-illustration-of-sample-red-grunge-stamp-isolated-in-transparent-background-png-2065712915.jpg" 
+			crossorigin="anonymous"
+		/> <!--sample image to be replace with AI image-->
 
-		<a-asset-item id="museum-model" src="/src/worlds/AI_Museum/assets/models/museum_old_v1.gltf"></a-asset-item>
+		<a-asset-item id="museum-model" src="assets/models/museum_old_v1.gltf" crossorigin="anonymous"></a-asset-item>
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets/>
       </a-assets>
@@ -36,7 +37,7 @@
 
 			<!--Museum Model-->
 			<a-entity
-				id="museum"
+				id="old_museum"
 				gltf-model="#museum-model"
 				position="0 0 0"
 				rotation="0 0 0"
