@@ -33,8 +33,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Origin": true,
           "Access-Control-Allow-Origin": "http://localhost:8080/",
-          Authorization:
-            "Bearer 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",
+          Authorization: `Bearer `,
         },
         body: JSON.stringify({
           prompt: CONTEXT.data.prompt,
