@@ -53,9 +53,9 @@
 		<!--Environment-->
 		<a-entity id="env" environment="preset: default"></a-entity>
 
-		<!--Museum Model-->
+		<!--Museum Model (OLD)
 		<a-entity id="old_museum" gltf-model="#old-museum-model" position="0 0.001 0" rotation="0 0 0"
-			scale="0.5 0.5 0.5"></a-entity>
+			scale="0.5 0.5 0.5"></a-entity> -->
 
 		<!--Camera-->
 		<a-entity id="camera" camera wasd-controls look-controls position="0 1.6 0">
@@ -70,14 +70,15 @@
 					  verticalAlign: center;" position=" 0 0.7 -1"></a-entity>
 		</a-entity>
 
-		<!--Primitives for AI testing-->
+		<!-- COMMENTED OUT BASIC PRIMITIVES
+
 		<a-entity id="image-frame" geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.1"
 			material="color: #999999" position="0 2 -2" rotation="0 0 0" scale="2 2 2">
 			<a-entity id="image-display" geometry="primitive: plane; width: 1; height: 1" material="src: #image"
 				position="0 0 0.08" rotation="0 0 0" scale="1 1 1"></a-entity>
 		</a-entity>
 
-		<!--button & button box-->
+		button & button box
 		<a-entity id="button-box" geometry="primitive: box; width: 1; height: 1; depth: 1" material="color: #999999"
 			position="0 0.3 -1" rotation="0 0 0" scale="1 1 1">
 			<a-entity id="button" open-ai-image-gen class="interactive"
@@ -97,14 +98,14 @@
                                       dur:300;">
 			</a-entity>
 
-			<!--text floating above button-->
+			text floating above button
 			<a-entity id="button-text" text="value: Push to Generate AI image\nPrompt: Neural Ninja\nv;
                       align: center;
                       width: 1.2;
                       wrapCount: 25;
 					  font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;
 					  verticalAlign: center;" position=" 0 0.7 0"></a-entity>
-		</a-entity>
+		</a-entity> -->
 
 
 		<!-- Teleport -->
