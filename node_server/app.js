@@ -16,34 +16,34 @@ env = dotenvParseVariables(env.parsed);
 //authentication tutorial used : https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
 require('../src/core/circles_server');
 
-const express         = require('express');
-const app             = express();
-const fs              = require('fs');
-const url             = require('url');
-const path            = require('path');
-const helmet          = require("helmet");
-const sassMiddleware  = require('node-sass-middleware');
+const express = require('express');
+const app = express();
+const fs = require('fs');
+const url = require('url');
+const path = require('path');
+const helmet = require("helmet");
+const sassMiddleware = require('node-sass-middleware');
 
-const http            = require('http');
-const server          = http.createServer(app);
+const http = require('http');
+const server = http.createServer(app);
 
 //server stuff
-const session       = require('express-session');
-const MongoStore    = require('connect-mongo');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 //database
-const mongoose      = require('mongoose');
-const User          = require('./models/user');
-const bodyParser    = require('body-parser');
-const dbURL         = 'mongodb://' + env.DATABASE_HOST + ':' +  env.DATABASE_PORT + '/circles';
+const mongoose = require('mongoose');
+const User = require('./models/user');
+const bodyParser = require('body-parser');
+const dbURL = 'mongodb://' + env.DATABASE_HOST + ':' + env.DATABASE_PORT + '/circles';
 
 // Set process name
 process.title = "node-circlesxr";
 
 //database connect
 mongoose.connect(dbURL);
-const db            = mongoose.connection;
-const sessionObj    = session({
+const db = mongoose.connection;
+const sessionObj = session({
   secret: 'work hard',
   resave: true,
   saveUninitialized: false,
@@ -53,7 +53,7 @@ const sessionObj    = session({
 });
 
 //handle mongo error
-db.on('error', function(e) {
+db.on('error', function (e) {
   console.log('connection error:' + e);
   process.exit(1);
 });
@@ -61,20 +61,21 @@ db.once('open', function () {
   console.log("Database connected!");
 });
 
+
 //use sessions for tracking logins (needs to be before routes app.use)
 app.use(sessionObj);
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      "default-src":      ["'self'"],
-      "connect-src":      ["*", "'unsafe-inline'", "blob:"],
-      "img-src":          ["*", "blob:", "data:"],
-      "media-src":        ["*"],
-      "frame-src":        ["*"],
-      "style-src":        ["*", "'unsafe-inline'"],
-      "script-src":       ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:"],
-      "script-src-attr":  ["'unsafe-inline'"],
-      "object-src":       ["'none'"],
+      "default-src": ["'self'"],
+      "connect-src": ["*", "'unsafe-inline'", "blob:"],
+      "img-src": ["*", "blob:", "data:"],
+      "media-src": ["*"],
+      "frame-src": ["*"],
+      "style-src": ["*", "'unsafe-inline'"],
+      "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:"],
+      "script-src-attr": ["'unsafe-inline'"],
+      "object-src": ["'none'"],
     },
   })
 );
@@ -99,10 +100,10 @@ app.use(function (req, res, next) {
 app.use(express.static(__dirname + '/public'));             //set root path of server ...
 
 // Set up Passport
-const passport              = require('passport');
+const passport = require('passport');
 const passportLocalStrategy = require('passport-local').Strategy;
-const JwtStrategy           = require('passport-jwt').Strategy
-const ExtractJwt            = require('passport-jwt').ExtractJwt
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt
 
 const jwtOptions = {
   secretOrKey: env.JWT_SECRET, //the same one we used for token generation
@@ -127,7 +128,7 @@ passport.use(
 );
 
 // Build the passport local strategy for authentication
-passport.use(new passportLocalStrategy (
+passport.use(new passportLocalStrategy(
   {
     usernameField: 'email'
   },
@@ -155,12 +156,12 @@ passport.use(new passportLocalStrategy (
 ));
 
 // Set up serialization of user to the session
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
     done(err, user);
   });
 });
@@ -200,15 +201,15 @@ app.use(function (err, req, res, next) {
 
 //websockets
 let io = require("socket.io")(server, {
-    handlePreflightRequest: (req, res) => {
-        const headers = {
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-            "Access-Control-Allow-Credentials": true
-        };
-        res.writeHead(200, headers);
-        res.end();
-    }
+  handlePreflightRequest: (req, res) => {
+    const headers = {
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+      "Access-Control-Allow-Credentials": true
+    };
+    res.writeHead(200, headers);
+    res.end();
+  }
 });
 
 //this code is unused when we are using the janus sever/adapter 
@@ -269,21 +270,105 @@ io.on("connection", socket => {
 //trying to create a system for easy communication here.
 io.on("connection", socket => {
   console.log('connection test for general circles messaging system');
+  io.emit('setup', { id: socket.id });  //Setup id
 
   //to catch all events: https://stackoverflow.com/questions/10405070/socket-io-client-respond-to-all-events-with-one-handler
   let onevent = socket.onevent;
   socket.onevent = function (packet) {
-      let args = packet.data || [];
-      onevent.call (this, packet);    // original call
-      packet.data = ["*"].concat(args);
-      onevent.call(this, packet);      // additional call to catch-all
+    let args = packet.data || [];
+    onevent.call(this, packet);    // original call
+    packet.data = ["*"].concat(args);
+    onevent.call(this, packet);      // additional call to catch-all
   };
 
+  // ENABLE TELEPORTATION
+  socket.on('enable-teleportation', (data) => {
+    teleportationOpen = true;
+  });
+
+
+  // PAST LEFT
+  socket.on('buttonLeftPast-selected', (data) => {
+    console.log(data.id);
+    if (teleportationOpen) {
+      console.log("buttonLeftPast");
+      io.emit('button-click', { button: "buttonLeftPast" });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //PAST RIGHT
+  socket.on('buttonRightPast-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonRightPast");
+      io.emit('button-click', { button: "buttonRightPast" });
+      io.emit('initiate-teleport', { current: "capsulePast" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('teleport', { id: data.id, x: 10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //PRESENT LEFT
+  socket.on('buttonLeftPresent-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonLeftPresent");
+      io.emit('button-click', { button: "buttonLeftPresent" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('initiate-teleport', { current: "capsulePast" });
+      io.emit('teleport', { id: data.id, x: -10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //PRESENT RIGHT
+  socket.on('buttonRightPresent-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonRightPresent");
+      io.emit('button-click', { button: "buttonRightPresent" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('initiate-teleport', { current: "capsuleFuture" });
+      io.emit('teleport', { id: data.id, x: 10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //FUTURE LEFT
+  socket.on('buttonLeftFuture-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonLeftFuture");
+      io.emit('button-click', { button: "buttonLeftFuture" });
+      io.emit('initiate-teleport', { current: "capsuleFuture" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('teleport', { id: data.id, x: -10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //FUTURE RIGHT
+  socket.on('buttonRightFuture-selected', (data) => {
+    if (teleportationOpen) {
+      console.log("buttonRightFuture");
+      io.emit('button-click', { button: "buttonRightFuture" });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
   //listen for all events and forward to all other clients
-  socket.on("*", function(event, data) {
+  socket.on("*", function (event, data) {
     //ignore reserved event names
-    if (  event === CIRCLES.EVENTS.REQUEST_DATA_SYNC ||
-          event === CIRCLES.EVENTS.SEND_DATA_SYNC ) {
+    if (event === CIRCLES.EVENTS.REQUEST_DATA_SYNC ||
+      event === CIRCLES.EVENTS.SEND_DATA_SYNC) {
       return; //exit
     }
 
@@ -294,7 +379,7 @@ io.on("connection", socket => {
   });
 
   //this is a request to ask others for their world state for syncing purposes
-  socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function(data) {
+  socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function (data) {
     if (data.room) {
       socket.join(data.room); //hacky solution for janus adapter which doesn't set room
       socket.to(data.room).emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, data);
@@ -302,7 +387,7 @@ io.on("connection", socket => {
   });
 
   //this is an event to send world data for syncing to others
-  socket.on(CIRCLES.EVENTS.SEND_DATA_SYNC, function(data) {
+  socket.on(CIRCLES.EVENTS.SEND_DATA_SYNC, function (data) {
     if (data.room) {
       socket.join(data.room); //hacky solution for janus adapter which doesn't set room
       socket.to(data.room).emit(CIRCLES.EVENTS.SEND_DATA_SYNC, data);
@@ -318,22 +403,22 @@ if (env.ENABLE_RESEARCH_MODE) {
     console.log("research websockets connected", socket.id);
 
     //research socket events
-    
+
     const researchUtils = require('./modules/research-utils');
 
     socket.on(CIRCLES.RESEARCH.EVENT_FROM_CLIENT, (data) => {
-      console.log('CIRCLES RESEARCH EVENT: '+ data.event_type);
+      console.log('CIRCLES RESEARCH EVENT: ' + data.event_type);
 
       switch (data.event_type) {
         case CIRCLES.RESEARCH.EVENT_TYPE.CONNECTED: {
           console.log('CIRCLES.RESEARCH.EVENT_TYPE.CONNECTED:' + data.room);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_PREPARE: {
           researchUtils.startExperiment(data);
           io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_START: {
           //start trials
 
@@ -343,69 +428,69 @@ if (env.ENABLE_RESEARCH_MODE) {
           //if no new trial then all trials complete, end experiment
           if (newData === null) {
             //creating new object as data may not be valid
-            const eData         = CIRCLES.RESEARCH.createExpData();
-            eData.event_type    = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
+            const eData = CIRCLES.RESEARCH.createExpData();
+            eData.event_type = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
             researchUtils.stopExperiment(eData);
-            eData.and = {downloadURL:researchUtils.getDownloadLink()};
+            eData.and = { downloadURL: researchUtils.getDownloadLink() };
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, eData);
           } else {
-            newData.event_type  = data.event_type
-            newData.exp_id      = data.exp_id
-            newData.user_id     = data.user_id
-            newData.user_type   = data.user_type
-            
+            newData.event_type = data.event_type
+            newData.exp_id = data.exp_id
+            newData.user_id = data.user_id
+            newData.user_type = data.user_type
+
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, newData);
           }
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP: {
           researchUtils.stopExperiment(data);
-          data.and = {downloadURL:researchUtils.getDownloadLink()};
+          data.and = { downloadURL: researchUtils.getDownloadLink() };
           io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_START: {
           researchUtils.startSelection(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_STOP: {
           researchUtils.stopSelection(data);
 
           //if no new trial then all trials complete, end experiment
           const newData = researchUtils.getNextTrial();
           if (newData === null) {
-            const eData         = CIRCLES.RESEARCH.createExpData();
-            eData.event_type    = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
+            const eData = CIRCLES.RESEARCH.createExpData();
+            eData.event_type = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
             researchUtils.stopExperiment(eData);
-            eData.and = {downloadURL:researchUtils.getDownloadLink()};
+            eData.and = { downloadURL: researchUtils.getDownloadLink() };
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, eData);
           } else {
-            newData.event_type  = CIRCLES.RESEARCH.EVENT_TYPE.NEW_TRIAL;
-            newData.exp_id      = data.exp_id
-            newData.user_id     = data.user_id
-            newData.user_type   = data.user_type
+            newData.event_type = CIRCLES.RESEARCH.EVENT_TYPE.NEW_TRIAL;
+            newData.exp_id = data.exp_id
+            newData.user_id = data.user_id
+            newData.user_type = data.user_type
 
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, newData);
-          } 
+          }
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_PAUSE: {
           // researchUtils.pauseExperiment(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_UNPAUSE: {
           // researchUtils.unpauseExperiment(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_ERROR: {
           researchUtils.noteSelectionError(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.TRANSFORM_UPDATE: {
           // not implemented yet
           // socket.to(curRoom).broadcast.emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, data);
         }
-        break;
+          break;
       }
     });
   });
@@ -413,7 +498,7 @@ if (env.ENABLE_RESEARCH_MODE) {
 
 //lets start up
 server.listen(env.SERVER_PORT, () => {
-  console.log("Listening on http port: " + env.SERVER_PORT );
+  console.log("Listening on http port: " + env.SERVER_PORT);
 });
 
 app.set('views', './views');
