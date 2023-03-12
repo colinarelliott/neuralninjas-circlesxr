@@ -1,11 +1,11 @@
 AFRAME.registerComponent('timeTravel', {
     schema: {
         connected: { type: 'boolean', default: false }, //this is a flag to indicate if we are connected to the messaging system
-        socket: { type: 'object', default: null }, //this is the socket we will use to communicate with the messaging system
         synchEventName: { type: 'string', default: 'timeTravel_event' }, //this is the name of the event we will use to sync the time travel buttons if necessary
     },
     init() {
         const CONTEXT = this;
+        CONTEXT.socket = null;
         const buttonLeftPast = document.querySelector('#buttonLeftPast');
         const buttonRightPast = document.querySelector('#buttonRightPast');
         const buttonLeftPresent = document.querySelector('#buttonLeftPresent');
@@ -15,36 +15,36 @@ AFRAME.registerComponent('timeTravel', {
         const player = document.querySelector('#player');
 
         CONTEXT.el.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
-            CONTEXT.data.socket = CIRCLES.getCirclesWebsocket();
+            CONTEXT.socket = CIRCLES.getCirclesWebsocket();
             CONTEXT.data.connected = true;
-            console.warn("messaging system connected at socket: " + CONTEXT.data.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
+            console.warn("messaging system connected at socket: " + CONTEXT.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
 
             buttonLeftPast.addEventListener('click', function () {
-                CONTEXT.data.socket.emit('buttonLeftPast-selected', { id: CONTEXT.data.socket.id });
+                CONTEXT.socket.emit('buttonLeftPast-selected', { id: CONTEXT.socket.id });
             });
 
             buttonRightPast.addEventListener('click', function () {
-                CONTEXT.data.socket.emit('buttonRightPast-selected', { id: CONTEXT.data.socket.id });
+                CONTEXT.socket.emit('buttonRightPast-selected', { id: CONTEXT.socket.id });
             });
 
             buttonLeftPresent.addEventListener('click', function () {
-                CONTEXT.data.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.data.socket.id });
+                CONTEXT.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.socket.id });
             });
 
             buttonRightPresent.addEventListener('click', function () {
-                CONTEXT.data.socket.emit('buttonRightPresent-selected', { id: CONTEXT.data.socket.id });
+                CONTEXT.socket.emit('buttonRightPresent-selected', { id: CONTEXT.socket.id });
             });
 
             buttonLeftFuture.addEventListener('click', function () {
-                CONTEXT.data.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.data.socket.id });
+                CONTEXT.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.socket.id });
             });
 
             buttonRightFuture.addEventListener('click', function () {
-                CONTEXT.data.socket.emit('buttonRightFuture-selected', { id: CONTEXT.data.socket.id });
+                CONTEXT.socket.emit('buttonRightFuture-selected', { id: CONTEXT.socket.id });
             });
 
-            CONTEXT.data.socket.on('teleport', function (data) {
-                if (CONTEXT.data.socket.id == data.id) {
+            CONTEXT.socket.on('teleport', function (data) {
+                if (CONTEXT.socket.id == data.id) {
                     setTimeout(
                         function () {
                             let pos = player.getAttribute('position');
@@ -53,7 +53,7 @@ AFRAME.registerComponent('timeTravel', {
                 }
             });
 
-            CONTEXT.data.socket.on('button-click', function (data) {
+            CONTEXT.socket.on('button-click', function (data) {
                 let loc = document.querySelector(`#${data.button}`);
                 loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
                 loc.addEventListener('animation-finished', function () {
@@ -62,16 +62,16 @@ AFRAME.registerComponent('timeTravel', {
                 document.querySelector(`#${data.button}Sound`).components.sound.playSound();
             });
 
-            CONTEXT.data.socket.on('initiate-teleport', function (data) {
-                if (CONTEXT.data.socket.id == data.id) {
+            CONTEXT.socket.on('initiate-teleport', function (data) {
+                if (CONTEXT.socket.id == data.id) {
                     let pos = player.getAttribute('position');
                     player.setAttribute('position', `${pos.x + data.x} ${pos.y} ${pos.z}`);
                 }
             });
 
-            CONTEXT.data.socket.on(CONTEXT.data.synchEventName, function (data) {
+            CONTEXT.socket.on(CONTEXT.data.synchEventName, function (data) {
                 console.log("received timeTravel_event: " + JSON.stringify(data));
-                CONTEXT.data.socket.emit(CONTEXT.data.synchEventName, { room: CIRCLES.getCirclesRoom(), world: CIRCLES.getCirclesWorld() });
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, { room: CIRCLES.getCirclesRoom(), world: CIRCLES.getCirclesWorld() });
             });
         });
     },
