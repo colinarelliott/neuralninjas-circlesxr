@@ -21,31 +21,37 @@ AFRAME.registerComponent('timeTravel', {
 
             buttonLeftPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPast-selected', { id: CONTEXT.socket.id });
+                CONTEXT.socket.emit('button-click', { button: 'buttonLeftPast'});
                 console.log("buttonLeftPast-selected");
             });
 
             buttonRightPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPast-selected', { id: CONTEXT.socket.id });
+                CONTEXT.socket.emit('button-click', { button: 'buttonRightPast'});
                 console.log("buttonRightPast-selected");
             });
 
             buttonLeftPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.socket.id });
+                CONTEXT.socket.emit('button-click', { button: 'buttonLeftPresent'});
                 console.log("buttonLeftPresent-selected");
             });
 
             buttonRightPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPresent-selected', { id: CONTEXT.socket.id });
+                CONTEXT.socket.emit('button-click', { button: 'buttonRightPresent'});
                 console.log("buttonRightPresent-selected");
             });
 
             buttonLeftFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.socket.id });
+                CONTEXT.socket.emit('button-click', { button: 'buttonLeftFuture'});
                 console.log("buttonLeftFuture-selected");
             });
 
             buttonRightFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightFuture-selected', { id: CONTEXT.socket.id });
+                CONTEXT.socket.emit('button-click', { button: 'buttonRightFuture'});
                 console.log("buttonRightFuture-selected");
             });
 
@@ -165,5 +171,94 @@ AFRAME.registerComponent('experience-manager', {
 
         });
     }
-})*/
+})
+
+  //BEGIN DYLAN'S SERVER CODE
+
+  // ENABLE TELEPORTATION
+  socket.on('enable-teleportation', (data) => {
+    teleportationOpen = true;
+  });
+
+
+  // PAST LEFT
+  socket.on('buttonLeftPast-selected', (data) => {
+    console.log(data.id);
+    if (teleportationOpen) {
+      console.log("buttonLeftPast");
+      io.emit('button-click', { button: "buttonLeftPast" });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //PAST RIGHT
+  socket.on('buttonRightPast-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonRightPast");
+      io.emit('button-click', { button: "buttonRightPast" });
+      io.emit('initiate-teleport', { current: "capsulePast" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('teleport', { id: data.id, x: 10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //PRESENT LEFT
+  socket.on('buttonLeftPresent-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonLeftPresent");
+      io.emit('button-click', { button: "buttonLeftPresent" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('initiate-teleport', { current: "capsulePast" });
+      io.emit('teleport', { id: data.id, x: -10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //PRESENT RIGHT
+  socket.on('buttonRightPresent-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonRightPresent");
+      io.emit('button-click', { button: "buttonRightPresent" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('initiate-teleport', { current: "capsuleFuture" });
+      io.emit('teleport', { id: data.id, x: 10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //FUTURE LEFT
+  socket.on('buttonLeftFuture-selected', (data) => {
+    if (teleportationOpen) {
+      teleportationOpen = false;
+      console.log("buttonLeftFuture");
+      io.emit('button-click', { button: "buttonLeftFuture" });
+      io.emit('initiate-teleport', { current: "capsuleFuture" });
+      io.emit('initiate-teleport', { current: "capsulePresent" });
+      io.emit('teleport', { id: data.id, x: -10 });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //FUTURE RIGHT
+  socket.on('buttonRightFuture-selected', (data) => {
+    if (teleportationOpen) {
+      console.log("buttonRightFuture");
+      io.emit('button-click', { button: "buttonRightFuture" });
+    }
+    else
+      console.log(teleportationOpen);
+  });
+
+  //END DYLAN'S SERVER CODE
+
+*/
 
