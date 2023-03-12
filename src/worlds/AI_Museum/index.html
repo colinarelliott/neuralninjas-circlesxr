@@ -26,7 +26,7 @@
 	<circles-start-ui />
 
 	<!-- a-scene with 'circles-properties' component [REQUIRED] -->
-	<a-scene circles_scene_properties timeTravel>
+	<a-scene circles_scene_properties>
 		<a-assets>
 			<!-- ASSETS -->
 			<img id="image"
@@ -50,6 +50,12 @@
 			<!-- Circles' built-in assets [REQUIRED] -->
 			<circles-assets />
 		</a-assets>
+
+		<!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
+		<a-entity 
+			id="experience-manager"
+			timeTravel
+		></a-entity>
 
 		<!--Environment-->
 		<a-entity id="env" environment="preset: default"></a-entity>

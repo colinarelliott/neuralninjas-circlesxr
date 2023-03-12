@@ -14,7 +14,7 @@ AFRAME.registerComponent('timeTravel', {
         const buttonRightFuture = document.querySelector('#buttonRightFuture');
         const player = document.querySelector('#player');
 
-        CONTEXT.el.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
+        CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
             CONTEXT.socket = CIRCLES.getCirclesWebsocket();
             CONTEXT.data.connected = true;
             console.warn("messaging system connected at socket: " + CONTEXT.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
