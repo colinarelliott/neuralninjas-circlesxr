@@ -281,6 +281,8 @@ io.on("connection", socket => {
     onevent.call(this, packet);      // additional call to catch-all
   };
 
+  //BEGIN DYLAN'S SERVER CODE
+
   // ENABLE TELEPORTATION
   socket.on('enable-teleportation', (data) => {
     teleportationOpen = true;
@@ -363,6 +365,8 @@ io.on("connection", socket => {
     else
       console.log(teleportationOpen);
   });
+
+  //END DYLAN'S SERVER CODE
 
   //listen for all events and forward to all other clients
   socket.on("*", function (event, data) {
