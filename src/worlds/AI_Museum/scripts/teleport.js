@@ -21,26 +21,32 @@ AFRAME.registerComponent('timeTravel', {
 
             buttonLeftPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPast-selected', { id: CONTEXT.socket.id });
+                console.log("buttonLeftPast-selected");
             });
 
             buttonRightPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPast-selected', { id: CONTEXT.socket.id });
+                console.log("buttonRightPast-selected");
             });
 
             buttonLeftPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.socket.id });
+                console.log("buttonLeftPresent-selected");
             });
 
             buttonRightPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPresent-selected', { id: CONTEXT.socket.id });
+                console.log("buttonRightPresent-selected");
             });
 
             buttonLeftFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.socket.id });
+                console.log("buttonLeftFuture-selected");
             });
 
             buttonRightFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightFuture-selected', { id: CONTEXT.socket.id });
+                console.log("buttonRightFuture-selected");
             });
 
             CONTEXT.socket.on('teleport', function (data) {
