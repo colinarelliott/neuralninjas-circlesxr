@@ -38,11 +38,8 @@ AFRAME.registerComponent('experience-manager', {
                 socket.emit('buttonRightFuture-selected', { id: id });
             });
 
-        });
+            id= socket.id;
 
-
-        socket.on('setup', (data) => {
-            id = data.id;
         });
 
         socket.on('teleport', (data) => {
