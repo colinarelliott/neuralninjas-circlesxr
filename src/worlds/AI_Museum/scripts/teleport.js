@@ -1,4 +1,4 @@
-AFRAME.registerComponent('teleport', {
+AFRAME.registerComponent('timeTravel', {
     schema: {
         connected: { type: 'boolean', default: false }, //this is a flag to indicate if we are connected to the messaging system
         socket: { type: 'object', default: null }, //this is the socket we will use to communicate with the messaging system
