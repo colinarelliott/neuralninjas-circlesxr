@@ -19,6 +19,7 @@ AFRAME.registerComponent('timeTravel', {
         //CIRCLES connection event. get the web socket and add click listeners. Basically this is the client side code
         CONTEXT.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
             CONTEXT.socket = CIRCLES.getCirclesWebsocket();
+            console.log(CONTEXT.socket);
             CONTEXT.data.connected = true;
             console.warn("messaging system connected at socket: " + CONTEXT.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
 
