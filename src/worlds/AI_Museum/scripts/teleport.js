@@ -89,7 +89,7 @@ AFRAME.registerComponent('time-travel', {
 
             buttonLeftPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPast-selected', { id: CONTEXT.socket.id });
-                if (CONTEXT.data.teleportAllowed) {
+                if (CONTEXT.data.teleportAllowed === true) {
                     CONTEXT.socket.emit('button-click', { button: 'buttonLeftPast'});
                     console.log("buttonLeftPast-selected");
                     //NO TELEPORT, JUST SOUND
@@ -98,7 +98,7 @@ AFRAME.registerComponent('time-travel', {
 
             buttonRightPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPast-selected', { id: CONTEXT.socket.id });
-                if (CONTEXT.data.teleportAllowed) {
+                if (CONTEXT.data.teleportAllowed === true) {
                     CONTEXT.data.teleportAllowed = false;
                     //SYNC EVENT GOES HERE
                     CONTEXT.socket.emit('button-click', { button: 'buttonRightPast'});
@@ -112,7 +112,7 @@ AFRAME.registerComponent('time-travel', {
 
             buttonLeftPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.socket.id });
-                if (CONTEXT.data.teleportAllowed) {
+                if (CONTEXT.data.teleportAllowed === true) {
                     CONTEXT.data.teleportAllowed = false;
                     //sync event goes here
                     CONTEXT.socket.emit('button-click', { button: 'buttonLeftPresent'});
@@ -126,7 +126,7 @@ AFRAME.registerComponent('time-travel', {
 
             buttonRightPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPresent-selected', { id: CONTEXT.socket.id });
-                if (CONTEXT.data.teleportAllowed) {
+                if (CONTEXT.data.teleportAllowed === true) {
                     CONTEXT.data.teleportAllowed = false;
                     CONTEXT.socket.emit('button-click', { button: 'buttonRightPresent'});
                     console.log("buttonRightPresent-selected");
@@ -139,7 +139,7 @@ AFRAME.registerComponent('time-travel', {
 
             buttonLeftFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.socket.id });
-                if (CONTEXT.data.teleportAllowed) {
+                if (CONTEXT.data.teleportAllowed === true) {
                     CONTEXT.data.teleportAllowed = false;
                     CONTEXT.socket.emit('button-click', { button: 'buttonLeftFuture'});
                     console.log("buttonLeftFuture-selected");
@@ -152,7 +152,7 @@ AFRAME.registerComponent('time-travel', {
 
             buttonRightFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightFuture-selected', { id: CONTEXT.socket.id });
-                if (CONTEXT.data.teleportAllowed) {
+                if (CONTEXT.data.teleportAllowed === true) {
                     CONTEXT.socket.emit('button-click', { button: 'buttonRightFuture'});
                     console.log("buttonRightFuture-selected");
                     //NO TELEPORT, JUST SOUND
