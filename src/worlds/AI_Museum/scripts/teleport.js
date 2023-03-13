@@ -21,6 +21,7 @@ AFRAME.registerComponent('time-travel', {
         CONTEXT.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
             CONTEXT.socket = CIRCLES.getCirclesWebsocket();
             console.log("SOCKET HERE: "+CONTEXT.socket);
+            console.log(CONTEXT.socket);
             CONTEXT.data.connected = true;
             console.warn("messaging system connected at socket: " + CONTEXT.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
 
