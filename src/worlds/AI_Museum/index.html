@@ -34,7 +34,7 @@
 			<img id="image"
 				src="https://www.shutterstock.com/shutterstock/photos/2065712915/display_1500/stock-vector-vector-illustration-of-sample-red-grunge-stamp-isolated-in-transparent-background-png-2065712915.jpg"
 				crossorigin="anonymous" /> <!--sample image to be replace with AI image-->
-				
+
 			<audio id="buttonSoundSrc" src="assets/sounds/ButtonSound.mp3" preload="auto" crossorigin="anonymous"></audio>
 
 			<!-- Important -->
@@ -124,6 +124,7 @@
             <a-entity id="buttonRightPast" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
             <a-entity id="buttonLeftPastSound" sound="src:#buttonSoundSrc; autoplay:false;" position="-1.667 1.773 -1.260"></a-entity>
             <a-entity id="buttonRightPastSound" sound="src:#buttonSoundSrc; autoplay:false;" position="1.667 1.773 -1.260"></a-entity>
+			<a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false;"></a-entity>
         </a-entity>
 
         <a-entity id="timeMachinePresent" scale="0.8 0.8 0.8" position="0 0 0" visible="true">
@@ -134,6 +135,7 @@
             <a-entity id="buttonRightPresent" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
             <a-entity id="buttonLeftPresentSound" sound="src:#buttonSoundSrc; autoplay:false;" position="-1.667 1.773 -1.260"></a-entity>
             <a-entity id="buttonRightPresentSound" sound="src:#buttonSoundSrc; autoplay:false;" position="1.667 1.773 -1.260"></a-entity>
+			<a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false;"></a-entity>
         </a-entity>
 
         <a-entity id="timeMachineFuture" scale="0.8 0.8 0.8" position="10 0 0" visible="true">
@@ -144,6 +146,7 @@
             <a-entity id="buttonRightFuture" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
             <a-entity id="buttonLeftFutureSound" sound="src:#buttonSoundSrc; autoplay:false;" position="-1.667 1.773 -1.260"></a-entity>
             <a-entity id="buttonRightFutureSound" sound="src:#buttonSoundSrc; autoplay:false;" position="1.667 1.773 -1.260"></a-entity>
+			<a-entity id="buttonSoundOnlySound" sound="src:#buttonSoundSrc; autoplay:false;"></a-entity>
         </a-entity>
 		<!-- Teleport -->
 
