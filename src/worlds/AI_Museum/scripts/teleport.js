@@ -119,17 +119,13 @@ AFRAME.registerComponent('time-travel', {
             //send sync event (TELEPORTATION DISABLED)
             CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             let loc = document.querySelector("#" + data.detail.button);
-            if (data.detail.button == "buttonSoundOnly") {
-                document.querySelector("#"+ data.detail.button + "Sound").components.sound.playSound();
-                console.log("button-click event triggered");
-            } else {
-                loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
+                loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true; duration: 100;');
                 loc.addEventListener('animation-finished', function () {
                     loc.removeAttribute('animation-mixer');
                 }, { once: true });
+                console.log(loc.getAttribute('animation-mixer'));
                 document.querySelector("#"+ data.detail.button + "Sound").components.sound.playSound();
                 console.log("button-click event triggered");
-            }
         });
 
         //CUSTOM initiate-teleport event
