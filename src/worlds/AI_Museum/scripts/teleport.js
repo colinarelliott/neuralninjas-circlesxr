@@ -32,7 +32,7 @@ AFRAME.registerComponent('time-travel', {
 
             //CIRCLES SYNC REQUEST EVENT
             setTimeout(function () {
-                CONTEXT_AF.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld()});
+                CONTEXT.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld()});
             }, 1000); //wait a second to make sure we are connected
 
             //CIRCLES SYNC DATA EVENT
