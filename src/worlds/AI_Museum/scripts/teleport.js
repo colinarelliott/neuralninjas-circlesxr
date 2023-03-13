@@ -3,6 +3,10 @@ AFRAME.registerComponent('time-travel', {
         connected: { type: 'boolean', default: false }, //this is a flag to indicate if we are connected to the messaging system
         synchEventName: { type: 'string', default: 'timeTravel_event' }, //this is the name of the event we will use to sync the time travel buttons if necessary
         teleportAllowed: { type: 'boolean', default: true }, //this is a flag to indicate if we are connected to the messaging system
+        pastCapsuleAnimation: { type: 'boolean', default: false }, //this is the name of the event we will use to sync the time travel buttons if necessary
+        presentCapsuleAnimation: { type: 'boolean', default: false }, //this is the name of the event we will use to sync the time travel buttons if necessary
+        futureCapsuleAnimation: { type: 'boolean', default: false }, //this is the name of the event we will use to sync the time travel buttons if necessary
+        buttonSound: { type: 'boolean', default: false }, //this is the name of the event we will use to sync the time travel buttons if necessary
     },
     init() {
         const CONTEXT = this;
@@ -18,41 +22,44 @@ AFRAME.registerComponent('time-travel', {
         const player = document.querySelector('#Player1');
 
         //define custom DOM events
-        const enableTeleportation = new CustomEvent('enable-teleportation');
+        CONTEXT.enableTeleportation = new CustomEvent('enable-teleportation');
 
-        const teleportForward = new CustomEvent('teleport', {
+        CONTEXT.teleportForward = new CustomEvent('teleport', {
             detail: {x: 10}
         });
-        const teleportBackward = new CustomEvent('teleport', {
+        CONTEXT.teleportBackward = new CustomEvent('teleport', {
             detail: {x: -10}
         });
 
-        const clickPresentRight = new CustomEvent('button-click', { 
+        CONTEXT.clickPresentRight = new CustomEvent('button-click', { 
             detail: {button: "buttonRightPresent"}
         });
-        const clickPresentLeft = new CustomEvent('button-click', {
+        CONTEXT.clickPresentLeft = new CustomEvent('button-click', {
             detail: {button: "buttonLeftPresent"}
         });
-        const clickPastRight = new CustomEvent('button-click', {
+        CONTEXT.clickPastRight = new CustomEvent('button-click', {
             detail: {button: "buttonRightPast"}
         });
-        const clickPastLeft = new CustomEvent('button-click', {
+        CONTEXT.clickPastLeft = new CustomEvent('button-click', {
             detail: {button: "buttonLeftPast"}
         });
-        const clickFutureRight = new CustomEvent('button-click', {
+        CONTEXT.clickFutureRight = new CustomEvent('button-click', {
             detail: {button: "buttonRightFuture"}
         });
-        const clickFutureLeft = new CustomEvent('button-click', {
+        CONTEXT.clickFutureLeft = new CustomEvent('button-click', {
             detail: {button: "buttonLeftFuture"}
         });
+        CONTEXT.buttonClick = new CustomEvent('button-click', {
+            detail: {button: "buttonSoundOnly"}
+        });
 
-        const initTPpresent = new CustomEvent('initiate-teleport', {
+        CONTEXT.initTPpresent = new CustomEvent('initiate-teleport', {
             detail: {current: "capsulePresent"}
         });
-        const initTPpast = new CustomEvent('initiate-teleport', {
+        CONTEXT.initTPpast = new CustomEvent('initiate-teleport', {
             detail: {current: "capsulePast"}
         });
-        const initTPfuture = new CustomEvent('initiate-teleport', {
+        CONTEXT.initTPfuture = new CustomEvent('initiate-teleport', {
             detail: {current: "capsuleFuture"}
         });
 
@@ -66,17 +73,27 @@ AFRAME.registerComponent('time-travel', {
 
             //RECEIVE SYNC EVENTS
             CONTEXT.socket.on(CONTEXT.data.synchEventName, function (data) { 
-                CONTEXT.data.teleportAllowed = data.teleportAllowed; //receive sync event
+                CONTEXT.data.teleportAllowed = data.teleportAllowed; //receive sync event & sync
+                CONTEXT.data.pastCapsuleAnimation = data.pastCapsuleAnimation; //receive sync event & sync
+                CONTEXT.data.presentCapsuleAnimation = data.presentCapsuleAnimation; //receive sync event & sync
+                CONTEXT.data.futureCapsuleAnimation = data.futureCapsuleAnimation; //receive sync event & sync
+                CONTEXT.data.buttonSound = data.buttonSound; //receive sync event & sync
             });
 
             //CIRCLES SYNC REQUEST EVENT
             setTimeout(function () {
                 CONTEXT.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld()});
-            }, 1000); //wait a second to make sure we are connected
+            }, 1000); //wait a second to make sure we are connected... might want to make this random?
 
             //CIRCLES SYNC DATA EVENT
             CONTEXT.socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function (data) {
-                CONTEXT.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld(), data:CONTEXT.data});
+                CONTEXT.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld(), data: {
+                    teleportAllowed: CONTEXT.data.teleportAllowed,
+                    pastCapsuleAnimation: CONTEXT.data.pastCapsuleAnimation,
+                    presentCapsuleAnimation: CONTEXT.data.presentCapsuleAnimation,
+                    futureCapsuleAnimation: CONTEXT.data.futureCapsuleAnimation,
+                    buttonSound: CONTEXT.data.buttonSound
+                }});
             });
         });
 
@@ -84,7 +101,7 @@ AFRAME.registerComponent('time-travel', {
         CONTEXT.el.addEventListener('enable-teleportation', function () {
             CONTEXT.data.teleportAllowed = true;
             //send sync event (TELEPORTATION ENABLED)
-            CONTEXT.socket.emit(CONTEXT.data.synchEventName, { teleportAllowed: CONTEXT.data.teleportAllowed });
+            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             console.log("enable teleportation event triggered");
         });
 
@@ -100,14 +117,19 @@ AFRAME.registerComponent('time-travel', {
         //CUSTOM button-click event
         CONTEXT.el.addEventListener('button-click', function (data) {
             //send sync event (TELEPORTATION DISABLED)
-            CONTEXT.socket.emit(CONTEXT.data.synchEventName, { teleportAllowed: CONTEXT.data.teleportAllowed }); 
+            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             let loc = document.querySelector("#" + data.detail.button);
-            loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
-            loc.addEventListener('animation-finished', function () {
-                loc.removeAttribute('animation-mixer');
-            }, { once: true });
-            document.querySelector("#"+ data.detail.button + "Sound").components.sound.playSound();
-            console.log("button-click event triggered");
+            if (data.detail.button == "buttonSoundOnly") {
+                document.querySelector("#"+ data.detail.button + "Sound").components.sound.playSound();
+                console.log("button-click event triggered");
+            } else {
+                loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
+                loc.addEventListener('animation-finished', function () {
+                    loc.removeAttribute('animation-mixer');
+                }, { once: true });
+                document.querySelector("#"+ data.detail.button + "Sound").components.sound.playSound();
+                console.log("button-click event triggered");
+            }
         });
 
         //CUSTOM initiate-teleport event
@@ -116,82 +138,96 @@ AFRAME.registerComponent('time-travel', {
             capsuleCurrent.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
             capsuleCurrent.addEventListener('animation-finished', function () {
                 capsuleCurrent.removeAttribute('animation-mixer');
-                CONTEXT.el.dispatchEvent(enableTeleportation);
+                CONTEXT.el.dispatchEvent(CONTEXT.enableTeleportation);
             }, { once: true });
             console.log("initiate-teleport event triggered");
         });
 
         buttonLeftPast.addEventListener('click', function () {
             if (CONTEXT.data.teleportAllowed === true) {
-                CONTEXT.el.dispatchEvent(clickPastLeft);
-                console.log("buttonLeftPast-selected");
-                //NO TELEPORT, JUST SOUND
+                CONTEXT.data.buttonSound = true;
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             }
         });
 
         buttonRightPast.addEventListener('click', function () {
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
-                //SYNC EVENT GOES HERE
-                CONTEXT.el.dispatchEvent(clickPastRight);
-                console.log("buttonRightPast-selected");
-                //TELEPORT TO THE PRESENT
-                CONTEXT.el.dispatchEvent(initTPpast);
-                CONTEXT.el.dispatchEvent(initTPpresent);
-                CONTEXT.el.dispatchEvent(teleportForward);
+                CONTEXT.data.pastCapsuleAnimation = true;
+                CONTEXT.data.presentCapsuleAnimation = true;
+                CONTEXT.data.buttonSound = true;
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                CONTEXT.el.dispatchEvent(CONTEXT.teleportForward);
             }
         });
 
         buttonLeftPresent.addEventListener('click', function () {
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
-                //sync event goes here
-                CONTEXT.el.dispatchEvent(clickPresentLeft);
-                console.log("buttonLeftPresent-selected");
-                //TELEPORT TO THE PAST
-                CONTEXT.el.dispatchEvent(initTPpresent);
-                CONTEXT.el.dispatchEvent(initTPpast);
-                CONTEXT.el.dispatchEvent(teleportBackward);
+                CONTEXT.data.pastCapsuleAnimation = true;
+                CONTEXT.data.presentCapsuleAnimation = true;
+                CONTEXT.data.buttonSound = true;
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                CONTEXT.el.dispatchEvent(CONTEXT.teleportBackward);
             }
         });
 
         buttonRightPresent.addEventListener('click', function () {
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
-                CONTEXT.el.dispatchEvent(clickPresentRight); //we know this works because the following console.log is called?
-                console.log("buttonRightPresent-selected");
-                //TELEPORT TO THE FUTURE
-                CONTEXT.el.dispatchEvent(initTPpresent);
-                CONTEXT.el.dispatchEvent(initTPfuture);
-                CONTEXT.el.dispatchEvent(teleportForward);
+                CONTEXT.data.presentCapsuleAnimation = true;
+                CONTEXT.data.futureCapsuleAnimation = true;
+                CONTEXT.data.buttonSound = true;
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                CONTEXT.el.dispatchEvent(CONTEXT.teleportForward);
             }
         });
 
         buttonLeftFuture.addEventListener('click', function () {
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
-                CONTEXT.el.dispatchEvent(clickFutureLeft);
-                console.log("buttonLeftFuture-selected");
-                //TELEPORT TO THE PRESENT
-                CONTEXT.el.dispatchEvent(initTPfuture);
-                CONTEXT.el.dispatchEvent(initTPpresent);
-                CONTEXT.el.dispatchEvent(teleportBackward);
+                CONTEXT.data.presentCapsuleAnimation = true;
+                CONTEXT.data.futureCapsuleAnimation = true;
+                CONTEXT.data.buttonSound = true;
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                CONTEXT.el.dispatchEvent(CONTEXT.teleportBackward);
             }
         });
 
         buttonRightFuture.addEventListener('click', function () {
             if (CONTEXT.data.teleportAllowed === true) {
-                CONTEXT.el.dispatchEvent(clickFutureRight);
-                console.log("buttonRightFuture-selected");
-                //NO TELEPORT, JUST SOUND
+                CONTEXT.data.buttonSound = true;
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             }
         });
 
         //END ASSIGN EVENT LISTENERS
     },
+
+    tick: function () {
+        const CONTEXT = this;
+        if (CONTEXT.data.pastCapsuleAnimation === true) {
+            CONTEXT.el.dispatchEvent(CONTEXT.initTPpast);
+            CONTEXT.data.pastCapsuleAnimation = false;
+            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+        }
+        if (CONTEXT.data.presentCapsuleAnimation === true) {
+            CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
+            CONTEXT.data.presentCapsuleAnimation = false;
+            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+        }
+        if (CONTEXT.data.futureCapsuleAnimation === true) {
+            CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
+            CONTEXT.data.futureCapsuleAnimation = false;
+            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+        }
+        if (CONTEXT.data.buttonSound === true) {
+            CONTEXT.el.dispatchEvent(CONTEXT.buttonClick);
+            CONTEXT.data.buttonSound = false;
+            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+        }
+    }
 });
-
-
 
 /*
 'use strict';
