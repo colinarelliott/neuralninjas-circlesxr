@@ -124,7 +124,8 @@ AFRAME.registerComponent('time-travel', {
                     loc.removeAttribute('animation-mixer');
                 }, { once: true });
                 console.log(loc.getAttribute('animation-mixer'));
-                document.querySelector("#"+ data.detail.button + "Sound").components.sound.playSound();
+                document.querySelector(`#${data.detail.button}Sound`).components.sound.playSound();
+                console.log(`#${data.detail.button}Sound`);
                 console.log("button-click event triggered");
         });
 
