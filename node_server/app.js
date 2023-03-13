@@ -73,7 +73,7 @@ app.use(
       "media-src": ["*"],
       "frame-src": ["*"],
       "style-src": ["*", "'unsafe-inline'"],
-      "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:"],
+      "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:", "cdn.jsdelivr.net"],
       "script-src-attr": ["'unsafe-inline'"],
       "object-src": ["'none'"],
     },
