@@ -68,12 +68,12 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       "default-src": ["'self'"],
-      "connect-src": ["*", "'unsafe-inline'", "blob:"],
+      "connect-src": ["*", "'unsafe-inline'", "blob:", "data:"],
       "img-src": ["*", "blob:", "data:"],
       "media-src": ["*"],
       "frame-src": ["*"],
       "style-src": ["*", "'unsafe-inline'"],
-      "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:"],
+      "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:", "cdn.jsdelivr.net"],
       "script-src-attr": ["'unsafe-inline'"],
       "object-src": ["'none'"],
     },
@@ -270,7 +270,6 @@ io.on("connection", socket => {
 //trying to create a system for easy communication here.
 io.on("connection", socket => {
   console.log('connection test for general circles messaging system');
-  io.emit('setup', { id: socket.id });  //Setup id
 
   //to catch all events: https://stackoverflow.com/questions/10405070/socket-io-client-respond-to-all-events-with-one-handler
   let onevent = socket.onevent;
@@ -280,89 +279,6 @@ io.on("connection", socket => {
     packet.data = ["*"].concat(args);
     onevent.call(this, packet);      // additional call to catch-all
   };
-
-  // ENABLE TELEPORTATION
-  socket.on('enable-teleportation', (data) => {
-    teleportationOpen = true;
-  });
-
-
-  // PAST LEFT
-  socket.on('buttonLeftPast-selected', (data) => {
-    console.log(data.id);
-    if (teleportationOpen) {
-      console.log("buttonLeftPast");
-      io.emit('button-click', { button: "buttonLeftPast" });
-    }
-    else
-      console.log(teleportationOpen);
-  });
-
-  //PAST RIGHT
-  socket.on('buttonRightPast-selected', (data) => {
-    if (teleportationOpen) {
-      teleportationOpen = false;
-      console.log("buttonRightPast");
-      io.emit('button-click', { button: "buttonRightPast" });
-      io.emit('initiate-teleport', { current: "capsulePast" });
-      io.emit('initiate-teleport', { current: "capsulePresent" });
-      io.emit('teleport', { id: data.id, x: 10 });
-    }
-    else
-      console.log(teleportationOpen);
-  });
-
-  //PRESENT LEFT
-  socket.on('buttonLeftPresent-selected', (data) => {
-    if (teleportationOpen) {
-      teleportationOpen = false;
-      console.log("buttonLeftPresent");
-      io.emit('button-click', { button: "buttonLeftPresent" });
-      io.emit('initiate-teleport', { current: "capsulePresent" });
-      io.emit('initiate-teleport', { current: "capsulePast" });
-      io.emit('teleport', { id: data.id, x: -10 });
-    }
-    else
-      console.log(teleportationOpen);
-  });
-
-  //PRESENT RIGHT
-  socket.on('buttonRightPresent-selected', (data) => {
-    if (teleportationOpen) {
-      teleportationOpen = false;
-      console.log("buttonRightPresent");
-      io.emit('button-click', { button: "buttonRightPresent" });
-      io.emit('initiate-teleport', { current: "capsulePresent" });
-      io.emit('initiate-teleport', { current: "capsuleFuture" });
-      io.emit('teleport', { id: data.id, x: 10 });
-    }
-    else
-      console.log(teleportationOpen);
-  });
-
-  //FUTURE LEFT
-  socket.on('buttonLeftFuture-selected', (data) => {
-    if (teleportationOpen) {
-      teleportationOpen = false;
-      console.log("buttonLeftFuture");
-      io.emit('button-click', { button: "buttonLeftFuture" });
-      io.emit('initiate-teleport', { current: "capsuleFuture" });
-      io.emit('initiate-teleport', { current: "capsulePresent" });
-      io.emit('teleport', { id: data.id, x: -10 });
-    }
-    else
-      console.log(teleportationOpen);
-  });
-
-  //FUTURE RIGHT
-  socket.on('buttonRightFuture-selected', (data) => {
-    if (teleportationOpen) {
-      console.log("buttonRightFuture");
-      io.emit('button-click', { button: "buttonRightFuture" });
-    }
-    else
-      console.log(teleportationOpen);
-  });
 
   //listen for all events and forward to all other clients
   socket.on("*", function (event, data) {
