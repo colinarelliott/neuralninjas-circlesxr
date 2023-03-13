@@ -23,48 +23,48 @@ AFRAME.registerComponent('time-travel', {
             console.log(CONTEXT.socket);
             CONTEXT.data.connected = true;
             console.warn("messaging system connected at socket: " + CONTEXT.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
-        });
 
-        //BEGIN CUSTOM EVENTS
+            //BEGIN CUSTOM EVENTS
 
-        //CUSTOM teleport enable event
-        CONTEXT.socket.on('enable-teleportation', function (data) {
-            CONTEXT.data.teleportAllowed = true;
-            console.log("teleportation enabled");
-        });
+            //CUSTOM teleport enable event
+            CONTEXT.socket.on('enable-teleportation', function (data) {
+                CONTEXT.data.teleportAllowed = true;
+                console.log("teleportation enabled");
+            });
 
-        //CUSTOM teleport event
-        CONTEXT.socket.on('teleport', function (data) {
-            if (CONTEXT.socket.id == data.id) {
-                setTimeout(
-                    function () {
-                        let pos = player.getAttribute('position');
-                        player.setAttribute('position', `${pos.x + data.x} ${pos.y} ${pos.z}`);
-                    }, 5000);
-            }
-        });
-        
-        //CUSTOM button-click event
-        CONTEXT.socket.on('button-click', function (data) {
-            let loc = document.querySelector(`#${data.button}`);
-            loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
-            loc.addEventListener('animation-finished', function () {
-                loc.removeAttribute('animation-mixer');
-            }, { once: true });
-            document.querySelector(`#${data.button}Sound`).components.sound.playSound();
-        });
+            //CUSTOM teleport event
+            CONTEXT.socket.on('teleport', function (data) {
+                if (CONTEXT.socket.id == data.id) {
+                    setTimeout(
+                        function () {
+                            let pos = player.getAttribute('position');
+                            player.setAttribute('position', `${pos.x + data.x} ${pos.y} ${pos.z}`);
+                        }, 5000);
+                }
+            });
+            
+            //CUSTOM button-click event
+            CONTEXT.socket.on('button-click', function (data) {
+                let loc = document.querySelector(`#${data.button}`);
+                loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
+                loc.addEventListener('animation-finished', function () {
+                    loc.removeAttribute('animation-mixer');
+                }, { once: true });
+                document.querySelector(`#${data.button}Sound`).components.sound.playSound();
+            });
 
-        //CUSTOM initiate-teleport event
-        CONTEXT.socket.on('initiate-teleport', function (data) {
-            let capsuleCurrent = document.querySelector(`#${data.current}`);
-            capsuleCurrent.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
-            capsuleCurrent.addEventListener('animation-finished', function () {
-                capsuleCurrent.removeAttribute('animation-mixer');
-                CONTEXT.socket.emit('enable-teleportation');
-            }, { once: true });
-        });
+            //CUSTOM initiate-teleport event
+            CONTEXT.socket.on('initiate-teleport', function (data) {
+                let capsuleCurrent = document.querySelector(`#${data.current}`);
+                capsuleCurrent.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
+                capsuleCurrent.addEventListener('animation-finished', function () {
+                    capsuleCurrent.removeAttribute('animation-mixer');
+                    CONTEXT.socket.emit('enable-teleportation');
+                }, { once: true });
+            });
 
-        //END CUSTOM EVENTS
+            //END CUSTOM EVENTS
+        });
 
         //ASSIGN EVENT LISTENERS
 
