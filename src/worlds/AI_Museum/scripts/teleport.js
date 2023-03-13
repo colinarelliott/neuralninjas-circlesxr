@@ -1,4 +1,4 @@
-AFRAME.registerComponent('timeTravel', {
+AFRAME.registerComponent('time-travel', {
     schema: {
         connected: { type: 'boolean', default: false }, //this is a flag to indicate if we are connected to the messaging system
         synchEventName: { type: 'string', default: 'timeTravel_event' }, //this is the name of the event we will use to sync the time travel buttons if necessary
