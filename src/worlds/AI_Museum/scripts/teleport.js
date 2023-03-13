@@ -25,12 +25,29 @@ AFRAME.registerComponent('time-travel', {
             CONTEXT.data.connected = true;
             console.warn("messaging system connected at socket: " + CONTEXT.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
 
+            //RECEIVE SYNC EVENTS
+            CONTEXT.socket.on(CONTEXT.data.synchEventName, function (data) { 
+                CONTEXT.data.teleportAllowed = data.teleportAllowed; //receive sync event
+            });
+
+            //CIRCLES SYNC REQUEST EVENT
+            setTimeout(function () {
+                CONTEXT_AF.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld()});
+            }, 1000); //wait a second to make sure we are connected
+
+            //CIRCLES SYNC DATA EVENT
+            CONTEXT.socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function (data) {
+                CONTEXT.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld(), data:CONTEXT.data});
+            });
+
             //BEGIN CUSTOM EVENTS
 
             //CUSTOM teleport enable event
             CONTEXT.socket.on('enable-teleportation', function (data) {
                 CONTEXT.data.teleportAllowed = true;
                 console.log("teleportation enabled");
+                //send sync event (TELEPORTATION ENABLED)
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, { teleportAllowed: CONTEXT.data.teleportAllowed });
             });
 
             //CUSTOM teleport event
@@ -46,6 +63,8 @@ AFRAME.registerComponent('time-travel', {
             
             //CUSTOM button-click event
             CONTEXT.socket.on('button-click', function (data) {
+                //send sync event (TELEPORTATION DISABLED)
+                CONTEXT.socket.emit(CONTEXT.data.synchEventName, { teleportAllowed: CONTEXT.data.teleportAllowed }); 
                 let loc = document.querySelector(`#${data.button}`);
                 loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
                 loc.addEventListener('animation-finished', function () {
@@ -65,82 +84,83 @@ AFRAME.registerComponent('time-travel', {
             });
 
             //END CUSTOM EVENTS
+
+            //ASSIGN EVENT LISTENERS
+
+            buttonLeftPast.addEventListener('click', function () {
+                CONTEXT.socket.emit('buttonLeftPast-selected', { id: CONTEXT.socket.id });
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.socket.emit('button-click', { button: 'buttonLeftPast'});
+                    console.log("buttonLeftPast-selected");
+                    //NO TELEPORT, JUST SOUND
+                }
+            });
+
+            buttonRightPast.addEventListener('click', function () {
+                CONTEXT.socket.emit('buttonRightPast-selected', { id: CONTEXT.socket.id });
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    //SYNC EVENT GOES HERE
+                    CONTEXT.socket.emit('button-click', { button: 'buttonRightPast'});
+                    console.log("buttonRightPast-selected");
+                    //TELEPORT TO THE PRESENT
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePast" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: 10});
+                }
+            });
+
+            buttonLeftPresent.addEventListener('click', function () {
+                CONTEXT.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.socket.id });
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    //sync event goes here
+                    CONTEXT.socket.emit('button-click', { button: 'buttonLeftPresent'});
+                    console.log("buttonLeftPresent-selected");
+                    //TELEPORT TO THE PAST
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePast" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: -10});
+                }
+            });
+
+            buttonRightPresent.addEventListener('click', function () {
+                CONTEXT.socket.emit('buttonRightPresent-selected', { id: CONTEXT.socket.id });
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    CONTEXT.socket.emit('button-click', { button: 'buttonRightPresent'});
+                    console.log("buttonRightPresent-selected");
+                    //TELEPORT TO THE FUTURE
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsuleFuture" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: 10});
+                }
+            });
+
+            buttonLeftFuture.addEventListener('click', function () {
+                CONTEXT.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.socket.id });
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    CONTEXT.socket.emit('button-click', { button: 'buttonLeftFuture'});
+                    console.log("buttonLeftFuture-selected");
+                    //TELEPORT TO THE PRESENT
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsuleFuture" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: -10});
+                }
+            });
+
+            buttonRightFuture.addEventListener('click', function () {
+                CONTEXT.socket.emit('buttonRightFuture-selected', { id: CONTEXT.socket.id });
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.socket.emit('button-click', { button: 'buttonRightFuture'});
+                    console.log("buttonRightFuture-selected");
+                    //NO TELEPORT, JUST SOUND
+                }
+            });
+
+            //END ASSIGN EVENT LISTENERS
         });
-
-        //ASSIGN EVENT LISTENERS
-
-        buttonLeftPast.addEventListener('click', function () {
-            CONTEXT.socket.emit('buttonLeftPast-selected', { id: CONTEXT.socket.id });
-            if (CONTEXT.data.teleportAllowed) {
-                CONTEXT.socket.emit('button-click', { button: 'buttonLeftPast'});
-                console.log("buttonLeftPast-selected");
-                //NO TELEPORT, JUST SOUND
-            }
-        });
-
-        buttonRightPast.addEventListener('click', function () {
-            CONTEXT.socket.emit('buttonRightPast-selected', { id: CONTEXT.socket.id });
-            if (CONTEXT.data.teleportAllowed) {
-                CONTEXT.data.teleportAllowed = false;
-                //SYNC EVENT GOES HERE
-                CONTEXT.socket.emit('button-click', { button: 'buttonRightPast'});
-                console.log("buttonRightPast-selected");
-                //TELEPORT TO THE PRESENT
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsulePast" });
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
-                CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: 10});
-            }
-        });
-
-        buttonLeftPresent.addEventListener('click', function () {
-            CONTEXT.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.socket.id });
-            if (CONTEXT.data.teleportAllowed) {
-                CONTEXT.data.teleportAllowed = false;
-                CONTEXT.socket.emit('button-click', { button: 'buttonLeftPresent'});
-                console.log("buttonLeftPresent-selected");
-                //TELEPORT TO THE PAST
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsulePast" });
-                CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: -10});
-            }
-        });
-
-        buttonRightPresent.addEventListener('click', function () {
-            CONTEXT.socket.emit('buttonRightPresent-selected', { id: CONTEXT.socket.id });
-            if (CONTEXT.data.teleportAllowed) {
-                CONTEXT.data.teleportAllowed = false;
-                CONTEXT.socket.emit('button-click', { button: 'buttonRightPresent'});
-                console.log("buttonRightPresent-selected");
-                //TELEPORT TO THE FUTURE
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsuleFuture" });
-                CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: 10});
-            }
-        });
-
-        buttonLeftFuture.addEventListener('click', function () {
-            CONTEXT.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.socket.id });
-            if (CONTEXT.data.teleportAllowed) {
-                CONTEXT.data.teleportAllowed = false;
-                CONTEXT.socket.emit('button-click', { button: 'buttonLeftFuture'});
-                console.log("buttonLeftFuture-selected");
-                //TELEPORT TO THE PRESENT
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsuleFuture" });
-                CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
-                CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: -10});
-            }
-        });
-
-        buttonRightFuture.addEventListener('click', function () {
-            CONTEXT.socket.emit('buttonRightFuture-selected', { id: CONTEXT.socket.id });
-            if (CONTEXT.data.teleportAllowed) {
-                CONTEXT.socket.emit('button-click', { button: 'buttonRightFuture'});
-                console.log("buttonRightFuture-selected");
-                //NO TELEPORT, JUST SOUND
-            }
-        });
-
-        //END ASSIGN EVENT LISTENERS
     },
 });
 
