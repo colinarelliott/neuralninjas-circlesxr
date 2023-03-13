@@ -2,9 +2,11 @@ AFRAME.registerComponent('timeTravel', {
     schema: {
         connected: { type: 'boolean', default: false }, //this is a flag to indicate if we are connected to the messaging system
         synchEventName: { type: 'string', default: 'timeTravel_event' }, //this is the name of the event we will use to sync the time travel buttons if necessary
+        teleportAllowed: { type: 'boolean', default: true }, //this is a flag to indicate if we are connected to the messaging system
     },
     init() {
         const CONTEXT = this;
+        //set socket to null to be filled in when connection is established
         CONTEXT.socket = null;
         const buttonLeftPast = document.querySelector('#buttonLeftPast');
         const buttonRightPast = document.querySelector('#buttonRightPast');
@@ -12,8 +14,9 @@ AFRAME.registerComponent('timeTravel', {
         const buttonRightPresent = document.querySelector('#buttonRightPresent');
         const buttonLeftFuture = document.querySelector('#buttonLeftFuture');
         const buttonRightFuture = document.querySelector('#buttonRightFuture');
-        const player = document.querySelector('#player');
+        const player = document.querySelector('#camera');
 
+        //CIRCLES connection event. get the web socket and add click listeners. Basically this is the client side code
         CONTEXT.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
             CONTEXT.socket = CIRCLES.getCirclesWebsocket();
             CONTEXT.data.connected = true;
@@ -21,70 +24,117 @@ AFRAME.registerComponent('timeTravel', {
 
             buttonLeftPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPast-selected', { id: CONTEXT.socket.id });
-                CONTEXT.socket.emit('button-click', { button: 'buttonLeftPast'});
-                console.log("buttonLeftPast-selected");
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.socket.emit('button-click', { button: 'buttonLeftPast'});
+                    console.log("buttonLeftPast-selected");
+                    //NO TELEPORT, JUST SOUND
+                }
             });
 
             buttonRightPast.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPast-selected', { id: CONTEXT.socket.id });
-                CONTEXT.socket.emit('button-click', { button: 'buttonRightPast'});
-                console.log("buttonRightPast-selected");
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    //SYNC EVENT GOES HERE
+                    CONTEXT.socket.emit('button-click', { button: 'buttonRightPast'});
+                    console.log("buttonRightPast-selected");
+                    //TELEPORT TO THE PRESENT
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePast" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: 10});
+                }
             });
 
             buttonLeftPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftPresent-selected', { id: CONTEXT.socket.id });
-                CONTEXT.socket.emit('button-click', { button: 'buttonLeftPresent'});
-                console.log("buttonLeftPresent-selected");
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    CONTEXT.socket.emit('button-click', { button: 'buttonLeftPresent'});
+                    console.log("buttonLeftPresent-selected");
+                    //TELEPORT TO THE PAST
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePast" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: -10});
+                }
             });
 
             buttonRightPresent.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightPresent-selected', { id: CONTEXT.socket.id });
-                CONTEXT.socket.emit('button-click', { button: 'buttonRightPresent'});
-                console.log("buttonRightPresent-selected");
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    CONTEXT.socket.emit('button-click', { button: 'buttonRightPresent'});
+                    console.log("buttonRightPresent-selected");
+                    //TELEPORT TO THE FUTURE
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsuleFuture" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: 10});
+                }
             });
 
             buttonLeftFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonLeftFuture-selected', { id: CONTEXT.socket.id });
-                CONTEXT.socket.emit('button-click', { button: 'buttonLeftFuture'});
-                console.log("buttonLeftFuture-selected");
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.data.teleportAllowed = false;
+                    CONTEXT.socket.emit('button-click', { button: 'buttonLeftFuture'});
+                    console.log("buttonLeftFuture-selected");
+                    //TELEPORT TO THE PRESENT
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsuleFuture" });
+                    CONTEXT.socket.emit('initiate-teleport', { current: "capsulePresent" });
+                    CONTEXT.socket.emit('teleport', {id: CONTEXT.socket.id, x: -10});
+                }
             });
 
             buttonRightFuture.addEventListener('click', function () {
                 CONTEXT.socket.emit('buttonRightFuture-selected', { id: CONTEXT.socket.id });
-                CONTEXT.socket.emit('button-click', { button: 'buttonRightFuture'});
-                console.log("buttonRightFuture-selected");
-            });
-
-            CONTEXT.socket.on('teleport', function (data) {
-                if (CONTEXT.socket.id == data.id) {
-                    setTimeout(
-                        function () {
-                            let pos = player.getAttribute('position');
-                            player.setAttribute('position', `${pos.x + data.x} ${pos.y} ${pos.z}`);
-                        }, 5000);
+                if (CONTEXT.data.teleportAllowed) {
+                    CONTEXT.socket.emit('button-click', { button: 'buttonRightFuture'});
+                    console.log("buttonRightFuture-selected");
+                    //NO TELEPORT, JUST SOUND
                 }
             });
+        });
 
-            CONTEXT.socket.on('button-click', function (data) {
-                let loc = document.querySelector(`#${data.button}`);
-                loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
-                loc.addEventListener('animation-finished', function () {
-                    loc.removeAttribute('animation-mixer');
-                }, { once: true });
-                document.querySelector(`#${data.button}Sound`).components.sound.playSound();
-            });
+        //CUSTOM teleport enable event
+        CONTEXT.socket.on('enable-teleportation', function (data) {
+            CONTEXT.data.teleportAllowed = true;
+            console.log("teleportation enabled");
+        });
 
-            CONTEXT.socket.on('initiate-teleport', function (data) {
-                if (CONTEXT.socket.id == data.id) {
-                    let pos = player.getAttribute('position');
-                    player.setAttribute('position', `${pos.x + data.x} ${pos.y} ${pos.z}`);
-                }
-            });
+        //CUSTOM teleport event
+        CONTEXT.socket.on('teleport', function (data) {
+            if (CONTEXT.socket.id == data.id) {
+                setTimeout(
+                    function () {
+                        let pos = player.getAttribute('position');
+                        player.setAttribute('position', `${pos.x + data.x} ${pos.y} ${pos.z}`);
+                    }, 5000);
+            }
+        });
+        
+        //CUSTOM button-click event
+        CONTEXT.socket.on('button-click', function (data) {
+            let loc = document.querySelector(`#${data.button}`);
+            loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
+            loc.addEventListener('animation-finished', function () {
+                loc.removeAttribute('animation-mixer');
+            }, { once: true });
+            document.querySelector(`#${data.button}Sound`).components.sound.playSound();
+        });
 
-            CONTEXT.socket.on(CONTEXT.data.synchEventName, function (data) {
-                console.log("received timeTravel_event: " + JSON.stringify(data));
-                CONTEXT.socket.emit(CONTEXT.data.synchEventName, { room: CIRCLES.getCirclesRoom(), world: CIRCLES.getCirclesWorld() });
-            });
+        //CUSTOM initiate-teleport event
+        CONTEXT.socket.on('initiate-teleport', function (data) {
+            let capsuleCurrent = document.querySelector(`#${data.current}`);
+            capsuleCurrent.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
+            capsuleCurrent.addEventListener('animation-finished', function () {
+                capsuleCurrent.removeAttribute('animation-mixer');
+                CONTEXT.socket.emit('enable-teleportation');
+            }, { once: true });
+        });
+
+        //unused sync
+        CONTEXT.socket.on(CONTEXT.data.synchEventName, function (data) {
+            console.log("received timeTravel_event: " + JSON.stringify(data));
+            CONTEXT.socket.emit(CONTEXT.data.synchEventName, { room: CIRCLES.getCirclesRoom(), world: CIRCLES.getCirclesWorld() });
         });
     },
 });
