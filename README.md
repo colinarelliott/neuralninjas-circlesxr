@@ -1,11 +1,9 @@
 # CIRCLES XR Learning Framework
 
-![Screenshot of 3D avatars around the campfire in CIRCLES](node_server/public/global/images/Circles_MultiPlatform.jpg?raw=true)
-
-![Screenshot of CIRCLES' world that highlights the challenges women face in the trades](node_server/public/global/images/Circles_WomenInTrades.jpg?raw=true)
+<img src="node_server/public/global/images/Circles_MultiPlatform.jpg?raw=true" width="49.3%" alt="Screenshot of 3D avatars around the campfire in CIRCLES" />  <img src="node_server/public/global/images/Circles_WomenInTrades.jpg?raw=true" width="49.3%" alt="Screenshot of CIRCLES' world that highlights the challenges women face in the trades" /><img src="node_server/public/global/images/Circles_KinematicsHub.jpg?raw=true" width="49.3%" alt="Screenshot of CIRCLES' hub world for showcasing basic kinematics" /> <img src="node_server/public/global/images/Circles_ExampleWorld.jpg?raw=true" width="49.3%" alt="Screenshot of CIRCLES' example world for showing Circles' features to developers" />
 
 ## Table of Contents
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -18,14 +16,14 @@
 - [Circles Structure](#circles-structure)
 - [Circles Components](#circles-components)
 - [Circles Networking](#circles-networking)
-- [Learning More About AFrame and Javascript Development](#learning-more-about-aframe-and-javascript-development)
+- [Learning More About A-Frame and Javascript Development](#learning-more-about-a-frame-and-javascript-development)
 - [Contributing to Circles](#contributing-to-circles)
 - [Early Contributors](#early-contributors)
 
 ----------------
 
 ## Circles Overview
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -39,7 +37,7 @@ CIRCLES is the practical Work-In-Progress (WIP) implementation of a research pro
 <br>
 
 ### **Why use VR in Learning?**
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -50,7 +48,7 @@ Post-Secondary Education in many industrialized countries such as Canada is curr
 <br>
 
 ### **Why Circles?**
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -75,7 +73,7 @@ There is some work looking at how the virtual work can affect our reality, in ho
 ----------------
 
 ## Circles Controls
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -98,7 +96,7 @@ In navigating within the 3D spaces of Circles all interactions aim toward single
 ----------------
 
 ## Running Circles Locally
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -108,7 +106,7 @@ In navigating within the 3D spaces of Circles all interactions aim toward single
 1. [Install mongo community server](https://www.mongodb.com/docs/manual/administration/install-community/)
     - We also _recommend_ installing the [MongoDB command line tool](https://www.mongodb.com/docs/mongodb-shell/) so that you can access the Mongo databases via command line, though you can also use the [Compass application](https://www.mongodb.com/docs/compass/current/). This is usually included with the mongo community server install.
 1. [Install node/npm](https://nodejs.org/en/download/). **NOTE: We recommend installing the "LTS" version of npm/node.** Currently, this framework is running on  *Node version 14.18.0* and *NPM version 8.3.1.* You can check versions after install with the commands `node --version` and `npm --version`. For Windows you may have this additional command after install to downgrade NPM `npm install -g npm@8.3.1`. *Unfortunately many the libraries associated with A-frame and circles may not build correctly if you use other versions.*
-1. Make sure you have [Python installed](https://www.python.org/downloads/) (as some libraries amy require Python to build this project with NPM)
+1. Make sure you have [Python installed](https://www.python.org/downloads/) (as some libraries may require Python to build this project with NPM)
 1. Go into project folder and install NPM dependencies 
     - `npm install`
 1. Set up the Environment file
@@ -146,13 +144,13 @@ In navigating within the 3D spaces of Circles all interactions aim toward single
 ----------------
 
 ## Creating A New Circles World
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
 - Go to src/worlds and see that each world has its own folder and associated index.html
 - See [ExampleWorld](https://github.com/PlumCantaloupe/circlesxr/tree/master/src/worlds/ExampleWorld) for a fully-featured example of how to set up your own.
-- Currently, routes are not automatically created for each world (in progress); but you can type in the URL in the following format: http://127.0.0.1:{SERVER_PORT}/rooms/explore/world/{YOUR_WORLD_FOLDER}
+- Currently, routes are not automatically created for each world (in progress); but you can type in the URL in the following format: http://127.0.0.1:{SERVER_PORT}/w/{YOUR_WORLD_FOLDER}, though note we should be using a tool like ngrok to serve ssl content. Like this: https://your_ngrok_url.ngrok.io/w/{YOUR_WORLD_FOLDER}.
 - Note that in [ExampleWorld](https://github.com/PlumCantaloupe/circlesxr/tree/master/src/worlds/ExampleWorld) you can see a few HTML entities that are required for your world to properly connect to this framework. These are replaced with the appropriate scripts in [webpack.worlds.parts](https://github.com/PlumCantaloupe/circlesxr/tree/Workshop_Features/src/webpack.worlds.parts) during the build stage so please pay attention to their position within the page.
   ```html  
   <circles-start-scripts/>
@@ -166,7 +164,7 @@ In navigating within the 3D spaces of Circles all interactions aim toward single
 
   <circles-end-scripts/>
   ```
-  Below is the most basic example, with only a Circles' avatar networked into a scene. Feel free to use [A-Frame](https://aframe.io) components to add [geometry](https://github.com/aframevr/aframe/blob/master/docs/components/geometry.md), [3D models](https://aframe.io/docs/1.2.0/introduction/models.html), [animations](https://github.com/aframevr/aframe/blob/master/docs/components/animation.md), [lights](https://github.com/aframevr/aframe/blob/master/docs/components/light.md), and [load assets](https://aframe.io/docs/1.2.0/core/asset-management-system.html). You may also want to add some [Circles specific components](#circles-components) for navigation, artefacts, buttons etc. 
+  Below is the most basic example, with only a Circles' avatar networked into a scene. Feel free to use [A-Frame](https://aframe.io) components to add [geometry](https://github.com/aframevr/aframe/blob/master/docs/components/geometry.md), [3D models](https://aframe.io/docs/1.4.0/introduction/models.html), [animations](https://github.com/aframevr/aframe/blob/master/docs/components/animation.md), [lights](https://github.com/aframevr/aframe/blob/master/docs/components/light.md), and [load assets](https://aframe.io/docs/1.4.0/core/asset-management-system.html). You may also want to add some [Circles specific components](#circles-components) for navigation, artefacts, buttons etc. 
 
   ```html
   <html>
@@ -200,11 +198,11 @@ In navigating within the 3D spaces of Circles all interactions aim toward single
 ----------------
 
 ## Circles Structure
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
-Circles follows the [ECS (Entity-Component System)](https://aframe.io/docs/1.2.0/introduction/entity-component-system.html) programming design pattern that [A-Frame](https://aframe.io) follows, likely be familiar to [Unity](https://unity.com) Developers.
+Circles follows the [ECS (Entity-Component System)](https://aframe.io/docs/1.4.0/introduction/entity-component-system.html) programming design pattern that [A-Frame](https://aframe.io) follows, likely be familiar to [Unity](https://unity.com) Developers.
 
 The general structure of the framework (and the Github repository) follows:
 
@@ -217,7 +215,7 @@ The general structure of the framework (and the Github repository) follows:
 ----------------
 
 ## Circles Components
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -395,7 +393,7 @@ This is a core component in our framework that explores learning around tools an
 ----------------
 
 ## Circles Networking
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -425,10 +423,11 @@ CIRCLES.getCirclesUser();
 CONTEXT_AF.socket = null;
 CONTEXT_AF.campfireEventName = "campfire_event";
 
-//this is the event to listen to befre trying to get a reference to the communication socket
+//this is the event to listen to before trying to get a reference to the communication socket
 CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function (data) {
     CONTEXT_AF.socket = CIRCLES.getCirclesWebsocket(); //get socket
-
+    
+    //let the user click on the campfire to turn it on/off, and then after let all other clients know it has been toggled
     CONTEXT_AF.campfire.addEventListener('click', function () {
         CONTEXT_AF.fireOn = !CONTEXT_AF.fireOn;
 
@@ -468,18 +467,18 @@ CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function (da
 
 ----------------
 
-## Learning More About AFrame and Javascript Development
-##### *[back to top](#circles-vr-learning-framework)*
+## Learning More About A-Frame and Javascript Development
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
-- **To learn more about A-Frame development, I recommend checking out this [brief introduction to A-Frame](https://aframe.io/docs/1.2.0/introduction/), and a [brief tutorial that overviews some of the most common functionality](https://glitch.com/edit/#!/aframe-1hr-intro).**
-- For a quick refresher on Javsscript please see [W3 Schools Javascript Introduction](https://www.w3schools.com/js/js_intro.asp).
+- **To learn more about A-Frame development, I recommend checking out this [brief introduction to A-Frame](https://aframe.io/docs/1.4.0/introduction/), and a [brief tutorial that overviews some of the most common functionality](https://glitch.com/edit/#!/aframe-1hr-intro).**
+- For a quick refresher on Javascript please see [W3 Schools Javascript Introduction](https://www.w3schools.com/js/js_intro.asp).
 
 ----------------
 
 ## Contributing to Circles
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
@@ -492,11 +491,11 @@ Also, of course, if you have any formal or informal bugs, feedback, or suggestio
 ----------------
 
 ## Early Contributors
-##### *[back to top](#circles-vr-learning-framework)*
+##### *[back to top](#circles-xr-learning-framework)*
 
 <br>
 
-The following are several companions that have helped to bring this project into existence. Starting as a prototype for [Oculus Launchpad 2018](https://developer.oculus.com/launch-pad/) to showcase [Viola Desmond's story as a pioneer for Canadian civil rights](https://humanrights.ca/story/one-womans-resistance) and, more recently, helping direct content for highlighting the challenges women face in the trades, I wanted to recognize them for their early direction and support. Though this is mainly a research project for my [Ph.D. work at Carleton University](https://carleton.ca/engineering-design/story/giving-new-life-to-a-canadian-legend/), but I hope that their contributions in this open-source repository will also help and inspire others as they have myself.
+The following are several companions that have helped to bring this project into existence. Starting as a prototype for [Oculus Launchpad 2018](https://developer.oculus.com/launch-pad/) to showcase [Viola Desmond's story as a pioneer for Canadian civil rights](https://humanrights.ca/story/one-womans-resistance), I wanted to recognize them for their early direction and support. Though this is mainly a research project for my [Ph.D. work at Carleton University](https://carleton.ca/engineering-design/story/giving-new-life-to-a-canadian-legend/), I hope that their contributions in this open-source repository will also help inspire others as they have myself.
 
 Thank you from an aspiring student of all things XR and learning, [Anthony Scavarelli](http://portfolio.anthony-scavarelli.com/)
 
