@@ -19,8 +19,6 @@
 
     <!--Environment script-->
     <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-
-    <script src="https://rawgit.com/aframevr/aframe/c4aa63e/dist/aframe-master.min.js"></script>
     <script src="./scripts/aframe-super-keyboard.min.js"></script>
     <script src="./scripts/show-keyboard.js"></script>
   </head>
@@ -287,9 +285,19 @@
           <!-- Change hand to `#hand` for VR. -->
           <a-entity
             id="keyboard"
-            super-keyboard="hand: #mouseCursor; imagePath:./assets/images/"
+            super-keyboard="
+              hand: #mouseCursor; 
+              imagePath:./assets/images/; 
+              keyColor: #AA3333; 
+              keyBgColor: #000;
+              keyHoverColor: #CC3333;
+              keyPressColor: #FF3333;
+              inputColor: #AA3333;
+
+              "
             position="0 1.708 -1.00"
-            rotation="-30 0 0"
+            rotation="-45 0 0"
+            scale="1.2 1.2 1.2"
             open-ai-image-gen
           ></a-entity>
         </a-entity>
@@ -353,14 +361,14 @@
           material="src: #screensaver"
           position="0 1.9 -1.4"
           scale="1.1 1.1 1.1"
-        >
+        ><a-entity
+        id="screenLightPresent"
+        light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
+        position="0 0 0.5"
+      ></a-entity>
         </a-entity>
 
-        <a-entity
-          id="screenLightPresent"
-          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
-          position="0 0 0.5"
-        ></a-entity>
+        
       </a-entity>
 
       <a-entity
