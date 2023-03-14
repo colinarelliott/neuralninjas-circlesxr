@@ -1,86 +1,141 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <title id="title">Neural Ninjas - AI Imagen Museum</title>
 
-<head>
-	<meta charset="utf-8">
-	<title id="title">Neural Ninjas - AI Imagen Museum</title>
+    <!-- Circles' head scripts [REQUIRED] -->
+    <circles-start-scripts />
 
-	<!-- Circles' head scripts [REQUIRED] -->
-	<circles-start-scripts />
-	
-	<!-- Animation scripts  -->
-	<!--<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js" crossorigin="anonymous"></script> NO NEED TO INSTALL THIS, CIRCLES DOES IT FOR YOU-->
+    <!-- Animation scripts  -->
+    <!--<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js" crossorigin="anonymous"></script> NO NEED TO INSTALL THIS, CIRCLES DOES IT FOR YOU-->
 
-	<!--AI Image Generator script-->
-	<script src="scripts/open-ai-image-generator.js"></script>
+    <!--AI Image Generator script-->
+    <script src="scripts/open-ai-image-generator.js"></script>
 
-	<!--Teleportation script-->
-	<script src="scripts/teleport.js"></script>
+    <!--Teleportation script-->
+    <script src="scripts/teleport.js"></script>
 
-	<!--Environment script-->
-	<script
-		src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-</head>
+    <!--Environment script-->
+    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
 
-<body>
-	<!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
-	<circles-start-ui />
+    <script src="https://rawgit.com/aframevr/aframe/c4aa63e/dist/aframe-master.min.js"></script>
+    <script src="./scripts/aframe-super-keyboard.min.js"></script>
+    <script src="./scripts/show-keyboard.js"></script>
+  </head>
 
-	<!-- a-scene with 'circles-properties' component [REQUIRED] -->
-	<a-scene circles_scene_properties>
-		<a-assets>
-			<!-- ASSETS -->
-			<img id="image"
-				src="https://www.shutterstock.com/shutterstock/photos/2065712915/display_1500/stock-vector-vector-illustration-of-sample-red-grunge-stamp-isolated-in-transparent-background-png-2065712915.jpg"
-				crossorigin="anonymous" /> <!--sample image to be replace with AI image-->
+  <body>
+    <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
+    <circles-start-ui />
 
-			<img id="screensaver" src="assets/images/windowsXP.jpg" crossorigin="anonymous" />
+    <!-- a-scene with 'circles-properties' component [REQUIRED] -->
+    <a-scene circles_scene_properties>
+      <a-assets>
+        <!-- ASSETS -->
+        <img
+          id="image"
+          src="https://www.shutterstock.com/shutterstock/photos/2065712915/display_1500/stock-vector-vector-illustration-of-sample-red-grunge-stamp-isolated-in-transparent-background-png-2065712915.jpg"
+          crossorigin="anonymous"
+        />
+        <!--sample image to be replace with AI image-->
 
-			<audio id="buttonSoundSrc" src="assets/sounds/ButtonSound.mp3" preload="auto" crossorigin="anonymous"></audio>
+        <img
+          id="screensaver"
+          src="assets/images/windowsXP.jpg"
+          crossorigin="anonymous"
+        />
 
-			<!-- Important -->
-			<a-asset-item id="machineObj" src="assets/models/Machine.gltf" crossorigin="anonymous" response-type="arraybuffer"></a-asset-item>
-			<a-asset-item id="capsuleObj" src="assets/models/capsule.gltf" crossorigin="anonymous" response-type="arraybuffer"></a-asset-item>
-			<a-asset-item id="capsuleGroundObj" src="assets/models/capsuleGround.gltf"
-				crossorigin="anonymous"  response-type="arraybuffer"></a-asset-item>
-			<a-asset-item id="buttonLeftObj" src="assets/models/Button_Left.gltf" crossorigin="anonymous" response-type="arraybuffer"></a-asset-item>
-			<a-asset-item id="buttonRightObj" src="assets/models/Button_Right.gltf" crossorigin="anonymous" response-type="arraybuffer"></a-asset-item>
-			
-			<a-asset-item id="old-museum-model" src="assets/models/museum_old_v2.gltf"
-				crossorigin="anonymous"></a-asset-item> 
-			
-			<!-- Circles' built-in assets [REQUIRED] -->
-			<circles-assets />
-		</a-assets>
+        <audio
+          id="buttonSoundSrc"
+          src="assets/sounds/ButtonSound.mp3"
+          preload="auto"
+          crossorigin="anonymous"
+        ></audio>
 
-		<!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
-		<a-entity 
-			id="experience-manager"
-			time-travel
-		></a-entity>
+        <!-- Important -->
+        <a-asset-item
+          id="machineObj"
+          src="assets/models/Machine.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="capsuleObj"
+          src="assets/models/capsule.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="capsuleGroundObj"
+          src="assets/models/capsuleGround.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="buttonLeftObj"
+          src="assets/models/Button_Left.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="buttonRightObj"
+          src="assets/models/Button_Right.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
 
-		<!--Environment-->
-		<a-entity id="env" environment="preset: default; groundYScale: 0"></a-entity>
+        <a-asset-item
+          id="old-museum-model"
+          src="assets/models/museum_old_v2.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
 
-		<!--Museum Model (OLD)
+        <!-- Circles' built-in assets [REQUIRED] -->
+        <circles-assets />
+      </a-assets>
+
+      <!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
+      <a-entity id="experience-manager" time-travel></a-entity>
+
+      <!--Environment-->
+      <a-entity
+        id="env"
+        environment="preset: default; groundYScale: 0"
+      ></a-entity>
+
+      <!--Museum Model (OLD)
 		<a-entity id="old_museum" gltf-model="#old-museum-model" position="0 0.001 0" rotation="0 0 0"
 			scale="0.5 0.5 0.5"></a-entity> -->
 
-		<!--Camera-->
-		<a-entity id="camera" camera wasd-controls look-controls position="0 1.6 0">
-			<a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects: .interactive">
-				<!--only cast 20m, every 200ms, only look for objects with class 'interactive'-->
-			</a-entity>
-			<a-entity id="alert-text" , text="value: ;
+      <!--Camera-->
+      <a-entity
+        id="camera"
+        camera
+        wasd-controls
+        look-controls
+        position="0 1.6 0"
+      >
+        <a-entity
+          cursor="rayOrigin:mouse;"
+          raycaster="far:20; interval:200; objects: .interactive"
+        >
+          <!--only cast 20m, every 200ms, only look for objects with class 'interactive'-->
+        </a-entity>
+        <a-entity
+          id="alert-text"
+          ,
+          text="value: ;
 					  align: center;
 					  width: 1.2;
 					  wrapCount: 25;
 					  font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;
-					  verticalAlign: center;" position=" 0 0.7 -1"></a-entity>
-		</a-entity>
+					  verticalAlign: center;"
+          position=" 0 0.7 -1"
+        ></a-entity>
+      </a-entity>
 
-		<!-- COMMENTED OUT BASIC PRIMITIVES
+      <!-- COMMENTED OUT BASIC PRIMITIVES
 
 		<a-entity id="image-frame" geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.1"
 			material="color: #999999" position="0 2 -2" rotation="0 0 0" scale="2 2 2">
@@ -117,62 +172,284 @@
 					  verticalAlign: center;" position=" 0 0.7 0"></a-entity>
 		</a-entity> -->
 
-		<!-- Teleport -->
-		<a-entity id="museumPast" gltf-model="#old-museum-model" position="-50 0.1 0" rotation="0 0 0"
-			scale="0.5 0.5 0.5" visible="true"></a-entity>
-		
-		<a-entity id="timeMachinePast" scale="0.8 0.8 0.8" position="-50 0 0" visible="true">
-            <a-entity id="machinePast" gltf-model="#machineObj" scale="1 1 1" position="0 0 0" visible="true" shadow></a-entity>
-            <a-entity id="capsulePast" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0" visible="true" shadow animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="capsuleGroundPast" gltf-model="#capsuleGroundObj" scale="1 1 1" position="0 0 0" visible="true" shadow></a-entity>
-            <a-entity id="buttonLeftPast" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="buttonRightPast" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="buttonLeftPastSound" sound="src:#buttonSoundSrc; autoplay:false;" position="-1.667 1.773 -1.260"></a-entity>
-            <a-entity id="buttonRightPastSound" sound="src:#buttonSoundSrc; autoplay:false;" position="1.667 1.773 -1.260"></a-entity>
-			<a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false;"></a-entity>
+      <!-- Teleport -->
+      <a-entity
+        id="museumPast"
+        gltf-model="#old-museum-model"
+        position="-50 0.1 0"
+        rotation="0 0 0"
+        scale="0.5 0.5 0.5"
+        visible="true"
+      ></a-entity>
+
+      <a-entity
+        id="timeMachinePast"
+        scale="0.8 0.8 0.8"
+        position="-50 0 0"
+        visible="true"
+      >
+        <a-entity
+          id="machinePast"
+          gltf-model="#machineObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="capsulePast"
+          gltf-model="#capsuleObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="capsuleGroundPast"
+          gltf-model="#capsuleGroundObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="buttonLeftPast"
+          gltf-model="#buttonLeftObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="buttonRightPast"
+          gltf-model="#buttonRightObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="buttonLeftPastSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="-1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonRightPastSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonSoundOnly"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+        ></a-entity>
+      </a-entity>
+
+      <a-entity
+        id="screenPast"
+        geometry="primitive: plane; width: 1.6; height: 0.9;"
+        material="src: #screensaver"
+        position="-50 1.9 -1.4"
+        scale="1.1 1.1 1.1"
+      >
+        <a-entity
+          id="screenLightPast"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPast; color: #ffffff"
+          position="0 0 0.5"
+        ></a-entity>
+      </a-entity>
+
+      <a-entity
+        id="timeMachinePresent"
+        scale="0.8 0.8 0.8"
+        position="0 0 0"
+        visible="true"
+      >
+        <a-entity
+          id="machinePresent"
+          gltf-model="#machineObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          set-keyboard
+        >
+          <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
+
+          <a-entity id="hand" laser-controls="hand: right">
+            <a-sphere radius="0.03"></a-sphere>
+          </a-entity>
+
+          <!-- Change hand to `#hand` for VR. -->
+          <a-entity
+            id="keyboard"
+            super-keyboard="hand: #mouseCursor; imagePath:./assets/images/"
+            position="0 1.708 -1.00"
+            rotation="-30 0 0"
+            open-ai-image-gen
+          ></a-entity>
+        </a-entity>
+        <a-entity
+          id="capsulePresent"
+          gltf-model="#capsuleObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="capsuleGroundPresent"
+          gltf-model="#capsuleGroundObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="buttonLeftPresent"
+          gltf-model="#buttonLeftObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="buttonRightPresent"
+          gltf-model="#buttonRightObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="buttonLeftPresentSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="-1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonRightPresentSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonSoundOnly"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+        ></a-entity>
+      </a-entity>
+
+   
+        <a-entity
+          id="screenPresent"
+          geometry="primitive: plane; width: 1.6; height: 0.9;"
+          material="src: #screensaver"
+          position="0 1.9 -1.4"
+          scale="1.1 1.1 1.1"
+        >
         </a-entity>
 
-		<a-entity id="screenPast" geometry="primitive: plane; width: 1.6; height: 0.9;" material="src: #screensaver" position="-50 1.9 -1.4" scale="1.1 1.1 1.1">
-			<a-entity id="screenLightPast" light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPast; color: #ffffff" position="0 0 0.5"></a-entity>
-		</a-entity>
+        <a-entity
+          id="screenLightPresent"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
+          position="0 0 0.5"
+        ></a-entity>
+      </a-entity>
 
-        <a-entity id="timeMachinePresent" scale="0.8 0.8 0.8" position="0 0 0" visible="true">
-            <a-entity id="machinePresent" gltf-model="#machineObj" scale="1 1 1" position="0 0 0" visible="true" shadow></a-entity>
-            <a-entity id="capsulePresent" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0" visible="true" shadow animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="capsuleGroundPresent" gltf-model="#capsuleGroundObj" scale="1 1 1" position="0 0 0" visible="true" shadow></a-entity>
-            <a-entity id="buttonLeftPresent" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="buttonRightPresent" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="buttonLeftPresentSound" sound="src:#buttonSoundSrc; autoplay:false;" position="-1.667 1.773 -1.260"></a-entity>
-            <a-entity id="buttonRightPresentSound" sound="src:#buttonSoundSrc; autoplay:false;" position="1.667 1.773 -1.260"></a-entity>
-			<a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false;"></a-entity>
-        </a-entity>
+      <a-entity
+        id="timeMachineFuture"
+        scale="0.8 0.8 0.8"
+        position="50 0 0"
+        visible="true"
+      >
+        <a-entity
+          id="machineFuture"
+          gltf-model="#machineObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="capsuleFuture"
+          gltf-model="#capsuleObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="capsuleGroundFuture"
+          gltf-model="#capsuleGroundObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="buttonLeftFuture"
+          gltf-model="#buttonLeftObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="buttonRightFuture"
+          gltf-model="#buttonRightObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="buttonLeftFutureSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="-1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonRightFutureSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonSoundOnlySound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+        ></a-entity>
+      </a-entity>
 
-		<a-entity id="screenPresent" geometry="primitive: plane; width: 1.6; height: 0.9;" material="src: #screensaver" position="0 1.9 -1.4" scale="1.1 1.1 1.1">
-			<a-entity id="screenLightPresent" light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff" position="0 0 0.5"></a-entity>
-		</a-entity>
+      <a-entity
+        id="screenFuture"
+        geometry="primitive: plane; width: 1.6; height: 0.9;"
+        material="src: #screensaver"
+        position="50 1.9 -1.4"
+        scale="1.1 1.1 1.1"
+      >
+        <a-entity
+          id="screenLightFuture"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenFuture; color: #ffffff"
+          position="0 0 0.5"
+        ></a-entity>
+      </a-entity>
+      <!-- Teleport -->
 
-        <a-entity id="timeMachineFuture" scale="0.8 0.8 0.8" position="50 0 0" visible="true">	
-            <a-entity id="machineFuture" gltf-model="#machineObj" scale="1 1 1" position="0 0 0" visible="true" shadow></a-entity>
-            <a-entity id="capsuleFuture" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0" visible="true" shadow animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="capsuleGroundFuture" gltf-model="#capsuleGroundObj" scale="1 1 1" position="0 0 0" visible="true" shadow></a-entity>
-            <a-entity id="buttonLeftFuture" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="buttonRightFuture" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0" visible="true" shadow class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-            <a-entity id="buttonLeftFutureSound" sound="src:#buttonSoundSrc; autoplay:false;" position="-1.667 1.773 -1.260"></a-entity>
-            <a-entity id="buttonRightFutureSound" sound="src:#buttonSoundSrc; autoplay:false;" position="1.667 1.773 -1.260"></a-entity>
-			<a-entity id="buttonSoundOnlySound" sound="src:#buttonSoundSrc; autoplay:false;"></a-entity>
-        </a-entity>
+      <!-- Circles' built-in manager and avatar [REQUIRED] -->
+      <circles-manager-avatar />
+    </a-scene>
 
-		<a-entity id="screenFuture" geometry="primitive: plane; width: 1.6; height: 0.9;" material="src: #screensaver" position="50 1.9 -1.4" scale="1.1 1.1 1.1">
-			<a-entity id="screenLightFuture" light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenFuture; color: #ffffff" position="0 0 0.5"></a-entity>
-		</a-entity>
-		<!-- Teleport -->
-
-		<!-- Circles' built-in manager and avatar [REQUIRED] -->
-		<circles-manager-avatar />
-	</a-scene>
-
-	<!-- Circles' end scripts [REQUIRED] -->
-	<circles-end-scripts />
-</body>
-
+    <!-- Circles' end scripts [REQUIRED] -->
+    <circles-end-scripts />
+  </body>
 </html>
