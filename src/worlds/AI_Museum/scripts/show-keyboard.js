@@ -1,22 +1,27 @@
 AFRAME.registerComponent("set-keyboard", {
-  init: function () {
-    var currentElement = this.el;
+  schema: {
+    keyboardValue: { type: "string", default: "" },
+  },
 
+  init: function () {
+    const THIS = this;
+    //Get keyboard
     const keyboard = document.querySelector("#keyboard");
 
-    currentElement.addEventListener("click", () => {
-      keyboard.setAttribute("super-keyboard", "");
-      keyboard.setAttribute(
-        "super-keyboard",
-        "hand: #mouseCursor; imagePath:../dist/; show:true;"
-      );
-    });
+    //Some addresses for the other child elements of the keyboard if we need to modify them
+    //const inputBar = document.querySelector("#keyboard").childNodes[1];
+    //const inputBar2 = document.querySelector("#keyboard").childNodes[2];
 
+    console.log(keyboard.childNodes);
+
+    //This function triggers when enter is pressed on the keyboard
     keyboard.addEventListener("superkeyboardinput", () => {
-      keyboard.setAttribute(
-        "super-keyboard",
-        "hand: #mouseCursor; imagePath:./; value: "
-      );
+      //code for input send to server
     });
+  },
+
+  tick: function () {
+    const THIS = this;
+    THIS.keyboardValue = keyboard.getAttribute("value");
   },
 });
