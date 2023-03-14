@@ -25,10 +25,10 @@ AFRAME.registerComponent('time-travel', {
         CONTEXT.enableTeleportation = new CustomEvent('enable-teleportation');
 
         CONTEXT.teleportForward = new CustomEvent('teleport', {
-            detail: {x: 10}
+            detail: {x: 50}
         });
         CONTEXT.teleportBackward = new CustomEvent('teleport', {
-            detail: {x: -10}
+            detail: {x: -50}
         });
 
         CONTEXT.clickPresentRight = new CustomEvent('button-click', { 
