@@ -6,6 +6,13 @@ const controller = require('../controllers/controller');
 const User       = require('../models/user');
 const passport   = require('passport');
 
+//NEURALNINJAS openai
+const { Configuration, OpenAIApi } = require('openai');
+const configuration = new Configuration({
+  apiKey: env.OPENAI_API_KEY, // Put your API key in .env!
+});
+const openai = new OpenAIApi(configuration);
+
 /**
  * Authenticated
  *
@@ -115,5 +122,29 @@ router.get('/w/:world_id', authenticated, controller.serveWorld);
 
 // Serving relative links properly (this also means we can't use index.html) ...
 router.get('/w/:world_id/*', authenticated, controller.serveRelativeWorldContent);
+
+
+//BEGIN NeuralNinjas AI REQUEST FUNCTION
+router.get('/ai_image', function (req, res) { 
+  const prompt = req.query.prompt;
+  const n = req.query.n;
+  const size = req.query.size;
+
+  const openaiImage = async () => {
+    try {
+      const response = await openai.createImage({
+        engine: 'davinci',
+        prompt: prompt,
+        n: n,
+        size: size
+      });
+      res.send(response.data.data[0].url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  openaiImage();
+});
+//END NeuralNinjas AI REQUEST FUNCTION
 
 module.exports = router;
