@@ -21,7 +21,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
   generateImage: function (data) {
     let imageUrl = "";
     let herokuUrl = "https://murmuring-falls-73541.herokuapp.com/"
-    const hostname = "https://c89e-174-89-124-148.ngrok.io"
+    const hostname = window.location.origin;
     const CONTEXT = this;
 
     fetch(hostname+"/ai_image", {
