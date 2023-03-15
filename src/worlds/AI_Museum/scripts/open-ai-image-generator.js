@@ -26,7 +26,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*", //allow CORS
-        Authorization: 'Bearer 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', //PUT API KEY HERE LIKE: 'Bearer API_KEY'
+        Authorization: 'Bearer', //PUT API KEY HERE LIKE: 'Bearer API_KEY'
       },
       body: JSON.stringify({
         prompt: data.prompt, //prompt from function call from other component (set-keyboard)
