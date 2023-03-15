@@ -4,6 +4,11 @@
   <head>
     <meta charset="utf-8" />
     <title id="title">Neural Ninjas - AI Imagen Museum</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/images/favicon-ninja.png"
+    />
 
     <!-- Circles' head scripts [REQUIRED] -->
     <circles-start-scripts />
@@ -82,11 +87,11 @@
           crossorigin="anonymous"
         ></a-asset-item>
 
-		<a-asset-item
-		  id="present-museum-model"
-		  src="assets/models/museumPresent.gltf"
-		  crossorigin="anonymous"
-		></a-asset-item>
+        <a-asset-item
+          id="present-museum-model"
+          src="assets/models/museumPresent.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
 
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets />
@@ -182,14 +187,14 @@
         visible="true"
       ></a-entity>
 
-	  <a-entity
-		id="museumPresent"
-		gltf-model="#present-museum-model"
-		position="0 0.01 0"
-		rotation="0 0 0"
-		scale="0.5 0.5 0.5"
-		visible="true"
-	  ></a-entity>
+      <a-entity
+        id="museumPresent"
+        gltf-model="#present-museum-model"
+        position="0 0.01 0"
+        rotation="0 0 0"
+        scale="0.5 0.5 0.5"
+        visible="true"
+      ></a-entity>
 
       <a-entity
         id="timeMachinePast"
@@ -197,16 +202,16 @@
         position="-50 0 0"
         visible="true"
       >
-		<a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
+        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
 
-          <a-entity id="hand" laser-controls="hand: right">
-            <a-sphere radius="0.03"></a-sphere>
-          </a-entity>
+        <a-entity id="hand" laser-controls="hand: right">
+          <a-sphere radius="0.03"></a-sphere>
+        </a-entity>
 
-          <!-- Change hand to `#hand` for VR. -->
-          <a-entity
-            id="keyboardPast"
-            super-keyboard="
+        <!-- Change hand to `#hand` for VR. -->
+        <a-entity
+          id="keyboardPast"
+          super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
               keyColor: #AA3333; 
@@ -215,10 +220,10 @@
               keyPressColor: #FF3333;
               inputColor: #AA3333;
               "
-            position="0 1.608 -1.00"
-            rotation="-80 0 0"
-            scale="1.5 1.5 1.5"
-          ></a-entity>
+          position="0 1.608 -1.00"
+          rotation="-80 0 0"
+          scale="1.5 1.5 1.5"
+        ></a-entity>
         <a-entity
           id="machinePast"
           gltf-model="#machineObj"
@@ -310,7 +315,6 @@
           shadow
           set-keyboard
         >
-
           <!-- Change hand to `#hand` for VR. -->
           <a-entity
             id="keyboard"
@@ -381,22 +385,18 @@
         ></a-entity>
       </a-entity>
 
-   
-        <a-entity
-          id="screenPresent"
-          geometry="primitive: plane; width: 1.6; height: 0.9;"
-          material="src: #screensaver"
-          position="0 1.9 -1.4"
-          scale="1.1 1.1 1.1"
-          crossorigin="anonymous"
+      <a-entity
+        id="screenPresent"
+        geometry="primitive: plane; width: 1.6; height: 0.9;"
+        material="src: #screensaver"
+        position="0 1.9 -1.4"
+        scale="1.1 1.1 1.1"
+        crossorigin="anonymous"
         ><a-entity
-        id="screenLightPresent"
-        light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
-        position="0 0 0.5"
-      ></a-entity>
-        </a-entity>
-
-        
+          id="screenLightPresent"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
+          position="0 0 0.5"
+        ></a-entity>
       </a-entity>
 
       <a-entity
@@ -405,11 +405,10 @@
         position="50 0 0"
         visible="true"
       >
-
-          <!-- Change hand to `#hand` for VR. -->
-          <a-entity
-            id="keyboardFuture"
-            super-keyboard="
+        <!-- Change hand to `#hand` for VR. -->
+        <a-entity
+          id="keyboardFuture"
+          super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
               keyColor: #AA3333; 
@@ -418,10 +417,10 @@
               keyPressColor: #FF3333;
               inputColor: #AA3333;
               "
-            position="0 1.608 -1.00"
-            rotation="-80 0 0"
-            scale="1.5 1.5 1.5"
-          ></a-entity>
+          position="0 1.608 -1.00"
+          rotation="-80 0 0"
+          scale="1.5 1.5 1.5"
+        ></a-entity>
         <a-entity
           id="machineFuture"
           gltf-model="#machineObj"
