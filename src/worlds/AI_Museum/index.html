@@ -28,15 +28,9 @@
     <circles-start-ui />
 
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
-    <a-scene circles_scene_properties>
+    <a-scene id="scene" circles_scene_properties open-ai-image-gen>
       <a-assets>
         <!-- ASSETS -->
-        <img
-          id="image"
-          src="https://www.shutterstock.com/shutterstock/photos/2065712915/display_1500/stock-vector-vector-illustration-of-sample-red-grunge-stamp-isolated-in-transparent-background-png-2065712915.jpg"
-          crossorigin="anonymous"
-        />
-        <!--sample image to be replace with AI image-->
 
         <img
           id="screensaver"
@@ -222,7 +216,6 @@
             position="0 1.608 -1.00"
             rotation="-80 0 0"
             scale="1.5 1.5 1.5"
-            open-ai-image-gen
           ></a-entity>
         <a-entity
           id="machinePast"
@@ -335,7 +328,6 @@
             position="0 1.608 -1.00"
             rotation="-80 0 0"
             scale="1.5 1.5 1.5"
-            open-ai-image-gen
           ></a-entity>
         </a-entity>
         <a-entity
@@ -435,7 +427,6 @@
             position="0 1.608 -1.00"
             rotation="-80 0 0"
             scale="1.5 1.5 1.5"
-            open-ai-image-gen
           ></a-entity>
         <a-entity
           id="machineFuture"
