@@ -19,9 +19,10 @@ AFRAME.registerComponent("open-ai-image-gen", {
   },
 
   generateImage: function (data) {
+    const hostname = window.location.hostname; //get hostname of current page for request
     const CONTEXT = this;
     let responseData = {};
-    fetch("https://api.openai.com/v1/images/generations", {
+    fetch(hostname+"/ai_image", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,9 +35,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
         size: CONTEXT.data.size, //default from schema
       }),
     })
-      .then((response) => response.json())
-      .then((data) => (responseData = data))
-      .catch((error) => console.log(error)); //catch errors and log them to console for debugging
+      .then((response) => console.log(response));
 
     setTimeout(() => {
       if (CONTEXT.image && CONTEXT.image.parentNode) {
