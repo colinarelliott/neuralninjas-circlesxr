@@ -35,6 +35,5 @@ AFRAME.registerComponent("set-keyboard", {
     const CONTEXT = this; 
     const keyboardComponent = document.querySelector("#keyboard").components["super-keyboard"];
     CONTEXT.data.keyboardValue = keyboardComponent.data.value;
-    console.log(CONTEXT.data.keyboardValue);
   },
 });
