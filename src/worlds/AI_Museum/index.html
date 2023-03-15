@@ -28,7 +28,7 @@
     <circles-start-ui />
 
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
-    <a-scene id="scene" circles_scene_properties open-ai-image-gen>
+    <a-scene circles_scene_properties>
       <a-assets>
         <!-- ASSETS -->
 
@@ -94,7 +94,7 @@
       </a-assets>
 
       <!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
-      <a-entity id="experience-manager" time-travel></a-entity>
+      <a-entity id="experience-manager" time-travel open-ai-image-gen></a-entity>
 
       <!--Environment-->
       <a-entity
