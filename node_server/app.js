@@ -37,14 +37,6 @@ const User = require('./models/user');
 const bodyParser = require('body-parser');
 const dbURL = 'mongodb://' + env.DATABASE_HOST + ':' + env.DATABASE_PORT + '/circles';
 
-//NEURALNINJAS openai
-const { Configuration, OpenAIApi } = require('openai');
-const configuration = new Configuration({
-  apiKey: env.OPENAI_API_KEY,
-});
-
-const openai = new OpenAIApi(configuration);
-
 // Set process name
 process.title = "node-circlesxr";
 
@@ -106,29 +98,6 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.static(__dirname + '/public'));             //set root path of server ...
-
-//BEGIN NeuralNinjas AI REQUEST FUNCTION
-app.get('/ai_image', function (req, res) { 
-  const prompt = req.query.prompt;
-  const n = req.query.n;
-  const size = req.query.size;
-
-  const openaiImage = async () => {
-    try {
-      const response = await openai.createImage({
-        engine: 'davinci',
-        prompt: prompt,
-        n: n,
-        size: size
-      });
-      res.send(response.data.data[0].url);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  openaiImage();
-});
-//END NeuralNinjas AI REQUEST FUNCTION
 
 // Set up Passport
 const passport = require('passport');
