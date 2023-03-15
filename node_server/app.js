@@ -111,6 +111,7 @@ app.use(express.static(__dirname + '/public'));             //set root path of s
 app.get('/ai_image', function (req, res) { 
   const prompt = req.query.prompt;
   const n = req.query.n;
+  const size = req.query.size;
 
   const openaiImage = async () => {
     try {
@@ -118,9 +119,9 @@ app.get('/ai_image', function (req, res) {
         engine: 'davinci',
         prompt: prompt,
         n: n,
-        size: "512x512"
+        size: size
       });
-      res.send(response.data);
+      res.send(response.data.data[0].url);
     } catch (error) {
       console.log(error);
     }
