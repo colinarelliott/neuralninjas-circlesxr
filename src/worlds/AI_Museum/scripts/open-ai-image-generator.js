@@ -15,7 +15,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
     CONTEXT.screenPast = document.querySelector("#screenPast");
     CONTEXT.screenPresent = document.querySelector("#screenPresent");
     CONTEXT.screenFuture = document.querySelector("#screenFuture");
-    CONTEXT.generateImage(CONTEXT.data);
+    CONTEXT.generateImage(CONTEXT.data); //generates the ninja image at the beginning. can be removed later!
   },
 
   generateImage: function (data) {
@@ -68,3 +68,4 @@ AFRAME.registerComponent("open-ai-image-gen", {
     }, 10000);
   },
 });
+
