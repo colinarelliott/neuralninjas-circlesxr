@@ -28,10 +28,9 @@
     <circles-start-ui />
 
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
-    <a-scene id="scene" circles_scene_properties open-ai-image-gen>
+    <a-scene id="scene" circles_scene_properties>
       <a-assets>
         <!-- ASSETS -->
-
         <img
           id="screensaver"
           src="assets/images/windowsXP.jpg"
@@ -95,6 +94,9 @@
 
       <!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
       <a-entity id="experience-manager" time-travel></a-entity>
+
+      <!--AI Image Generator-->
+      <a-entity id="open-ai-image-gen" open-ai-image-gen></a-entity>
 
       <!--Environment-->
       <a-entity
@@ -284,6 +286,7 @@
         material="src: #screensaver"
         position="-50 1.9 -1.4"
         scale="1.1 1.1 1.1"
+        crossorigin="anonymous"
       >
         <a-entity
           id="screenLightPast"
@@ -307,11 +310,6 @@
           shadow
           set-keyboard
         >
-          <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-
-          <a-entity id="hand" laser-controls="hand: right">
-            <a-sphere radius="0.03"></a-sphere>
-          </a-entity>
 
           <!-- Change hand to `#hand` for VR. -->
           <a-entity
@@ -390,6 +388,7 @@
           material="src: #screensaver"
           position="0 1.9 -1.4"
           scale="1.1 1.1 1.1"
+          crossorigin="anonymous"
         ><a-entity
         id="screenLightPresent"
         light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
@@ -406,11 +405,6 @@
         position="50 0 0"
         visible="true"
       >
-	  	<a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-
-          <a-entity id="hand" laser-controls="hand: right">
-            <a-sphere radius="0.03"></a-sphere>
-          </a-entity>
 
           <!-- Change hand to `#hand` for VR. -->
           <a-entity
@@ -495,6 +489,7 @@
         material="src: #screensaver"
         position="50 1.9 -1.4"
         scale="1.1 1.1 1.1"
+        crossorigin="anonymous"
       >
         <a-entity
           id="screenLightFuture"

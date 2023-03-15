@@ -5,6 +5,18 @@ const path       = require('path');
 const controller = require('../controllers/controller');
 const User       = require('../models/user');
 const passport   = require('passport');
+const dotenv = require('dotenv');
+const dotenvParseVariables = require('dotenv-parse-variables');
+
+let env = dotenv.config({})
+env = dotenvParseVariables(env.parsed);
+
+//NEURALNINJAS openai
+const { Configuration, OpenAIApi } = require('openai');
+const configuration = new Configuration({
+  apiKey: env.OPENAI_API_KEY, // Put your API key in .env!
+});
+const openai = new OpenAIApi(configuration);
 
 /**
  * Authenticated
@@ -115,5 +127,27 @@ router.get('/w/:world_id', authenticated, controller.serveWorld);
 
 // Serving relative links properly (this also means we can't use index.html) ...
 router.get('/w/:world_id/*', authenticated, controller.serveRelativeWorldContent);
+
+
+//BEGIN NeuralNinjas AI REQUEST FUNCTION
+router.post('/ai_image', function (req, res) { 
+  
+  const openaiImage = async () => {
+    try {
+      const response = await openai.createImage({
+        prompt: req.body.prompt,
+        n: req.body.n,
+        size: req.body.size
+      });
+      res.send( {
+        url: response.data.data[0].url
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  openaiImage();
+});
+//END NeuralNinjas AI REQUEST FUNCTION
 
 module.exports = router;
