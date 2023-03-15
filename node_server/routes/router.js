@@ -5,6 +5,11 @@ const path       = require('path');
 const controller = require('../controllers/controller');
 const User       = require('../models/user');
 const passport   = require('passport');
+const dotenv = require('dotenv');
+const dotenvParseVariables = require('dotenv-parse-variables');
+
+let env = dotenv.config({})
+env = dotenvParseVariables(env.parsed);
 
 //NEURALNINJAS openai
 const { Configuration, OpenAIApi } = require('openai');
@@ -125,20 +130,18 @@ router.get('/w/:world_id/*', authenticated, controller.serveRelativeWorldContent
 
 
 //BEGIN NeuralNinjas AI REQUEST FUNCTION
-router.get('/ai_image', function (req, res) { 
-  const prompt = req.query.prompt;
-  const n = req.query.n;
-  const size = req.query.size;
-
+router.post('/ai_image', function (req, res) { 
+  
   const openaiImage = async () => {
     try {
       const response = await openai.createImage({
-        engine: 'davinci',
-        prompt: prompt,
-        n: n,
-        size: size
+        prompt: req.body.prompt,
+        n: req.body.n,
+        size: req.body.size
       });
-      res.send(response.data.data[0].url);
+      res.send( {
+        url: response.data.data[0].url
+      });
     } catch (error) {
       console.log(error);
     }

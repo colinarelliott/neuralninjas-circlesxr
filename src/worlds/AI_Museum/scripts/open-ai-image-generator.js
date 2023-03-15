@@ -6,7 +6,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
       default: "neural ninja",
     },
     n: { type: "number", default: 1 },
-    size: { type: "string", default: "450x800" },
+    size: { type: "string", default: "1024x1024" },
   },
   init: function () {
     //initialize context and get nodes
@@ -15,40 +15,55 @@ AFRAME.registerComponent("open-ai-image-gen", {
     CONTEXT.screenPast = document.querySelector("#screenPast");
     CONTEXT.screenPresent = document.querySelector("#screenPresent");
     CONTEXT.screenFuture = document.querySelector("#screenFuture");
-    CONTEXT.generateImage({prompt: CONTEXT.data.prompt});
+    CONTEXT.generateImage(CONTEXT.data);
   },
 
   generateImage: function (data) {
-    const hostname = window.location.hostname; //get hostname of current page for request
+    let imageUrl = "";
+    let herokuUrl = "https://murmuring-falls-73541.herokuapp.com/"
+    const hostname = "https://c89e-174-89-124-148.ngrok.io"
     const CONTEXT = this;
-    let responseData = {};
+
     fetch(hostname+"/ai_image", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", //allow CORS
-        Authorization: 'Bearer', //PUT API KEY HERE LIKE: 'Bearer API_KEY'
+        "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify({
-        prompt: data.prompt, //prompt from function call from other component (set-keyboard)
-        n: CONTEXT.data.n, //default from schema
-        size: CONTEXT.data.size, //default from schema
+      body: JSON.stringify( {
+        prompt: data.prompt,
+        n: data.n,
+        size: data.size
       }),
     })
-      .then((response) => console.log(response));
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+      imageUrl = data.url;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+    async function downloadImage(imageSrc) {
+      const image = await fetch(imageSrc);
+      const imageBlog = await image.blob();
+      const imageURL = URL.createObjectURL(imageBlog);
+    
+      const link = document.createElement('a');
+      link.href = imageURL;
+      link.download = 'image';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    //downloadImage(imageUrl);
 
     setTimeout(() => {
-      if (CONTEXT.image && CONTEXT.image.parentNode) {
-        CONTEXT.image.parentNode.removeChild(CONTEXT.image);
-      }
-
-      let imageUrl = responseData.data[0].url;
-      let corsPrefix = "https://murmuring-falls-73541.herokuapp.com/";
-      corsPrefix += imageUrl;
-
-      CONTEXT.screenPast.setAttribute("material", "src: "+ corsPrefix);
-      CONTEXT.screenPresent.setAttribute("material", "src: "+ corsPrefix);
-      CONTEXT.screenFuture.setAttribute("material", "src: "+ corsPrefix);
+      CONTEXT.screenPast.setAttribute("material", "src: "+ herokuUrl+imageUrl);
+      CONTEXT.screenPresent.setAttribute("material", "src: "+ herokuUrl+imageUrl);
+      CONTEXT.screenFuture.setAttribute("material", "src: "+ herokuUrl+imageUrl);
     }, 10000);
   },
 });
