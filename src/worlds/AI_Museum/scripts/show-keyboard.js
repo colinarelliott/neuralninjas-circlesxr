@@ -4,26 +4,21 @@ AFRAME.registerComponent("set-keyboard", {
   },
 
   init: function () {
-    //Get keyboard
+    const CONTEXT = this;
+    //Get the elements we need
     const keyboard = document.querySelector("#keyboard");
-
-    //Get input bar
-    //const inputBar = document.querySelector("#keyboard").childNodes[1];
-    //const inputBar2 = document.querySelector("#keyboard").childNodes[2];
+    const imageGenerator = document.querySelector("#scene").components['open-ai-image-gen'];
 
     console.log(keyboard.childNodes);
 
-    //On input event
+    //When the user presses enter on the keyboard, generate an image
     keyboard.addEventListener("superkeyboardinput", () => {
-      keyboard.setAttribute(
-        "super-keyboard",
-        "hand: #mouseCursor; imagePath:./; value: "
-      );
+      imageGenerator.generateImage(CONTEXT.keyboardValue);
     });
   },
 
   tick: function () {
-    const THIS = this;
-    this.keyboardValue = keyboard.getAttribute("value");
+    const CONTEXT = this;
+    CONTEXT.keyboardValue = keyboard.getAttribute("value");
   },
 });
