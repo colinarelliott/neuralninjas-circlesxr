@@ -216,6 +216,7 @@ AFRAME.registerComponent('time-travel', {
         //END BUTTON CLICK LISTENERS
     },
 
+    /*
     tick: function () {
         const CONTEXT = this;
         if (CONTEXT.data.pastCapsuleAnimation === true) {
@@ -238,7 +239,7 @@ AFRAME.registerComponent('time-travel', {
             CONTEXT.data.buttonSound = false;
             CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
-    }
+    }*/
 });
 
 /*
