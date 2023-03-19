@@ -69,7 +69,7 @@ AFRAME.registerComponent('time-travel', {
             console.log("SOCKET HERE: "+CONTEXT.socket);
             console.log(CONTEXT.socket);
             CONTEXT.data.connected = true;
-            console.warn("messaging system connected at socket: " + CONTEXT.socket.id + " in room:" + CIRCLES.getCirclesRoom() + ' in world:' + CIRCLES.getCirclesWorld());
+            console.warn("messaging system connected at socket: " + CONTEXT.socket.id);
 
             //RECEIVE SYNC EVENTS
             CONTEXT.socket.on(CONTEXT.data.synchEventName, function (data) { 
@@ -82,12 +82,12 @@ AFRAME.registerComponent('time-travel', {
 
             //CIRCLES SYNC REQUEST EVENT
             setTimeout(function () {
-                CONTEXT.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld()});
+                CONTEXT.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC);
             }, 1000); //wait a second to make sure we are connected... might want to make this random?
 
             //CIRCLES SYNC DATA EVENT
             CONTEXT.socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function (data) {
-                CONTEXT.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {room:CIRCLES.getCirclesRoom(), world:CIRCLES.getCirclesWorld(), data: {
+                CONTEXT.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {data: {
                     teleportAllowed: CONTEXT.data.teleportAllowed,
                     pastCapsuleAnimation: CONTEXT.data.pastCapsuleAnimation,
                     presentCapsuleAnimation: CONTEXT.data.presentCapsuleAnimation,
@@ -139,6 +139,8 @@ AFRAME.registerComponent('time-travel', {
             }, { once: true });
             console.log("initiate-teleport event triggered");
         });
+
+        //BUTTON CLICK LISTENERS
 
         buttonLeftPast.addEventListener('click', function () {
             if (CONTEXT.data.teleportAllowed === true) {
@@ -198,7 +200,7 @@ AFRAME.registerComponent('time-travel', {
             }
         });
 
-        //END ASSIGN EVENT LISTENERS
+        //END BUTTON CLICK LISTENERS
     },
 
     tick: function () {
