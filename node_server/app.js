@@ -24,26 +24,26 @@ const path            = require('path');
 const helmet          = require("helmet");
 const sassMiddleware  = require('express-dart-sass');
 
-const http            = require('http');
-const server          = http.createServer(app);
+const http = require('http');
+const server = http.createServer(app);
 
 //server stuff
-const session       = require('express-session');
-const MongoStore    = require('connect-mongo');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 //database
-const mongoose      = require('mongoose');
-const User          = require('./models/user');
-const bodyParser    = require('body-parser');
-const dbURL         = 'mongodb://' + env.DATABASE_HOST + ':' +  env.DATABASE_PORT + '/circles';
+const mongoose = require('mongoose');
+const User = require('./models/user');
+const bodyParser = require('body-parser');
+const dbURL = 'mongodb://' + env.DATABASE_HOST + ':' + env.DATABASE_PORT + '/circles';
 
 // Set process name
 process.title = "node-circlesxr";
 
 //database connect
 mongoose.connect(dbURL);
-const db            = mongoose.connection;
-const sessionObj    = session({
+const db = mongoose.connection;
+const sessionObj = session({
   secret: 'work hard',
   resave: true,
   saveUninitialized: false,
@@ -53,13 +53,14 @@ const sessionObj    = session({
 });
 
 //handle mongo error
-db.on('error', function(e) {
+db.on('error', function (e) {
   console.log('connection error:' + e);
   process.exit(1);
 });
 db.once('open', function () {
   console.log("Database connected!");
 });
+
 
 //use sessions for tracking logins (needs to be before routes app.use)
 app.use(sessionObj);
@@ -99,10 +100,10 @@ app.use(function (req, res, next) {
 app.use(express.static(__dirname + '/public'));             //set root path of server ...
 
 // Set up Passport
-const passport              = require('passport');
+const passport = require('passport');
 const passportLocalStrategy = require('passport-local').Strategy;
-const JwtStrategy           = require('passport-jwt').Strategy
-const ExtractJwt            = require('passport-jwt').ExtractJwt
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt
 
 const jwtOptions = {
   secretOrKey: env.JWT_SECRET, //the same one we used for token generation
@@ -131,7 +132,7 @@ passport.use(
 );
 
 // Build the passport local strategy for authentication
-passport.use(new passportLocalStrategy (
+passport.use(new passportLocalStrategy(
   {
     usernameField: 'email'
   },
@@ -167,7 +168,7 @@ passport.use(new passportLocalStrategy (
 ));
 
 // Set up serialization of user to the session
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
@@ -222,15 +223,15 @@ app.use(function (err, req, res, next) {
 
 //websockets
 let io = require("socket.io")(server, {
-    handlePreflightRequest: (req, res) => {
-        const headers = {
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-            "Access-Control-Allow-Credentials": true
-        };
-        res.writeHead(200, headers);
-        res.end();
-    }
+  handlePreflightRequest: (req, res) => {
+    const headers = {
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+      "Access-Control-Allow-Credentials": true
+    };
+    res.writeHead(200, headers);
+    res.end();
+  }
 });
 
 //this code is unused when we are using the janus sever/adapter 
@@ -295,14 +296,14 @@ io.on("connection", socket => {
   //to catch all events: https://stackoverflow.com/questions/10405070/socket-io-client-respond-to-all-events-with-one-handler
   let onevent = socket.onevent;
   socket.onevent = function (packet) {
-      let args = packet.data || [];
-      onevent.call (this, packet);    // original call
-      packet.data = ["*"].concat(args);
-      onevent.call(this, packet);      // additional call to catch-all
+    let args = packet.data || [];
+    onevent.call(this, packet);    // original call
+    packet.data = ["*"].concat(args);
+    onevent.call(this, packet);      // additional call to catch-all
   };
 
   //listen for all events and forward to all other clients
-  socket.on("*", function(event, data) {
+  socket.on("*", function (event, data) {
     //ignore reserved event names
     if (  event === CIRCLES.EVENTS.REQUEST_DATA_SYNC ||
           event === CIRCLES.EVENTS.REQUEST_DATA_SYNC ||
@@ -317,7 +318,7 @@ io.on("connection", socket => {
   });
 
   //this is a request to ask others for their world state for syncing purposes
-  socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function(data) {
+  socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function (data) {
     if (data.room) {
       socket.join(data.room); //hacky solution for janus adapter which doesn't set room
       socket.to(data.room).emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, data);
@@ -325,7 +326,7 @@ io.on("connection", socket => {
   });
 
   //this is an event to send world data for syncing to others
-  socket.on(CIRCLES.EVENTS.SEND_DATA_SYNC, function(data) {
+  socket.on(CIRCLES.EVENTS.SEND_DATA_SYNC, function (data) {
     if (data.room) {
       socket.join(data.room); //hacky solution for janus adapter which doesn't set room
       socket.to(data.room).emit(CIRCLES.EVENTS.RECEIVE_DATA_SYNC, data);
@@ -341,22 +342,22 @@ if (env.ENABLE_RESEARCH_MODE) {
     console.log("research websockets connected", socket.id);
 
     //research socket events
-    
+
     const researchUtils = require('./modules/research-utils');
 
     socket.on(CIRCLES.RESEARCH.EVENT_FROM_CLIENT, (data) => {
-      console.log('CIRCLES RESEARCH EVENT: '+ data.event_type);
+      console.log('CIRCLES RESEARCH EVENT: ' + data.event_type);
 
       switch (data.event_type) {
         case CIRCLES.RESEARCH.EVENT_TYPE.CONNECTED: {
           console.log('CIRCLES.RESEARCH.EVENT_TYPE.CONNECTED:' + data.room);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_PREPARE: {
           researchUtils.startExperiment(data);
           io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_START: {
           //start trials
 
@@ -366,69 +367,69 @@ if (env.ENABLE_RESEARCH_MODE) {
           //if no new trial then all trials complete, end experiment
           if (newData === null) {
             //creating new object as data may not be valid
-            const eData         = CIRCLES.RESEARCH.createExpData();
-            eData.event_type    = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
+            const eData = CIRCLES.RESEARCH.createExpData();
+            eData.event_type = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
             researchUtils.stopExperiment(eData);
-            eData.and = {downloadURL:researchUtils.getDownloadLink()};
+            eData.and = { downloadURL: researchUtils.getDownloadLink() };
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, eData);
           } else {
-            newData.event_type  = data.event_type
-            newData.exp_id      = data.exp_id
-            newData.user_id     = data.user_id
-            newData.user_type   = data.user_type
-            
+            newData.event_type = data.event_type
+            newData.exp_id = data.exp_id
+            newData.user_id = data.user_id
+            newData.user_type = data.user_type
+
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, newData);
           }
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP: {
           researchUtils.stopExperiment(data);
-          data.and = {downloadURL:researchUtils.getDownloadLink()};
+          data.and = { downloadURL: researchUtils.getDownloadLink() };
           io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_START: {
           researchUtils.startSelection(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_STOP: {
           researchUtils.stopSelection(data);
 
           //if no new trial then all trials complete, end experiment
           const newData = researchUtils.getNextTrial();
           if (newData === null) {
-            const eData         = CIRCLES.RESEARCH.createExpData();
-            eData.event_type    = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
+            const eData = CIRCLES.RESEARCH.createExpData();
+            eData.event_type = CIRCLES.RESEARCH.EVENT_TYPE.EXPERIMENT_STOP;
             researchUtils.stopExperiment(eData);
-            eData.and = {downloadURL:researchUtils.getDownloadLink()};
+            eData.and = { downloadURL: researchUtils.getDownloadLink() };
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, eData);
           } else {
-            newData.event_type  = CIRCLES.RESEARCH.EVENT_TYPE.NEW_TRIAL;
-            newData.exp_id      = data.exp_id
-            newData.user_id     = data.user_id
-            newData.user_type   = data.user_type
+            newData.event_type = CIRCLES.RESEARCH.EVENT_TYPE.NEW_TRIAL;
+            newData.exp_id = data.exp_id
+            newData.user_id = data.user_id
+            newData.user_type = data.user_type
 
             io.of(CIRCLES.CONSTANTS.WS_NSP_RESEARCH).emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, newData);
-          } 
+          }
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_PAUSE: {
           // researchUtils.pauseExperiment(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_UNPAUSE: {
           // researchUtils.unpauseExperiment(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.SELECTION_ERROR: {
           researchUtils.noteSelectionError(data);
         }
-        break;
+          break;
         case CIRCLES.RESEARCH.EVENT_TYPE.TRANSFORM_UPDATE: {
           // not implemented yet
           // socket.to(curRoom).broadcast.emit(CIRCLES.RESEARCH.EVENT_FROM_SERVER, data);
         }
-        break;
+          break;
       }
     });
   });
@@ -436,7 +437,7 @@ if (env.ENABLE_RESEARCH_MODE) {
 
 //lets start up
 server.listen(env.SERVER_PORT, () => {
-  console.log("Listening on http port: " + env.SERVER_PORT );
+  console.log("Listening on http port: " + env.SERVER_PORT);
 });
 
 app.set('views', './views');
