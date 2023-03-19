@@ -63,21 +63,21 @@ AFRAME.registerComponent('time-travel', {
             detail: {current: "capsuleFuture"}
         });
 
-        //CIRCLES connection event, bind the socket to CONTEXT
+        //CIRCLES connection event, bind the socket to CONTEXT +======+ NETWORK EVENTS GO HERE
         CONTEXT.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
             CONTEXT.socket = CIRCLES.getCirclesWebsocket();
-            console.log("SOCKET HERE: "+CONTEXT.socket);
-            console.log(CONTEXT.socket);
             CONTEXT.data.connected = true;
-            console.warn("messaging system connected at socket: " + CONTEXT.socket.id);
+            console.warn("Circles Web socket connected at socket: " + CONTEXT.socket.id);
 
             //RECEIVE SYNC EVENTS
             CONTEXT.socket.on(CONTEXT.data.synchEventName, function (data) { 
-                CONTEXT.data.teleportAllowed = data.teleportAllowed; //receive sync event & sync
-                CONTEXT.data.pastCapsuleAnimation = data.pastCapsuleAnimation; //receive sync event & sync
-                CONTEXT.data.presentCapsuleAnimation = data.presentCapsuleAnimation; //receive sync event & sync
-                CONTEXT.data.futureCapsuleAnimation = data.futureCapsuleAnimation; //receive sync event & sync
-                CONTEXT.data.buttonSound = data.buttonSound; //receive sync event & sync
+                if (data.world == CIRCLES.getCirclesWorldName() && data.room == CIRCLES.getCirclesGroupName()) {
+                    CONTEXT.data.teleportAllowed = data.teleportAllowed; //receive sync event & sync
+                    CONTEXT.data.pastCapsuleAnimation = data.pastCapsuleAnimation; //receive sync event & sync
+                    CONTEXT.data.presentCapsuleAnimation = data.presentCapsuleAnimation; //receive sync event & sync
+                    CONTEXT.data.futureCapsuleAnimation = data.futureCapsuleAnimation; //receive sync event & sync
+                    CONTEXT.data.buttonSound = data.buttonSound; //receive sync event & sync
+                }
             });
 
             //CIRCLES SYNC REQUEST EVENT
@@ -86,7 +86,7 @@ AFRAME.registerComponent('time-travel', {
                     room:CIRCLES.getCirclesGroupName(), 
                     world:CIRCLES.getCirclesWorldName()
                 });
-            }, 1000); //wait a second to make sure we are connected... might want to make this random?
+            }, 5000); //wait a few seconds to make sure we are connected... might want to make this random?
 
             //CIRCLES SYNC DATA EVENT
             CONTEXT.socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function (data) {
@@ -125,10 +125,11 @@ AFRAME.registerComponent('time-travel', {
             //send sync event (TELEPORTATION DISABLED)
             CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             let loc = document.querySelector("#" + data.detail.button);
-                loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true; duration: 100;');
+                console.log("Selected #"+ data.detail.button + ", attempting to play animation...");
+                loc.setAttribute('animation-mixer', 'clip: *; loop: once; clampWhenFinished: true;');
                 loc.addEventListener('animation-finished', function () {
                     loc.removeAttribute('animation-mixer');
-                }, { once: true });
+                }, { once: true }); //this animation is not playing
                 console.log(loc.getAttribute('animation-mixer'));
                 document.querySelector(`#${data.detail.button}Sound`).components.sound.playSound();
                 console.log(`#${data.detail.button}Sound`);
@@ -149,6 +150,7 @@ AFRAME.registerComponent('time-travel', {
         //BUTTON CLICK LISTENERS
 
         buttonLeftPast.addEventListener('click', function () {
+            CONTEXT.el.dispatchEvent(CONTEXT.clickPastLeft);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.buttonSound = true;
                 CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
@@ -156,6 +158,7 @@ AFRAME.registerComponent('time-travel', {
         });
 
         buttonRightPast.addEventListener('click', function () {
+            CONTEXT.el.dispatchEvent(CONTEXT.clickPastRight);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
                 CONTEXT.data.pastCapsuleAnimation = true;
@@ -167,6 +170,7 @@ AFRAME.registerComponent('time-travel', {
         });
 
         buttonLeftPresent.addEventListener('click', function () {
+            CONTEXT.el.dispatchEvent(CONTEXT.clickPresentLeft);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
                 CONTEXT.data.pastCapsuleAnimation = true;
@@ -178,6 +182,7 @@ AFRAME.registerComponent('time-travel', {
         });
 
         buttonRightPresent.addEventListener('click', function () {
+            CONTEXT.el.dispatchEvent(CONTEXT.clickPresentRight);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
                 CONTEXT.data.presentCapsuleAnimation = true;
@@ -189,6 +194,7 @@ AFRAME.registerComponent('time-travel', {
         });
 
         buttonLeftFuture.addEventListener('click', function () {
+            CONTEXT.el.dispatchEvent(CONTEXT.clickFutureLeft);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.teleportAllowed = false;
                 CONTEXT.data.presentCapsuleAnimation = true;
@@ -200,6 +206,7 @@ AFRAME.registerComponent('time-travel', {
         });
 
         buttonRightFuture.addEventListener('click', function () {
+            CONTEXT.el.dispatchEvent(CONTEXT.clickFutureRight);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.buttonSound = true;
                 CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
@@ -227,7 +234,7 @@ AFRAME.registerComponent('time-travel', {
             CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
         if (CONTEXT.data.buttonSound === true) {
-            CONTEXT.el.dispatchEvent(CONTEXT.buttonClick);
+            //CONTEXT.el.dispatchEvent(CONTEXT.buttonClick); //EMITTING GENERIC BUTTON CLICK EVENT INSTEAD OF SPECIFIC
             CONTEXT.data.buttonSound = false;
             CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
