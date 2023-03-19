@@ -16,13 +16,13 @@ env = dotenvParseVariables(env.parsed);
 //authentication tutorial used : https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
 require('../src/core/circles_server');
 
-const express = require('express');
-const app = express();
-const fs = require('fs');
-const url = require('url');
-const path = require('path');
-const helmet = require("helmet");
-const sassMiddleware = require('node-sass-middleware');
+const express         = require('express');
+const app             = express();
+const fs              = require('fs');
+const url             = require('url');
+const path            = require('path');
+const helmet          = require("helmet");
+const sassMiddleware  = require('express-dart-sass');
 
 const http = require('http');
 const server = http.createServer(app);
@@ -67,15 +67,15 @@ app.use(sessionObj);
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      "default-src": ["'self'"],
-      "connect-src": ["*", "'unsafe-inline'", "blob:", "data:"],
-      "img-src": ["*", "blob:", "data:"],
-      "media-src": ["*"],
-      "frame-src": ["*"],
-      "style-src": ["*", "'unsafe-inline'"],
-      "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:", "cdn.jsdelivr.net"],
-      "script-src-attr": ["'unsafe-inline'"],
-      "object-src": ["'none'"],
+      "default-src":      ["'self'"],
+      "connect-src":      ["*", "'unsafe-inline'", "blob:", "data:"],
+      "img-src":          ["*", "blob:", "data:"],
+      "media-src":        ["*"],
+      "frame-src":        ["*"],
+      "style-src":        ["*", "'unsafe-inline'"],
+      "script-src":       ["'self'", "'unsafe-inline'", "'unsafe-eval'", "unpkg.com", "aframe.io", "blob:"],
+      "script-src-attr":  ["'unsafe-inline'"],
+      "object-src":       ["'none'"],
     },
   })
 );
@@ -115,15 +115,19 @@ const jwtOptions = {
 passport.use(
   'jwt',
   new JwtStrategy(jwtOptions, (req, token, done) => {
-    const email = token.data
-    User.findOne({ email: email })
-      .exec(function (err, user) {
-        if (user) {
-          done(null, user)
-        } else {
-          done(null, false)
-        }
-      });
+    let user  = null;
+    let error = null;
+    async function getItems() {
+      try {
+        user = await User.findOne({ email: token.data }).exec();
+      } catch(err) {
+        error = err;
+      }
+    }
+
+    getItems().then(function() {
+      done(error, user);
+    });
   })
 );
 
@@ -133,23 +137,31 @@ passport.use(new passportLocalStrategy(
     usernameField: 'email'
   },
   function (username, password, done) {
-    // Find user by email
-    User.findOne({ email: username })
-      .exec(function (err, user) {
-        if (err) {
-          return done(err);
+      let user  = null;
+      let error = null;
+      async function getItems() {
+        try {
+          user = await User.findOne({ email: username }).exec();
+        } catch(err) {
+          error = err;
+        }
+      }
+
+      getItems().then(function() {
+        if (error) {
+          return done(error, user, { message: 'unexpected error' });
         }
 
         if (!user) {
-          return done(null, false, { message: 'Incorrect username or password' });
+          return done(error, user, { message: 'username invalid' });
         }
 
-        user.validatePassword(password, function (err, user) {
+        user.validatePassword(password, function (err, usr) {
           if (err) {
             return done(null, false, { message: 'Incorrect username or password' });
           }
 
-          return done(null, user);
+          return done(null, usr);
         });
       });
   }
@@ -160,9 +172,19 @@ passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    done(err, user);
+passport.deserializeUser(function(id, done) {
+  let user  = null;
+  let error = null;
+  async function getItems() {
+    try {
+      user = await User.findById(id);
+    } catch(err) {
+      error = err;
+    }
+  }
+
+  getItems().then(function(foundItems) {
+    done(error, user);
   });
 });
 
@@ -283,8 +305,9 @@ io.on("connection", socket => {
   //listen for all events and forward to all other clients
   socket.on("*", function (event, data) {
     //ignore reserved event names
-    if (event === CIRCLES.EVENTS.REQUEST_DATA_SYNC ||
-      event === CIRCLES.EVENTS.SEND_DATA_SYNC) {
+    if (  event === CIRCLES.EVENTS.REQUEST_DATA_SYNC ||
+          event === CIRCLES.EVENTS.REQUEST_DATA_SYNC ||
+          event === CIRCLES.EVENTS.RECEIVE_DATA_SYNC    ) {
       return; //exit
     }
 
@@ -306,7 +329,7 @@ io.on("connection", socket => {
   socket.on(CIRCLES.EVENTS.SEND_DATA_SYNC, function (data) {
     if (data.room) {
       socket.join(data.room); //hacky solution for janus adapter which doesn't set room
-      socket.to(data.room).emit(CIRCLES.EVENTS.SEND_DATA_SYNC, data);
+      socket.to(data.room).emit(CIRCLES.EVENTS.RECEIVE_DATA_SYNC, data);
     }
   });
 });
