@@ -82,18 +82,24 @@ AFRAME.registerComponent('time-travel', {
 
             //CIRCLES SYNC REQUEST EVENT
             setTimeout(function () {
-                CONTEXT.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC);
+                CONTEXT.socket.emit(CIRCLES.EVENTS.REQUEST_DATA_SYNC, {
+                    room:CIRCLES.getCirclesGroupName(), 
+                    world:CIRCLES.getCirclesWorldName()
+                });
             }, 1000); //wait a second to make sure we are connected... might want to make this random?
 
             //CIRCLES SYNC DATA EVENT
             CONTEXT.socket.on(CIRCLES.EVENTS.REQUEST_DATA_SYNC, function (data) {
-                CONTEXT.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {data: {
-                    teleportAllowed: CONTEXT.data.teleportAllowed,
-                    pastCapsuleAnimation: CONTEXT.data.pastCapsuleAnimation,
-                    presentCapsuleAnimation: CONTEXT.data.presentCapsuleAnimation,
-                    futureCapsuleAnimation: CONTEXT.data.futureCapsuleAnimation,
-                    buttonSound: CONTEXT.data.buttonSound
-                }});
+                CONTEXT.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {
+                    room:CIRCLES.getCirclesGroupName(),
+                    world:CIRCLES.getCirclesWorldName(),
+                    data: {
+                        teleportAllowed: CONTEXT.data.teleportAllowed,
+                        pastCapsuleAnimation: CONTEXT.data.pastCapsuleAnimation,
+                        presentCapsuleAnimation: CONTEXT.data.presentCapsuleAnimation,
+                        futureCapsuleAnimation: CONTEXT.data.futureCapsuleAnimation,
+                        buttonSound: CONTEXT.data.buttonSound
+                    }});
             });
         });
 
