@@ -216,7 +216,7 @@ AFRAME.registerComponent('time-travel', {
         //END BUTTON CLICK LISTENERS
     },
 
-    /*
+    //this tick function is currently triggering the animations locally but we want it to trigger them for other players    
     tick: function () {
         const CONTEXT = this;
         if (CONTEXT.data.pastCapsuleAnimation === true) {
@@ -239,7 +239,7 @@ AFRAME.registerComponent('time-travel', {
             CONTEXT.data.buttonSound = false;
             CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
-    }*/
+    }
 });
 
 /*
