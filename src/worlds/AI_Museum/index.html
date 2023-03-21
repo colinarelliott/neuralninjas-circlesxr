@@ -53,6 +53,8 @@
           crossorigin="anonymous"
         ></audio>
 
+        <video id="loading-circle" src="assets/videos/loading-circle.mp4" crossorigin="anonymous" autoplay></video>
+
         <!-- Important -->
         <a-asset-item
           id="machineObj"
@@ -303,6 +305,7 @@
         <a-entity
           id="buttonSoundOnly"
           sound="src:#buttonSoundSrc; autoplay:false;"
+          visible="false"
         ></a-entity>
       </a-entity>
 
@@ -412,7 +415,7 @@
         id="screenPresent"
         geometry="primitive: plane; width: 1.6; height: 0.9;"
         material="src: #screensaver"
-        position="0 1.9 -1.4"
+        position="0 1.9 -1.41"
         scale="1.1 1.1 1.1"
         crossorigin="anonymous"
         ><a-entity

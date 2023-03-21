@@ -59,13 +59,28 @@ AFRAME.registerComponent("open-ai-image-gen", {
       document.body.removeChild(link);
     }
 
-    //downloadImage(imageUrl);
+    //spawn a new entity with the loading circle video on it and then remove it when the image is loaded
+    const loadingCircle = document.createElement("a-video");
+    loadingCircle.setAttribute("src", "#loading-circle");
+    loadingCircle.setAttribute("position", "0 1.9 -1.4");
+    loadingCircle.setAttribute("width", "1.6");
+    loadingCircle.setAttribute("height", "0.9");
+    loadingCircle.setAttribute("rotation", "0 180 0");
+    loadingCircle.setAttribute("scale", "1.12 1.12 1.12");
+    loadingCircle.setAttribute("id", "loadingCircle");
+    document.querySelector("a-scene").appendChild(loadingCircle);
 
     setTimeout(() => {
+      //set the image on the screens
       CONTEXT.screenPast.setAttribute("material", "src: "+ herokuUrl+imageUrl);
       CONTEXT.screenPresent.setAttribute("material", "src: "+ herokuUrl+imageUrl);
       CONTEXT.screenFuture.setAttribute("material", "src: "+ herokuUrl+imageUrl);
     }, 10000);
+
+    setTimeout(() => {
+      //remove the loading circle
+      document.querySelector("#loadingCircle").remove();
+    }, 11000);
   },
 });
 
