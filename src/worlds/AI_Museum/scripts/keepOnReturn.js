@@ -14,7 +14,6 @@ AFRAME.registerComponent("keep-keyboard", {
       );
     });
     el.addEventListener("click", () => {
-      console.log("Clicked");
       keyboardPast.setAttribute("super-keyboard", "");
       keyboardPast.setAttribute(
         "super-keyboard",
@@ -27,6 +26,28 @@ AFRAME.registerComponent("keep-keyboard", {
       keyboardFuture.setAttribute(
         "super-keyboard",
         "hand: #mouseCursor;imagePath:./assets/images/; show:true;"
+      );
+    });
+
+    keyboard.addEventListener("superkeyboardinput", () => {
+      console.log(keyboard.getAttribute("super-keyboard").value);
+      keyboard.setAttribute(
+        "super-keyboard",
+        "hand: #mouseCursor; imagePath:./; value: "
+      );
+    });
+    keyboardFuture.addEventListener("superkeyboardinput", () => {
+      console.log(keyboard.getAttribute("super-keyboard").value);
+      keyboardFuture.setAttribute(
+        "super-keyboard",
+        "hand: #mouseCursor; imagePath:./; value: "
+      );
+    });
+    keyboardPast.addEventListener("superkeyboardinput", () => {
+      console.log(keyboard.getAttribute("super-keyboard").value);
+      keyboardPast.setAttribute(
+        "super-keyboard",
+        "hand: #mouseCursor; imagePath:./; value: "
       );
     });
   },
