@@ -5,16 +5,11 @@ const path       = require('path');
 const controller = require('../controllers/controller');
 const User       = require('../models/user');
 const passport   = require('passport');
-const dotenv = require('dotenv');
-const dotenvParseVariables = require('dotenv-parse-variables');
-
-let env = dotenv.config({})
-env = dotenvParseVariables(env.parsed);
 
 //NEURALNINJAS openai
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
-  apiKey: env.OPENAI_API_KEY, // Put your API key in .env!
+  apiKey: process.env.OPENAI_API_KEY, // Put your API key in .env!
 });
 const openai = new OpenAIApi(configuration);
 
