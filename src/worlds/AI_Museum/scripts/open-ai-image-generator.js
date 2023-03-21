@@ -65,7 +65,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
     loadingCircle.setAttribute("position", "0 1.9 -1.4");
     loadingCircle.setAttribute("width", "1.6");
     loadingCircle.setAttribute("height", "0.9");
-    loadingCircle.setAttribute("rotation", "0 180 0");
+    loadingCircle.setAttribute("rotation", "0 0 0");
     loadingCircle.setAttribute("scale", "1.12 1.12 1.12");
     loadingCircle.setAttribute("id", "loadingCircle");
     document.querySelector("a-scene").appendChild(loadingCircle);
