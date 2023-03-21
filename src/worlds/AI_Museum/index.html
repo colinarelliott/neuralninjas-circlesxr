@@ -203,6 +203,7 @@
         scale="0.8 0.8 0.8"
         position="-50 0 0"
         visible="true"
+        keep-keyboard
       >
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
 
@@ -211,6 +212,7 @@
         </a-entity>
 
         <!-- Change hand to `#hand` for VR. -->
+
         <a-entity
           id="keyboardPast"
           super-keyboard="
@@ -321,14 +323,8 @@
           <!-- Change hand to `#hand` for VR. -->
 
           <a-entity
-            id="button-box"
-            material="color: #999999"
-            rotation="0 0 0"
-            scale="1 1 1"
-          >
-            <a-entity
-              id="keyboard"
-              super-keyboard="
+            id="keyboard"
+            super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
               keyColor: #AA3333; 
@@ -337,11 +333,10 @@
               keyPressColor: #FF3333;
               inputColor: #AA3333;
               "
-              position="0 1.608 -1.00"
-              rotation="-80 0 0"
-              scale="1.5 1.5 1.5"
-            ></a-entity>
-          </a-entity>
+            position="0 1.608 -1.00"
+            rotation="-80 0 0"
+            scale="1.5 1.5 1.5"
+          ></a-entity>
         </a-entity>
         <a-entity
           id="capsulePresent"
@@ -415,8 +410,10 @@
         scale="0.8 0.8 0.8"
         position="50 0 0"
         visible="true"
+        keep-keyboard
       >
         <!-- Change hand to `#hand` for VR. -->
+
         <a-entity
           id="keyboardFuture"
           super-keyboard="
