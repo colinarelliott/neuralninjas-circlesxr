@@ -26,6 +26,7 @@
     <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
     <script src="./scripts/aframe-super-keyboard.min.js"></script>
     <script src="./scripts/show-keyboard.js"></script>
+    <script src="./scripts/keepOnReturn.js"></script>
   </head>
 
   <body>
@@ -92,7 +93,7 @@
           id="present-museum-model"
           src="assets/models/museumPresent.gltf"
           crossorigin="anonymous"
-        ></a-asset-item>                             commenting these out for now because I'm developing on the train and it takes too damn long to load--> 
+        ></a-asset-item>                             commenting these out for now because I'm developing on the train and it takes too damn long to load-->
 
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets />
@@ -315,11 +316,19 @@
           visible="true"
           shadow
           set-keyboard
+          keep-keyboard
         >
           <!-- Change hand to `#hand` for VR. -->
+
           <a-entity
-            id="keyboard"
-            super-keyboard="
+            id="button-box"
+            material="color: #999999"
+            rotation="0 0 0"
+            scale="1 1 1"
+          >
+            <a-entity
+              id="keyboard"
+              super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
               keyColor: #AA3333; 
@@ -328,10 +337,11 @@
               keyPressColor: #FF3333;
               inputColor: #AA3333;
               "
-            position="0 1.608 -1.00"
-            rotation="-80 0 0"
-            scale="1.5 1.5 1.5"
-          ></a-entity>
+              position="0 1.608 -1.00"
+              rotation="-80 0 0"
+              scale="1.5 1.5 1.5"
+            ></a-entity>
+          </a-entity>
         </a-entity>
         <a-entity
           id="capsulePresent"
