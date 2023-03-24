@@ -153,9 +153,9 @@
 
       <!--Circles Checkpoints-->
       <!-- TIME MACHINE CHECKPOINTS -->
-      <a-entity circles-checkpoint circles-spawnpoint position="0 0.02 0" scale="4.75 4.75 4.75"></a-entity>
+      <a-entity circles-checkpoint position="0 0.02 0" scale="4.75 4.75 4.75"></a-entity>
       <a-entity circles-checkpoint position="50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
-      <a-entity circles-checkpoint position="-50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
+      <a-entity circles-checkpoint circles-spawnpoint position="-50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
 
       <!--PRESENT MUSEUM CHECKPOINTS-->
       <a-entity circles-checkpoint position="-5.5 0.1 -8"></a-entity>
@@ -189,14 +189,12 @@
       <a-entity circles-checkpoint position="-55 0.1 -5"></a-entity>
 
       <!--Environment-->
-      <a-entity
-        id="env"
+      <a-entity id="env"
         environment="preset: default; groundYScale: 0"
       ></a-entity>
 
       <!--Camera-->
-      <a-entity
-        id="camera"
+      <a-entity id="camera"
         camera
         wasd-controls
         look-controls
@@ -208,13 +206,43 @@
         >
         </a-entity>
       </a-entity>
+
       <a-entity id="museumPast"
         gltf-model="#past-museum-model"
         position="-50 0.01 0"
         rotation="0 0 0"
         scale="0.6 0.6 0.6"
-        visible="true"
-      ></a-entity>
+        visible="true">
+
+        <a-entity id="pedestal-past-1"
+          gltf-model="#past-museum-pedestal"
+          position="9 -0.25 -3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+        <a-entity id="pedestal-past-2"
+          gltf-model="#past-museum-pedestal"
+          position="9 -0.25 3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+        <a-entity id="pedestal-past-3"
+          gltf-model="#past-museum-pedestal"
+          position="-9 -0.25 3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+        <a-entity id="pedestal-past-4"
+          gltf-model="#past-museum-pedestal"
+          position="-9 0.25 -3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+      </a-entity>
 
       <a-entity id="museumPresent"
         gltf-model="#present-museum-model"
