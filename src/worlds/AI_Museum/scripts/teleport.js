@@ -1,4 +1,4 @@
-AFRAME.registerComponent('time-travel', {
+AFRAME.registerComponent('time-travel', { //attached to the experience-manager
     schema: {
         connected: { type: 'boolean', default: false }, //this is a flag to indicate if we are connected to the messaging system
         synchEventName: { type: 'string', default: 'timeTravel_event' }, //this is the name of the event we will use to sync the time travel buttons if necessary
@@ -11,7 +11,7 @@ AFRAME.registerComponent('time-travel', {
     init() {
         const CONTEXT = this;
         //set socket to null to be filled in when connection is established
-        CONTEXT.socket = null;
+        //CONTEXT.socket = null;
         //get the elements we need to interact with
         const buttonLeftPast = document.querySelector('#buttonLeftPast');
         const buttonRightPast = document.querySelector('#buttonRightPast');
@@ -64,7 +64,7 @@ AFRAME.registerComponent('time-travel', {
         });
 
         //CIRCLES connection event, bind the socket to CONTEXT +======+ NETWORK EVENTS GO HERE
-        CONTEXT.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
+        /*CONTEXT.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
             CONTEXT.socket = CIRCLES.getCirclesWebsocket();
             CONTEXT.data.connected = true;
             console.warn("Circles Web socket connected at socket: " + CONTEXT.socket.id);
@@ -101,7 +101,7 @@ AFRAME.registerComponent('time-travel', {
                         buttonSound: CONTEXT.data.buttonSound
                     }});
             });
-        });
+        });*/
 
         //CUSTOM teleport enable event
         CONTEXT.el.addEventListener('enable-teleportation', function () {
@@ -153,7 +153,7 @@ AFRAME.registerComponent('time-travel', {
             CONTEXT.el.dispatchEvent(CONTEXT.clickPastLeft);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.buttonSound = true;
-                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             }
         });
 
@@ -164,7 +164,7 @@ AFRAME.registerComponent('time-travel', {
                 CONTEXT.data.pastCapsuleAnimation = true;
                 CONTEXT.data.presentCapsuleAnimation = true;
                 CONTEXT.data.buttonSound = true;
-                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportForward);
             }
         });
@@ -176,7 +176,7 @@ AFRAME.registerComponent('time-travel', {
                 CONTEXT.data.pastCapsuleAnimation = true;
                 CONTEXT.data.presentCapsuleAnimation = true;
                 CONTEXT.data.buttonSound = true;
-                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportBackward);
             }
         });
@@ -188,7 +188,7 @@ AFRAME.registerComponent('time-travel', {
                 CONTEXT.data.presentCapsuleAnimation = true;
                 CONTEXT.data.futureCapsuleAnimation = true;
                 CONTEXT.data.buttonSound = true;
-                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportForward);
             }
         });
@@ -200,7 +200,7 @@ AFRAME.registerComponent('time-travel', {
                 CONTEXT.data.presentCapsuleAnimation = true;
                 CONTEXT.data.futureCapsuleAnimation = true;
                 CONTEXT.data.buttonSound = true;
-                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportBackward);
             }
         });
@@ -209,7 +209,7 @@ AFRAME.registerComponent('time-travel', {
             CONTEXT.el.dispatchEvent(CONTEXT.clickFutureRight);
             if (CONTEXT.data.teleportAllowed === true) {
                 CONTEXT.data.buttonSound = true;
-                CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+                //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
             }
         });
 
@@ -222,22 +222,22 @@ AFRAME.registerComponent('time-travel', {
         if (CONTEXT.data.pastCapsuleAnimation === true) {
             CONTEXT.el.dispatchEvent(CONTEXT.initTPpast);
             CONTEXT.data.pastCapsuleAnimation = false;
-            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+            //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
         if (CONTEXT.data.presentCapsuleAnimation === true) {
             CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
             CONTEXT.data.presentCapsuleAnimation = false;
-            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+            //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
         if (CONTEXT.data.futureCapsuleAnimation === true) {
             CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
             CONTEXT.data.futureCapsuleAnimation = false;
-            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+            //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
         if (CONTEXT.data.buttonSound === true) {
             //CONTEXT.el.dispatchEvent(CONTEXT.buttonClick); //EMITTING GENERIC BUTTON CLICK EVENT INSTEAD OF SPECIFIC
             CONTEXT.data.buttonSound = false;
-            CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
+            //CONTEXT.socket.emit(CONTEXT.data.synchEventName, CONTEXT.data);
         }
     }
 });

@@ -13,6 +13,11 @@
     <!-- Circles' head scripts [REQUIRED] -->
     <circles-start-scripts />
 
+    <!--Network Manager-->
+    <script src="scripts/networkManager.js"></script>
+
+    <script src="scripts/networkCube.js"></script>
+
     <!-- Animation scripts  -->
     <!--<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js" crossorigin="anonymous"></script> NO NEED TO INSTALL THIS, CIRCLES DOES IT FOR YOU-->
 
@@ -146,7 +151,7 @@
       </a-assets>
 
       <!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
-      <a-entity id="experience-manager" time-travel></a-entity>
+      <a-entity id="experience-manager" time-travel network-manager></a-entity>
 
       <!--AI Image Generator-->
       <a-entity id="open-ai-image-gen" open-ai-image-gen></a-entity>
@@ -221,6 +226,20 @@
           scale="1 1 1"
           visible="true"
         ></a-entity>
+
+        <!--TEMPORARY TESTING-->
+        <a-entity id="network-cube"
+          network-cube
+          class="interactive"
+          geometry="primitive: box; width: 1; height: 1; depth: 1"
+          material="color: #FF0000"
+          position="9 2.5 -3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+
+
         <a-entity id="pedestal-past-2"
           gltf-model="#past-museum-pedestal"
           position="9 -0.25 3"
