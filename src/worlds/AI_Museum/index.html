@@ -85,7 +85,7 @@
           response-type="arraybuffer"
         ></a-asset-item>
 
-        <!-- Important -->
+        <!-- Dylan's assets -->
         <a-asset-item
           id="machineObj"
           src="assets/models/Machine.gltf"
@@ -132,6 +132,12 @@
         <a-asset-item
           id="future-museum-model"
           src="assets/models/museum_Future.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="past-museum-pedestal"
+          src="assets/models/past_stand.glb"
           crossorigin="anonymous"
         ></a-asset-item>
 
@@ -202,8 +208,7 @@
         >
         </a-entity>
       </a-entity>
-      <a-entity
-        id="museumPast"
+      <a-entity id="museumPast"
         gltf-model="#past-museum-model"
         position="-50 0.01 0"
         rotation="0 0 0"
@@ -211,8 +216,7 @@
         visible="true"
       ></a-entity>
 
-      <a-entity
-        id="museumPresent"
+      <a-entity id="museumPresent"
         gltf-model="#present-museum-model"
         position="0 0.01 0"
         rotation="0 0 0"
@@ -220,8 +224,7 @@
         visible="true"
       ></a-entity>
 
-      <a-entity
-        id="museumFuture"
+      <a-entity id="museumFuture"
         gltf-model="#future-museum-model"
         position="50 0.01 0"
         rotation="0 0 0"
@@ -229,21 +232,26 @@
         visible="true"
       ></a-entity>
 
-      <a-entity
-        id="timeMachinePast"
+      <a-entity id="timeMachinePast"
         scale="0.8 0.8 0.8"
         position="-50 0 0"
         visible="true"
         keep-keyboard
       >
+        <a-entity
+          id="machinePast"
+          gltf-model="#machineObj"
+          position="0 0 0"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
 
         <a-entity id="hand" laser-controls="hand: right">
           <a-sphere radius="0.03"></a-sphere>
         </a-entity>
-
-        <a-entity
-          id="keyboardPast"
+        <a-entity id="keyboardPast"
           super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
@@ -257,16 +265,7 @@
           rotation="-80 0 0"
           scale="1.5 1.5 1.5"
         ></a-entity>
-        <a-entity
-          id="machinePast"
-          gltf-model="#machineObj"
-          scale="1 1 1"
-          position="0 0 0"
-          visible="true"
-          shadow
-        ></a-entity>
-        <a-entity
-          id="capsulePast"
+        <a-entity id="capsulePast"
           gltf-model="#capsuleObj"
           scale="1 1 1"
           position="0 0 0"
@@ -274,16 +273,14 @@
           shadow
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
         ></a-entity>
-        <a-entity
-          id="capsuleGroundPast"
+        <a-entity id="capsuleGroundPast"
           gltf-model="#capsuleGroundObj"
           scale="1 1 1"
           position="0 0 0"
           visible="true"
           shadow
         ></a-entity>
-        <a-entity
-          id="buttonLeftPast"
+        <a-entity id="buttonLeftPast"
           gltf-model="#buttonLeftObj"
           scale="1 1 1"
           position="0 0 0"
@@ -293,8 +290,7 @@
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
         ></a-entity>
-        <a-entity
-          id="buttonRightPast"
+        <a-entity id="buttonRightPast"
           gltf-model="#buttonRightObj"
           scale="1 1 1"
           position="0 0 0"
@@ -304,25 +300,21 @@
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
         ></a-entity>
-        <a-entity
-          id="buttonLeftPastSound"
+        <a-entity id="buttonLeftPastSound"
           sound="src:#buttonSoundSrc; autoplay:false;"
           position="-1.667 1.773 -1.260"
         ></a-entity>
-        <a-entity
-          id="buttonRightPastSound"
+        <a-entity id="buttonRightPastSound"
           sound="src:#buttonSoundSrc; autoplay:false;"
           position="1.667 1.773 -1.260"
         ></a-entity>
-        <a-entity
-          id="buttonSoundOnly"
+        <a-entity id="buttonSoundOnly"
           sound="src:#buttonSoundSrc; autoplay:false;"
           visible="false"
         ></a-entity>
-      </a-entity>
+       </a-entity>
 
-      <a-entity
-        id="screenPast"
+       <a-entity id="screenPast"
         geometry="primitive: plane; width: 1.6; height: 0.9;"
         material="src: #screensaver"
         position="-50 1.9 -1.4"
@@ -334,10 +326,9 @@
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPast; color: #ffffff"
           position="0 0 0.5"
         ></a-entity>
-      </a-entity>
+       </a-entity>
 
-      <a-entity
-        id="timeMachinePresent"
+       <a-entity id="timeMachinePresent"
         scale="0.8 0.8 0.8"
         position="0 0 0"
         visible="true"
@@ -423,10 +414,9 @@
           id="buttonSoundOnly"
           sound="src:#buttonSoundSrc; autoplay:false;"
         ></a-entity>
-      </a-entity>
+       </a-entity>
 
-      <a-entity
-        id="screenPresent"
+       <a-entity id="screenPresent"
         geometry="primitive: plane; width: 1.6; height: 0.9;"
         material="src: #screensaver"
         position="0 1.9 -1.41"
@@ -437,10 +427,9 @@
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
           position="0 0 0.5"
         ></a-entity>
-      </a-entity>
+       </a-entity>
 
-      <a-entity
-        id="timeMachineFuture"
+       <a-entity id="timeMachineFuture"
         scale="0.8 0.8 0.8"
         position="50 0 0"
         visible="true"
@@ -524,10 +513,9 @@
           id="buttonSoundOnlySound"
           sound="src:#buttonSoundSrc; autoplay:false;"
         ></a-entity>
-      </a-entity>
+       </a-entity>
 
-      <a-entity
-        id="screenFuture"
+       <a-entity id="screenFuture"
         geometry="primitive: plane; width: 1.6; height: 0.9;"
         material="src: #screensaver"
         position="50 1.9 -1.4"
@@ -539,8 +527,7 @@
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenFuture; color: #ffffff"
           position="0 0 0.5"
         ></a-entity>
-      </a-entity>
-      <!-- Teleport -->
+       </a-entity>
 
       <!-- Circles' built-in manager and avatar [REQUIRED] -->
       <circles-manager-avatar />
