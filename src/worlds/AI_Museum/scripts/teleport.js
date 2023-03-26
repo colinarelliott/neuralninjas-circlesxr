@@ -217,28 +217,34 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
 
         if (networkManager.data.pastTP === true) {
             CONTEXT.el.dispatchEvent(CONTEXT.initTPpast);
-            networkManager.sendUpdate({
-                data: {
-                    pastTP: false,
-                }
+            setTimeout(function () {
+                networkManager.sendUpdate({
+                    data: {
+                        pastTP: false,
+                    }
+            }, 200); // a little delay to make everyone sees it turn true
             });
         }
 
         if (networkManager.data.presentTP === true) {
             CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
-            networkManager.sendUpdate({
-                data: {
-                    presentTP: false,
-                }
+            setTimeout(function () {
+                networkManager.sendUpdate({
+                    data: {
+                        presentTP: false,
+                    }
+                }, 200); // a little delay to make everyone sees it turn true
             });
         }
 
         if (networkManager.data.futureTP === true) {
             CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
+            setTimeout(function () {
             networkManager.sendUpdate({
                 data: {
                     futureTP: false,
                 }
+            }, 200); // a little delay to make everyone sees it turn true
             });
         }
     }
