@@ -8,6 +8,7 @@ AFRAME.registerComponent('network-manager', {
 
         //INSERT ALL VARIABLES TO BE SYNCED HERE... also further down...
         cubeColor: {type: 'string', default: 'red'},
+        tpAllowed : {type: 'boolean', default: true},
     },
 
     init: function () {
@@ -62,6 +63,7 @@ AFRAME.registerComponent('network-manager', {
                     
                     //INSERT ALL VARIABLES TO BE SYNCED HERE... also in the schema and below
                     THIS.data.cubeColor = syncData.data.cubeColor;
+                    THIS.data.tpAllowed = syncData.data.tpAllowed;
                     //END SYNC VARIABLES
 
                 }
@@ -83,6 +85,7 @@ AFRAME.registerComponent('network-manager', {
 
         //INSERT ALL VARIABLES TO BE SYNCED HERE... also in the schema and above
         THIS.data.cubeColor = updateData.data.cubeColor;
+        THIS.data.tpAllowed = updateData.data.tpAllowed;
 
         //send the update to the circles socket
         let dataToUpdate = THIS.data;
