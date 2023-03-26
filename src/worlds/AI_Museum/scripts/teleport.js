@@ -94,7 +94,11 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
             if (networkManager.data.tpAllowed === true) {
                 networkManager.sendUpdate({
-                    data: {tpAllowed: false} //set tpAllowed to false in networkManager
+                    data: {
+                        tpAllowed: false,
+                        pastTP: true,
+                        presentTP: true,
+                    } //set tpAllowed to false in networkManager
                 });
                 CONTEXT.el.dispatchEvent(CONTEXT.clickPastRight);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpast);
@@ -104,7 +108,11 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
                 setTimeout(function () {
                     //set tpAllowed to true after 5 seconds in networkManager
                     networkManager.sendUpdate({
-                        data: {tpAllowed: true}
+                        data: {
+                            tpAllowed: true,
+                            pastTP: false,
+                            presentTP: false,
+                        }
                     });
                 }, 5000);
             }
@@ -114,7 +122,11 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
             if (networkManager.data.tpAllowed === true) {
                 networkManager.sendUpdate({
-                    data: {tpAllowed: false}
+                    data: {
+                        tpAllowed: false,
+                        presentTP: true,
+                        pastTP: true,
+                    }
                 });
                 CONTEXT.el.dispatchEvent(CONTEXT.clickPresentLeft);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
@@ -123,7 +135,11 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
 
                 setTimeout(function () {
                     networkManager.sendUpdate({
-                        data: {tpAllowed: true}
+                        data: {
+                            tpAllowed: true,
+                            presentTP: false,
+                            pastTP: false,
+                        }
                     });
                 }, 5000);
             }
@@ -132,17 +148,29 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
         buttonRightPresent.addEventListener('click', function () {
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
             if (networkManager.data.tpAllowed === true) {
+                //send data to networkManager
                 networkManager.sendUpdate({
-                    data: {tpAllowed: false}
+                    data: {
+                        tpAllowed: false,
+                        presentTP: true,
+                        futureTP: true,
+                    }
                 });
+
+                //trigger local events
                 CONTEXT.el.dispatchEvent(CONTEXT.clickPresentRight);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportForward);
 
+                //reset data in networkManager after 5 seconds
                 setTimeout(function () {
                     networkManager.sendUpdate({
-                        data: {tpAllowed: true}
+                        data: {
+                            tpAllowed: true,
+                            presentTP: false,
+                            futureTP: false,
+                        }
                     });
                 }, 5000);
             }
@@ -152,7 +180,11 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
             if (networkManager.data.tpAllowed === true) {
                 networkManager.sendUpdate({
-                    data: {tpAllowed: false}
+                    data: {
+                        tpAllowed: false,
+                        futureTP: true,
+                        presentTP: true,
+                    }
                 });
                 CONTEXT.el.dispatchEvent(CONTEXT.clickFutureLeft);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
@@ -161,7 +193,11 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
 
                 setTimeout(function () {
                     networkManager.sendUpdate({
-                        data: {tpAllowed: true}
+                        data: {
+                            tpAllowed: true,
+                            futureTP: false,
+                            presentTP: false,
+                        }
                     });
                 }, 5000);
             }
@@ -177,6 +213,7 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
     //this tick function is currently triggering the animations locally but we want it to trigger them for other players    
     tick: function () {
         const CONTEXT = this;
+        const networkManager = document.querySelector('#experience-manager').components['network-manager'];
     }
 });
 
