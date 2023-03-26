@@ -26,7 +26,6 @@ AFRAME.registerComponent('circles-artefact', {
   init: function() {
     const CONTEXT_AF  = this;
     const data        = this.data;
-    const world       = document.querySelector('[circles-manager]').components['circles-manager'].getWorld();
 
     if (!CONTEXT_AF.el.classList.contains('narrative')) {
       CONTEXT_AF.el.classList.add('narrative');
