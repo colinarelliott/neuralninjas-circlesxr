@@ -214,6 +214,33 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
     tick: function () {
         const CONTEXT = this;
         const networkManager = document.querySelector('#experience-manager').components['network-manager'];
+
+        if (networkManager.data.pastTP === true) {
+            CONTEXT.el.dispatchEvent(CONTEXT.initTPpast);
+            networkManager.sendUpdate({
+                data: {
+                    pastTP: false,
+                }
+            });
+        }
+
+        if (networkManager.data.presentTP === true) {
+            CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
+            networkManager.sendUpdate({
+                data: {
+                    presentTP: false,
+                }
+            });
+        }
+
+        if (networkManager.data.futureTP === true) {
+            CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
+            networkManager.sendUpdate({
+                data: {
+                    futureTP: false,
+                }
+            });
+        }
     }
 });
 
