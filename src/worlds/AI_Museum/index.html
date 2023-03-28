@@ -170,6 +170,9 @@
         <circles-assets />
       </a-assets>
 
+      <!-- Circles' built-in manager and avatar [REQUIRED] -->
+      <circles-manager-avatar />
+
       <!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
       <a-entity id="experience-manager" time-travel network-manager></a-entity>
 
@@ -217,20 +220,6 @@
       <a-entity id="env"
         environment="preset: default; groundYScale: 0"
       ></a-entity>
-
-      <!--Camera-->
-      <a-entity id="camera"
-        camera
-        wasd-controls
-        look-controls
-        position="0 1.6 0"
-      >
-        <a-entity
-          cursor="rayOrigin:mouse;"
-          raycaster="far:20; interval:200; objects: .interactive"
-        >
-        </a-entity>
-      </a-entity>
 
       <a-entity id="navmesh-past-museum"
         nav-mesh
@@ -639,9 +628,6 @@
           position="0 0 0.5"
         ></a-entity>
        </a-entity>
-
-      <!-- Circles' built-in manager and avatar [REQUIRED] -->
-      <circles-manager-avatar />
     </a-scene>
 
     <!-- Circles' end scripts [REQUIRED] -->
