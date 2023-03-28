@@ -140,6 +140,20 @@
           crossorigin="anonymous"
         ></a-asset-item>
 
+        <!--Nav Meshes-->
+        <a-asset-item id="past-nav-mesh"
+          src="assets/models/navmeshes/Navmesh_Past.gltf"
+        ></a-entity>
+
+        <a-asset-item id="present-nav-mesh"
+          src="assets/models/navmeshes/Navmesh_Present.gltf"
+        ></a-entity>
+
+        <a-asset-item id="future-nav-mesh"
+          src="assets/models/navmeshes/Navmesh_Future.gltf"
+        ></a-entity>
+
+
         <a-asset-item
           id="past-museum-pedestal"
           src="assets/models/past_stand.glb"
@@ -218,6 +232,14 @@
         </a-entity>
       </a-entity>
 
+      <a-entity id="navmesh-past-museum"
+        nav-mesh
+        gltf-model="#past-nav-mesh"
+        position="-50 0.02 0"
+        scale="0.6 0.6 0.6"
+        visible="true"
+      ></a-entity> <!--set visible="false" to hide nav mesh geometry-->
+
       <a-entity id="museumPast"
         gltf-model="#past-museum-model"
         position="-50 0.01 0"
@@ -289,6 +311,14 @@
         ></a-entity>
       </a-entity>
 
+      <a-entity id="navmesh-present-museum"
+        nav-mesh
+        gltf-model="#present-nav-mesh"
+        position="0 0.02 0"
+        scale="0.8 0.8 0.8"
+        visible="true"
+      ></a-entity> <!--set visible="false" to hide nav mesh geometry-->
+
       <a-entity id="museumPresent"
         gltf-model="#present-museum-model"
         position="0 0.01 0"
@@ -296,6 +326,14 @@
         scale="0.8 0.8 0.8"
         visible="true"
       ></a-entity>
+
+      <a-entity id="navmesh-future-museum"
+        nav-mesh
+        gltf-model="#future-nav-mesh"
+        position="50 0.02 0"
+        scale="1 1 1"
+        visible="true"
+      ></a-entity> <!--set visible="false" to hide nav mesh geometry-->
 
       <a-entity id="museumFuture"
         gltf-model="#future-museum-model"
