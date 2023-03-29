@@ -34,8 +34,6 @@ AFRAME.registerComponent('nav-mesh-handler', {
 
         //get the player's position
         THIS.playerPos = THIS.player.getAttribute('position');
-
-        console.log(THIS.playerPos.x);
         
         if (THIS.playerPos.x < -25 && THIS.currentMesh !== '#past-nav-mesh') {
             THIS.currentMesh = '#past-nav-mesh';

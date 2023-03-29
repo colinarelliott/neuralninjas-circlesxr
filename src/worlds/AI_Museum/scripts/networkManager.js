@@ -104,6 +104,6 @@ AFRAME.registerComponent('network-manager', {
     //this function is called every 500ms, so far just for debug
     ticker: function () {
         const THIS = this;
-        console.log(THIS.data);
+        //console.log(THIS.data);
     },
 });
