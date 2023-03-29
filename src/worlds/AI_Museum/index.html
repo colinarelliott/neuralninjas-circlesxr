@@ -228,6 +228,26 @@
         visible="true"
       ></a-entity> <!--set visible="false" to hide nav mesh geometry-->
 
+      <a-entity id="eliza-computer"
+          gltf-model="#ELIZA"
+          position="-44 1.5 1"
+          rotation="0 -90 0"
+          scale="1 1 1"
+          visible="true"
+          circles-artefact="
+              inspectScale:     0.5 0.5 0.5;
+              textRotationY:    0;
+              textLookAt:       true; 
+              inspectRotation:  0 0 0;
+              label_offset:     0 1 0;
+              label_visible:    true;
+              arrow_position:   down;
+              title:            ELIZA;
+              description:      This computer was home to the very first chat bot, known as 'ELIZA';
+              label_text:       ELIZA;
+              volume:0.4;" >
+        </a-entity>
+
       <a-entity id="museumPast"
         gltf-model="#past-museum-model"
         position="-50 0.01 0"
@@ -262,26 +282,6 @@
           scale="1 1 1"
           visible="true"
         ></a-entity>
-
-        <a-entity id="eliza-computer"
-          gltf-model="#ELIZA"
-          position="9 2.25 3"
-          rotation="0 -90 0"
-          scale="1 1 1"
-          visible="true"
-          circles-artefact="
-              inspectScale:     0.5 0.5 0.5;
-              textRotationY:    90;
-              textLookAt:       true; 
-              inspectRotation:  0 0 0;
-              label_offset:     0 1 0;
-              label_visible:    true;
-              arrow_position:   down;
-              title:            ELIZA;
-              description:      This computer was home to the very first chat bot, known as 'ELIZA';
-              label_text:       ELIZA;
-              volume:0.4;" >
-        </a-entity>
 
         <a-entity id="pedestal-past-3"
           gltf-model="#past-museum-pedestal"
