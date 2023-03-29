@@ -66,7 +66,7 @@ AFRAME.registerComponent('nav-mesh-handler', {
         THIS.navMesh.setAttribute('scale', scale);
         THIS.navMesh.setAttribute('position', position)
         THIS.navMesh.setAttribute('gltf-model', model);
-        THIS.navMesh.setAttribute('visible', 'true');
+        THIS.navMesh.setAttribute('visible', 'false');
 
         //add the navmesh entity to the scene
         THIS.el.sceneEl.appendChild(THIS.navMesh);
