@@ -168,6 +168,12 @@
           crossorigin="anonymous"
         ></a-asset-item>
 
+        <a-asset-item
+          id="neuralNetwork"
+          src="assets/models/neuralNet.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
         <!-- Circles' built-in assets [REQUIRED] -->
         <circles-assets />
       </a-assets>
@@ -230,12 +236,12 @@
 
       <a-entity id="eliza-computer"
           gltf-model="#ELIZA"
-          position="-44 1.5 1"
+          position="-44.436029999999995 1.3659500000000016 1.8436100000000024"
           rotation="0 -90 0"
           scale="1 1 1"
           visible="true"
           circles-artefact="
-              inspectScale:     0.5 0.5 0.5;
+              inspectScale:     1 1 1;
               textRotationY:    0;
               textLookAt:       true; 
               inspectRotation:  0 0 0;
@@ -245,8 +251,32 @@
               title:            ELIZA;
               description:      This computer was home to the very first chat bot, known as 'ELIZA';
               label_text:       ELIZA;
-              volume:0.4;" >
+              volume:0.4;
+              descriptionLookAt: true;" >
         </a-entity>
+
+        <a-entity id="neuralNet"
+          gltf-model="#neuralNetwork"
+          position="-55.19985 1.29681 -1.79894"
+          rotation="0 -90 0"
+          scale="1 1 1"
+          visible="true"
+          circles-artefact="
+              inspectScale:     1 1 1;
+              textRotationY:    0;
+              textLookAt:       true; 
+              inspectRotation:  0 0 0;
+              label_offset:     0 1.5 0;
+              label_visible:    true;
+              arrow_position:   down;
+              title:            Neural Network;
+              description:      This is a low-level illustration of a neural network, a machine learning model that can be used to classify data;
+              label_text:       Neural Network;
+              volume:0.4;
+              descriptionLookAt: true;" >
+        ></a-entity>
+
+        <!--<a-entity id="neuralNet" gltf-model="assets/models/neuralNet.gltf" position="-55.69985 1.59681 -1.79894" rotation="0 -90 0" scale="" visible="" circles-interactive-object="" class="interactive" circles-material-extend-fresnel="fresnelOpacity: 0; fresnelPow: 2" sound="volume: 0.5" animation__highlightanim="property: circles-material-extend-fresnel.fresnelOpacity; to: 0; dur: 100"></a-entity>-->
 
       <a-entity id="museumPast"
         gltf-model="#past-museum-model"
@@ -263,7 +293,7 @@
           visible="true"
         ></a-entity>
 
-        <!--TEMPORARY TESTING-->
+        <!--TEMPORARY TESTING
         <a-entity id="network-cube"
           network-cube
           class="interactive"
@@ -273,7 +303,7 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
-        ></a-entity>
+        ></a-entity> -->
 
         <a-entity id="pedestal-past-2"
           gltf-model="#past-museum-pedestal"
@@ -292,7 +322,7 @@
         ></a-entity>
         <a-entity id="pedestal-past-4"
           gltf-model="#past-museum-pedestal"
-          position="-9 0.25 -3"
+          position="-9 -0.25 -3"
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
