@@ -48,6 +48,7 @@
     <a-scene id="scene" circles_scene_properties stats>
       <a-assets>
         <!-- ASSETS -->
+
         <img
           id="screensaver"
           src="assets/images/windowsXP.jpg"
@@ -74,7 +75,7 @@
         <!--Nadia's Assets-->
         <a-asset-item
           id="bench"
-          src="assets/models/bench.gltf"
+          src="assets/models/bench.glb"
           crossorigin="anonymous"
           response-type="arraybuffer"
         ></a-asset-item>
@@ -234,6 +235,8 @@
         visible="false"
       ></a-entity> <!--set visible="false" to hide nav mesh geometry-->
 
+      <!--past museum artefacts-->
+
       <a-entity id="eliza-computer"
           gltf-model="#ELIZA"
           position="-44.436029999999995 1.3659500000000016 1.8436100000000024"
@@ -276,7 +279,7 @@
               descriptionLookAt: true;" >
         ></a-entity>
 
-        <!--<a-entity id="neuralNet" gltf-model="assets/models/neuralNet.gltf" position="-55.69985 1.59681 -1.79894" rotation="0 -90 0" scale="" visible="" circles-interactive-object="" class="interactive" circles-material-extend-fresnel="fresnelOpacity: 0; fresnelPow: 2" sound="volume: 0.5" animation__highlightanim="property: circles-material-extend-fresnel.fresnelOpacity; to: 0; dur: 100"></a-entity>-->
+        <!--end past museum artefacts-->
 
       <a-entity id="museumPast"
         gltf-model="#past-museum-model"
@@ -334,8 +337,25 @@
         position="0 0.01 0"
         rotation="0 0 0"
         scale="0.8 0.8 0.8"
-        visible="true"
-      ></a-entity>
+        visible="true">
+
+        <a-entity id="bench-1"
+          gltf-model="#bench"
+          position="2 0 -7"
+          rotation="0 0 0"
+          scale="0.4 0.4 0.4"
+          visible="true"
+        ></a-entity>
+
+        <a-entity id="bench-2"
+          gltf-model="#bench"
+          position="-2 0 -7"
+          rotation="0 0 0"
+          scale="0.4 0.4 0.4"
+          visible="true"
+        ></a-entity>
+
+      </a-entity>
 
       <a-entity id="museumFuture"
         gltf-model="#future-museum-model"
