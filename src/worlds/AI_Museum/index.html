@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title id="title">Neural Ninjas - AI Imagen Museum</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./assets/images/favicon-ninja.png"
+    />
+
+    <!-- Circles' head scripts [REQUIRED] -->
+    <circles-start-scripts />
+
+    <!--Network Manager-->
+    <script src="scripts/networkManager.js"></script>
+
+    <script src="scripts/networkCube.js"></script>
+
+    <!-- Animation scripts  -->
+    <!--<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js" crossorigin="anonymous"></script> NO NEED TO INSTALL THIS, CIRCLES DOES IT FOR YOU-->
+
+    <!--AI Image Generator script-->
+    <script src="scripts/open-ai-image-generator.js"></script>
+
+    <!--Teleportation script-->
+    <script src="scripts/teleport.js"></script>
+
+    <!--Environment script-->
+    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+    <!--Libs-->
+    <script src="./libs/aframe-super-keyboard.min.js"></script>
+
+    <!--Keyboard Scripts-->
+    <script src="./scripts/show-keyboard.js"></script>
+    <script src="./scripts/keepOnReturn.js"></script>
+
+    <!--Navmesh Handler script-->
+    <script src="./scripts/navMeshHandler.js"></script>
+  </head>
+
+  <body>
+    <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
+    <circles-start-ui />
+
+    <!-- a-scene with 'circles-properties' component [REQUIRED] -->
+    <a-scene id="scene" circles_scene_properties stats>
+      <a-assets>
+        <!-- ASSETS -->
+        <img
+          id="screensaver"
+          src="assets/images/windowsXP.jpg"
+          crossorigin="anonymous"
+        />
+
+        <audio
+          id="buttonSoundSrc"
+          src="assets/sounds/ButtonSound.mp3"
+          preload="auto"
+          crossorigin="anonymous"
+        ></audio>
+
+        <!-- https://motionarray.com/stock-motion-graphics/loading-bar-circle-animation-100-1426273/?q=loading, licensed by Colin's MotionArray account -->
+        <video 
+          id="loading-circle" 
+          src="assets/videos/loading-circle.mp4" 
+          crossorigin="anonymous" 
+          autoplay="true"
+          loop="false"
+          preload="auto"
+        ></video>
+
+        <!--Nadia's Assets-->
+        <a-asset-item
+          id="bench"
+          src="assets/models/bench.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="chandelier"
+          src="assets/models/chandelier.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="plant"
+          src="assets/models/plant.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
+        <!-- Dylan's assets -->
+        <a-asset-item
+          id="machineObj"
+          src="assets/models/Machine.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="capsuleObj"
+          src="assets/models/capsule.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="capsuleGroundObj"
+          src="assets/models/capsuleGround.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="buttonLeftObj"
+          src="assets/models/Button_Left.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item
+          id="buttonRightObj"
+          src="assets/models/Button_Right.gltf"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="past-museum-model"
+          src="assets/models/museum_past.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="present-museum-model"
+          src="assets/models/museum_Present.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="future-museum-model"
+          src="assets/models/museum_Future.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
+        <!--Nav Meshes-->
+        <a-asset-item id="future-nav-mesh"
+          src="assets/models/navmeshes/Navmesh_Future.gltf"
+        ></a-entity>
+
+        <a-asset-item id="present-nav-mesh"
+          src="assets/models/navmeshes/Navmesh_Present.gltf"
+        ></a-entity>
+
+        <a-asset-item id="past-nav-mesh"
+          src="assets/models/navmeshes/Navmesh_Past.gltf"
+        ></a-entity>
+
+        <a-asset-item
+          id="past-museum-pedestal"
+          src="assets/models/past_stand.glb"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="ELIZA"
+          src="assets/models/computer.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
+        <!-- Circles' built-in assets [REQUIRED] -->
+        <circles-assets />
+      </a-assets>
+
+      <!-- Circles' built-in manager and avatar [REQUIRED] -->
+      <circles-manager-avatar />
+
+      <!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
+      <a-entity id="experience-manager" time-travel network-manager nav-mesh-handler></a-entity>
+
+      <!--AI Image Generator-->
+      <a-entity id="open-ai-image-gen" open-ai-image-gen></a-entity>
+
+      <!--Circles Checkpoints-->
+      <!-- TIME MACHINE CHECKPOINTS -->
+      <a-entity circles-checkpoint circles-spawnpoint position="0 0.02 0" scale="4.75 4.75 4.75"></a-entity>
+      <a-entity circles-checkpoint position="50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
+      <a-entity circles-checkpoint position="-50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
+
+      <!--PRESENT MUSEUM CHECKPOINTS-->
+      <a-entity circles-checkpoint position="-5.5 0.1 -8"></a-entity>
+      <a-entity circles-checkpoint position="5.5 0.1 -8"></a-entity>
+      <a-entity circles-checkpoint position="0 0.1 -12.75"></a-entity>
+      <a-entity circles-checkpoint position="-6 0.1 7.5"></a-entity>
+      <a-entity circles-checkpoint position="0 0.1 7.5"></a-entity>
+      <a-entity circles-checkpoint position="6 0.1 7.5"></a-entity>
+      <a-entity circles-checkpoint position="-5 0.1 0"></a-entity>
+      <a-entity circles-checkpoint position="5 0.1 0"></a-entity>
+
+      <!--FUTURE MUSEUM CHECKPOINTS-->
+      <a-entity circles-checkpoint position="59 0.1 -4"></a-entity>
+      <a-entity circles-checkpoint position="69 0.1 -1"></a-entity>
+      <a-entity circles-checkpoint position="72 0.1 -8"></a-entity>
+      <a-entity circles-checkpoint position="72 0.1 8"></a-entity>
+      <a-entity circles-checkpoint position="66 0.1 3"></a-entity>
+      <a-entity circles-checkpoint position="78.5 0.1 3"></a-entity>
+      <a-entity circles-checkpoint position="49 0.1 -7.5"></a-entity>
+      <a-entity circles-checkpoint position="42 0.1 1"></a-entity>
+      <a-entity circles-checkpoint position="51 0.1 9"></a-entity>
+
+      <!--PAST MUSEUM CHECKPOINTS-->
+      <a-entity circles-checkpoint position="-55 0.1 0"></a-entity>
+      <a-entity circles-checkpoint position="-45 0.1 0"></a-entity>
+      <a-entity circles-checkpoint position="-50 0.1 5"></a-entity>
+      <a-entity circles-checkpoint position="-50 0.1 -5"></a-entity>
+      <a-entity circles-checkpoint position="-45 0.1 5"></a-entity>
+      <a-entity circles-checkpoint position="-45 0.1 -5"></a-entity>
+      <a-entity circles-checkpoint position="-55 0.1 5"></a-entity>
+      <a-entity circles-checkpoint position="-55 0.1 -5"></a-entity>
+
+      <!--Environment-->
+      <a-entity id="env"
+        environment="preset: default; groundYScale: 0"
+      ></a-entity>
+
+      <a-entity id="navmesh"
+        nav-mesh
+        visible="false"
+      ></a-entity> <!--set visible="false" to hide nav mesh geometry-->
+
+      <a-entity id="eliza-computer"
+          gltf-model="#ELIZA"
+          position="-44 1.5 1"
+          rotation="0 -90 0"
+          scale="1 1 1"
+          visible="true"
+          circles-artefact="
+              inspectScale:     0.5 0.5 0.5;
+              textRotationY:    0;
+              textLookAt:       true; 
+              inspectRotation:  0 0 0;
+              label_offset:     0 1 0;
+              label_visible:    true;
+              arrow_position:   down;
+              title:            ELIZA;
+              description:      This computer was home to the very first chat bot, known as 'ELIZA';
+              label_text:       ELIZA;
+              volume:0.4;" >
+        </a-entity>
+
+      <a-entity id="museumPast"
+        gltf-model="#past-museum-model"
+        position="-50 0.01 0"
+        rotation="0 0 0"
+        scale="0.6 0.6 0.6"
+        visible="true">
+
+        <a-entity id="pedestal-past-1"
+          gltf-model="#past-museum-pedestal"
+          position="9 -0.25 -3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+
+        <!--TEMPORARY TESTING-->
+        <a-entity id="network-cube"
+          network-cube
+          class="interactive"
+          geometry="primitive: box; width: 1; height: 1; depth: 1"
+          material="color: #FF0000"
+          position="9 2.5 -3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+
+        <a-entity id="pedestal-past-2"
+          gltf-model="#past-museum-pedestal"
+          position="9 -0.25 3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+
+        <a-entity id="pedestal-past-3"
+          gltf-model="#past-museum-pedestal"
+          position="-9 -0.25 3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+        <a-entity id="pedestal-past-4"
+          gltf-model="#past-museum-pedestal"
+          position="-9 0.25 -3"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+      </a-entity>
+
+      <a-entity id="museumPresent"
+        gltf-model="#present-museum-model"
+        position="0 0.01 0"
+        rotation="0 0 0"
+        scale="0.8 0.8 0.8"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="museumFuture"
+        gltf-model="#future-museum-model"
+        position="50 0.01 0"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="timeMachinePast"
+        scale="0.8 0.8 0.8"
+        position="-50 0 0"
+        visible="true"
+        keep-keyboard
+      >
+        <a-entity
+          id="machinePast"
+          gltf-model="#machineObj"
+          position="0 0 0"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
+
+        <a-entity id="hand" laser-controls="hand: right">
+          <a-sphere radius="0.03"></a-sphere>
+        </a-entity>
+        <a-entity id="keyboardPast"
+          super-keyboard="
+              hand: #mouseCursor; 
+              imagePath:./assets/images/; 
+              keyColor: #AAA; 
+              keyBgColor: #000;
+              keyHoverColor: #CCC;
+              keyPressColor: #FFF;
+              inputColor: #FFF;
+              "
+          position="0 1.608 -1.00"
+          rotation="-80 0 0"
+          scale="1.5 1.5 1.5"
+        ></a-entity>
+        <a-entity id="capsulePast"
+          gltf-model="#capsuleObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity id="capsuleGroundPast"
+          gltf-model="#capsuleGroundObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity id="buttonLeftPast"
+          gltf-model="#buttonLeftObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+          circles-interactive-object="type: highlight;"
+        ></a-entity>
+        <a-entity id="buttonRightPast"
+          gltf-model="#buttonRightObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+          circles-interactive-object="type: highlight;"
+        ></a-entity>
+        <a-entity id="buttonLeftPastSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="-1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity id="buttonRightPastSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity id="buttonSoundOnly"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          visible="false"
+        ></a-entity>
+       </a-entity>
+
+       <a-entity id="screenPast"
+        geometry="primitive: plane; width: 1.6; height: 0.9;"
+        material="src: #screensaver"
+        position="-50 1.9 -1.4"
+        scale="1.1 1.1 1.1"
+        crossorigin="anonymous"
+      >
+        <a-entity
+          id="screenLightPast"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPast; color: #ffffff"
+          position="0 0 0.5"
+        ></a-entity>
+       </a-entity>
+
+       <a-entity id="timeMachinePresent"
+        scale="0.8 0.8 0.8"
+        position="0 0 0"
+        visible="true"
+      >
+        <a-entity
+          id="machinePresent"
+          gltf-model="#machineObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          set-keyboard
+          keep-keyboard
+        >
+          <!-- Change hand to `#hand` for VR. -->
+
+          <a-entity
+            id="keyboard"
+            super-keyboard="
+              hand: #mouseCursor; 
+              imagePath:./assets/images/; 
+              keyColor: #AAA; 
+              keyBgColor: #000;
+              keyHoverColor: #CCC;
+              keyPressColor: #FFF;
+              inputColor: #FFF;
+              "
+            position="0 1.608 -1.00"
+            rotation="-80 0 0"
+            scale="1.5 1.5 1.5"
+          ></a-entity>
+        </a-entity>
+        <a-entity
+          id="capsulePresent"
+          gltf-model="#capsuleObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="capsuleGroundPresent"
+          gltf-model="#capsuleGroundObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="buttonLeftPresent"
+          gltf-model="#buttonLeftObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+          circles-interactive-object="type: highlight;"
+        ></a-entity>
+        <a-entity
+          id="buttonRightPresent"
+          gltf-model="#buttonRightObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+          circles-interactive-object="type: highlight;"
+        ></a-entity>
+        <a-entity
+          id="buttonLeftPresentSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="-1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonRightPresentSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonSoundOnly"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+        ></a-entity>
+       </a-entity>
+
+       <a-entity id="screenPresent"
+        geometry="primitive: plane; width: 1.6; height: 0.9;"
+        material="src: #screensaver"
+        position="0 1.9 -1.41"
+        scale="1.1 1.1 1.1"
+        crossorigin="anonymous"
+        ><a-entity
+          id="screenLightPresent"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
+          position="0 0 0.5"
+        ></a-entity>
+       </a-entity>
+
+       <a-entity id="timeMachineFuture"
+        scale="0.8 0.8 0.8"
+        position="50 0 0"
+        visible="true"
+        keep-keyboard
+      >
+        <!-- Change hand to `#hand` for VR. -->
+
+        <a-entity
+          id="keyboardFuture"
+          super-keyboard="
+              hand: #mouseCursor; 
+              imagePath:./assets/images/; 
+              keyColor: #AAA; 
+              keyBgColor: #000;
+              keyHoverColor: #CCC;
+              keyPressColor: #FFF;
+              inputColor: #FFF;
+              "
+          position="0 1.608 -1.00"
+          rotation="-80 0 0"
+          scale="1.5 1.5 1.5"
+        ></a-entity>
+        <a-entity
+          id="machineFuture"
+          gltf-model="#machineObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="capsuleFuture"
+          gltf-model="#capsuleObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+        ></a-entity>
+        <a-entity
+          id="capsuleGroundFuture"
+          gltf-model="#capsuleGroundObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+        ></a-entity>
+        <a-entity
+          id="buttonLeftFuture"
+          gltf-model="#buttonLeftObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+          circles-interactive-object="type: highlight;"
+        ></a-entity>
+        <a-entity
+          id="buttonRightFuture"
+          gltf-model="#buttonRightObj"
+          scale="1 1 1"
+          position="0 0 0"
+          visible="true"
+          shadow
+          class="button interactive"
+          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+          circles-interactive-object="type: highlight;"
+        ></a-entity>
+        <a-entity
+          id="buttonLeftFutureSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="-1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonRightFutureSound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+          position="1.667 1.773 -1.260"
+        ></a-entity>
+        <a-entity
+          id="buttonSoundOnlySound"
+          sound="src:#buttonSoundSrc; autoplay:false;"
+        ></a-entity>
+       </a-entity>
+
+       <a-entity id="screenFuture"
+        geometry="primitive: plane; width: 1.6; height: 0.9;"
+        material="src: #screensaver"
+        position="50 1.9 -1.4"
+        scale="1.1 1.1 1.1"
+        crossorigin="anonymous"
+      >
+        <a-entity
+          id="screenLightFuture"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenFuture; color: #ffffff"
+          position="0 0 0.5"
+        ></a-entity>
+       </a-entity>
+    </a-scene>
+
+    <!-- Circles' end scripts [REQUIRED] -->
+    <circles-end-scripts />
+  </body>
+</html>

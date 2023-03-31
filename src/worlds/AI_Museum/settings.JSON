@@ -1,0 +1,11 @@
+{
+    "world": {
+        "name": "GenAIration - AI Image Generation WebXR Museum",
+        "type": "hub",
+        "imgPath": "./profile.jpg",
+        "description_short": "AI Image Generation WebXR Museum",
+        "description_long": "Users are able to explore a museum containing a time machine and AI image generator, making their ideas a reality and learning about the process simultaneously.",
+        "tags": [ "AI", "Images", "Museum"],
+        "supportedDevices": [ "mobile", "desktop", "hmd_3dof", "hmd_6dof" ]
+    }
+}

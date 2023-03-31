@@ -46,7 +46,6 @@ AFRAME.registerComponent('circles-artefact', {
     CONTEXT_AF.origRot.z = THREE.MathUtils.radToDeg(CONTEXT_AF.origRot.z);
     CONTEXT_AF.origSca = CONTEXT_AF.el.object3D.scale.clone();
 
-
     if (!CONTEXT_AF.el.classList.contains('narrative')) {
       CONTEXT_AF.el.classList.add('narrative');
     }
