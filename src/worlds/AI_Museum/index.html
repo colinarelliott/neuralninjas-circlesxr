@@ -49,6 +49,7 @@
       <a-assets>
         <!-- ASSETS -->
 
+        <!--FROM HERE: http://texturify.com/stock-photo/sky081-9480.html-->
         <img id="sphericalEnvMap" src="assets/images/sphericalEnvMap.jpg" crossorigin="anonymous" />
 
         <img
@@ -260,6 +261,7 @@
           rotation="0 -90 0"
           scale="1 1 1"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
           circles-artefact="
               inspectScale:     1 1 1;
               textRotationY:    0;
@@ -273,6 +275,7 @@
               label_text:       ELIZA;
               volume:0.4;
               descriptionLookAt: true;" >
+              
         </a-entity>
 
         <a-entity id="neuralNet"
@@ -281,6 +284,7 @@
           rotation="0 -90 0"
           scale="1 1 1"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
           circles-artefact="
               inspectScale:     1 1 1;
               textRotationY:    0;
@@ -303,7 +307,8 @@
         position="-50 0.01 0"
         rotation="0 0 0"
         scale="0.6 0.6 0.6"
-        visible="true">
+        visible="true"
+        >
 
         <a-entity id="pedestal-past-1"
           gltf-model="#past-museum-pedestal"
@@ -311,6 +316,7 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
 
         <!--TEMPORARY TESTING
@@ -331,6 +337,7 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
 
         <a-entity id="pedestal-past-3"
@@ -339,6 +346,7 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
         <a-entity id="pedestal-past-4"
           gltf-model="#past-museum-pedestal"
@@ -346,6 +354,7 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
       </a-entity>
 
@@ -354,7 +363,7 @@
         position="0 0.01 0"
         rotation="0 0 0"
         scale="0.8 0.8 0.8"
-        visible="true">
+        visible="true"> 
 
         <a-entity id="bench-1"
           gltf-model="#bench"
@@ -362,6 +371,7 @@
           rotation="0 0 0"
           scale="0.4 0.4 0.4"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap"
         ></a-entity>
 
         <a-entity id="bench-2"
@@ -370,6 +380,7 @@
           rotation="0 0 0"
           scale="0.4 0.4 0.4"
           visible="true"
+          circles-sphere-env-map="src:#sphericalEnvMap"
         ></a-entity>
 
       </a-entity>
@@ -388,6 +399,14 @@
         visible="true"
         keep-keyboard
       >
+      <a-entity id="pastTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0"
+          circles-description=" title_text_front:       AI Image Generator Time Machine;
+                                description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
+                                title_text_back:        How to Time Travel;
+                                description_text_back:  Click the large red buttons to travel to the past or future of AI image generation museums.;
+                                offset:                 0 0 0;
+                                arrow_position:         down;
+                                lookAtCamera            :true; "></a-entity>
         <a-entity
           id="machinePast"
           gltf-model="#machineObj"
@@ -483,6 +502,14 @@
         position="0 0 0"
         visible="true"
       >
+      <a-entity id="presentTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0"
+          circles-description=" title_text_front:       AI Image Generator Time Machine;
+                                description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
+                                title_text_back:        How to Time Travel;
+                                description_text_back:  Click the large red buttons to travel to the past or future of AI image generation museums.;
+                                offset:                 0 0 0;
+                                arrow_position:         down;
+                                lookAtCamera            :true; "></a-entity>
         <a-entity
           id="machinePresent"
           gltf-model="#machineObj"
@@ -585,6 +612,14 @@
         visible="true"
         keep-keyboard
       >
+      <a-entity id="futureTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0"
+          circles-description=" title_text_front:       AI Image Generator Time Machine;
+                                description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
+                                title_text_back:        How to Time Travel;
+                                description_text_back:  Click the large red buttons to travel to the past or future of AI image generation museums.;
+                                offset:                 0 0 0;
+                                arrow_position:         down;
+                                lookAtCamera            :true; "></a-entity>
         <!-- Change hand to `#hand` for VR. -->
 
         <a-entity
