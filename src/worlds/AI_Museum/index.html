@@ -52,6 +52,8 @@
         <!--FROM HERE: http://texturify.com/stock-photo/sky081-9480.html-->
         <img id="sphericalEnvMap" src="assets/images/sphericalEnvMap.jpg" crossorigin="anonymous" />
 
+        <img id="openailogo" src="assets/images/openai.png" crossorigin="anonymous" />
+
         <img
           id="screensaver"
           src="assets/images/windowsXP.jpg"
@@ -285,6 +287,7 @@
           scale="1 1 1"
           visible="true"
           circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+          animation-mixer="clip: *; loop: pingpong;"
           circles-artefact="
               inspectScale:     1 1 1;
               textRotationY:    0;
@@ -294,7 +297,7 @@
               label_visible:    true;
               arrow_position:   down;
               title:            Neural Network;
-              description:      This is a low-level illustration of a neural network, a machine learning model that can be used to classify data;
+              description:      This is a low-level illustration of a neural network, a machine learning model that can be used to classify data. \n The left nodes represent inputs, travelling through a set of middle 'weights' which shape the results and then on the far right are the output nodes.;
               label_text:       Neural Network;
               volume:0.4;
               descriptionLookAt: true;" >
@@ -357,6 +360,28 @@
           circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
       </a-entity>
+
+      <!--present museum artefacts-->
+
+      <a-entity id="openailogoRight"
+        geometry="primitive: plane; width: 1; height: 1"
+        material="src: #openailogo"
+        position="5.5 4 -12.15"
+        rotation="0 0 0"
+        scale="2.6 2.6 2.6"
+        visible="true"
+        ></a-entity>
+
+      <a-entity id="openailogoLeft"
+        geometry="primitive: plane; width: 1; height: 1"
+        material="src: #openailogo"
+        position="-6 4 -12.15"
+        rotation="0 0 0"
+        scale="2.6 2.6 2.6"
+        visible="true"
+      ></a-entity>
+
+      <!--end present museum artefacts-->
 
       <a-entity id="museumPresent"
         gltf-model="#present-museum-model"
