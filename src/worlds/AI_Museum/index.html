@@ -49,6 +49,8 @@
       <a-assets>
         <!-- ASSETS -->
 
+        <img id="sphericalEnvMap" src="assets/images/sphericalEnvMap.jpg" crossorigin="anonymous" />
+
         <img
           id="screensaver"
           src="assets/images/windowsXP.jpg"
@@ -227,8 +229,23 @@
 
       <!--Environment-->
       <a-entity id="env"
-        environment="preset: moon; groundYScale: 0; dressing: none;"
+        position="0 -2 0"
+        environment="preset: forest; groundYScale: 0; dressing: none; skyType: gradient; skyColor: #00CCEE; horizonColor: #FFAA90; groundColor: #444444; groundColor2: #333333;"
       ></a-entity>
+
+      <a-entity id='skyBoxPresent'
+                rotation='0 90 0'
+                position="0 12.5 -7"
+                geometry='primitive:sphere; radius:25; segments-height:24; segments-width:24;'
+                material='shader:flat; src:#sphericalEnvMap; side:back;'>
+      </a-entity>
+      
+      <a-entity id='skyBoxPast'
+                rotation='0 90 0'
+                position="-50 12.5 0"
+                geometry='primitive:sphere; radius:25; segments-height:24; segments-width:24;'
+                material='shader:flat; src:#sphericalEnvMap; side:back;'>
+      </a-entity>
 
       <a-entity id="navmesh"
         nav-mesh
