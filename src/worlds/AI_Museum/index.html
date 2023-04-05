@@ -13,13 +13,13 @@
     <!-- Circles' head scripts [REQUIRED] -->
     <circles-start-scripts />
 
-    <!--Network Manager-->
+    <!--Libraries-->
+    <script src="./libs/aframe-super-keyboard.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+
+    <!--Network scripts-->
     <script src="scripts/networkManager.js"></script>
-
     <script src="scripts/networkCube.js"></script>
-
-    <!-- Animation scripts  -->
-    <!--<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js" crossorigin="anonymous"></script> NO NEED TO INSTALL THIS, CIRCLES DOES IT FOR YOU-->
 
     <!--AI Image Generator script-->
     <script src="scripts/openaiImageGenerator.js"></script>
@@ -27,17 +27,15 @@
     <!--Teleportation script-->
     <script src="scripts/timeTravel.js"></script>
 
-    <!--Environment script-->
-    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-    <!--Libs-->
-    <script src="./libs/aframe-super-keyboard.min.js"></script>
-
-    <!--Keyboard Scripts-->
+    <!--Keyboard scripts-->
     <script src="./scripts/setupKeyboards.js"></script>
     <script src="./scripts/keepKeyboard.js"></script>
 
     <!--Navmesh Handler script-->
     <script src="./scripts/navMeshHandler.js"></script>
+
+    <!--Optimization script-->
+    <script src="./scripts/optimizations.js"></script>
   </head>
 
   <body>
@@ -188,7 +186,7 @@
       <circles-manager-avatar />
 
       <!--EXPERIENCE MANAGER, INCLUDE GENERAL SCRIPTS HERE-->
-      <a-entity id="experience-manager" time-travel network-manager nav-mesh-handler></a-entity>
+      <a-entity id="experience-manager" time-travel network-manager nav-mesh-handler optimizer></a-entity>
 
       <!--AI Image Generator-->
       <a-entity id="open-ai-image-gen" open-ai-image-gen></a-entity>
@@ -237,6 +235,7 @@
       ></a-entity>
 
       <a-entity id='skyBoxPresent'
+                class="presentProp"
                 rotation='0 90 0'
                 position="0 12.5 -7"
                 geometry='primitive:sphere; radius:25; segments-height:24; segments-width:24;'
@@ -244,6 +243,7 @@
       </a-entity>
       
       <a-entity id='skyBoxPast'
+                class="pastProp"
                 rotation='0 90 0'
                 position="-50 12.5 0"
                 geometry='primitive:sphere; radius:25; segments-height:24; segments-width:24;'
@@ -258,6 +258,7 @@
       <!--past museum artefacts-->
 
       <a-entity id="eliza-computer"
+          class="pastProp"
           gltf-model="#ELIZA"
           position="-44.436029999999995 1.3659500000000016 1.8436100000000024"
           rotation="0 -90 0"
@@ -281,6 +282,7 @@
         </a-entity>
 
         <a-entity id="neuralNet"
+          class="pastProp"
           gltf-model="#neuralNetwork"
           position="-55.19985 1.29681 -1.79894"
           rotation="0 -90 0"
@@ -314,6 +316,7 @@
         >
 
         <a-entity id="pedestal-past-1"
+          class="pastProp"
           gltf-model="#past-museum-pedestal"
           position="9 -0.25 -3"
           rotation="0 0 0"
@@ -335,6 +338,7 @@
         ></a-entity> -->
 
         <a-entity id="pedestal-past-2"
+          class="pastProp"
           gltf-model="#past-museum-pedestal"
           position="9 -0.25 3"
           rotation="0 0 0"
@@ -344,6 +348,7 @@
         ></a-entity>
 
         <a-entity id="pedestal-past-3"
+          class="pastProp"
           gltf-model="#past-museum-pedestal"
           position="-9 -0.25 3"
           rotation="0 0 0"
@@ -351,7 +356,9 @@
           visible="true"
           circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
+          
         <a-entity id="pedestal-past-4"
+          class="pastProp"
           gltf-model="#past-museum-pedestal"
           position="-9 -0.25 -3"
           rotation="0 0 0"
@@ -364,6 +371,7 @@
       <!--present museum artefacts-->
 
       <a-entity id="openailogoRight"
+        class="presentProp"
         geometry="primitive: plane; width: 1; height: 1"
         material="src: #openailogo"
         position="5.5 4 -12.15"
@@ -373,6 +381,7 @@
         ></a-entity>
 
       <a-entity id="openailogoLeft"
+        class="presentProp"
         geometry="primitive: plane; width: 1; height: 1"
         material="src: #openailogo"
         position="-6 4 -12.15"
@@ -391,6 +400,7 @@
         visible="true"> 
 
         <a-entity id="bench-1"
+          class="presentProp"
           gltf-model="#bench"
           position="2 0 -7"
           rotation="0 0 0"
@@ -400,6 +410,7 @@
         ></a-entity>
 
         <a-entity id="bench-2"
+          class="presentProp"
           gltf-model="#bench"
           position="-2 0 -7"
           rotation="0 0 0"
@@ -419,12 +430,14 @@
       ></a-entity>
 
       <a-entity id="timeMachinePast"
+        class="pastProp"
         scale="0.8 0.8 0.8"
         position="-50 0 0"
         visible="true"
         keep-keyboard
       >
       <a-entity id="pastTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0"
+          class="pastProp"
           circles-description=" title_text_front:       AI Image Generator Time Machine;
                                 description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
                                 title_text_back:        How to Time Travel;
@@ -434,6 +447,7 @@
                                 lookAtCamera            :true; "></a-entity>
         <a-entity
           id="machinePast"
+          class="pastProp"
           gltf-model="#machineObj"
           position="0 0 0"
           rotation="0 0 0"
@@ -446,6 +460,7 @@
           <a-sphere radius="0.03"></a-sphere>
         </a-entity>
         <a-entity id="keyboardPast"
+          class="pastProp"
           super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
@@ -460,6 +475,7 @@
           scale="1.5 1.5 1.5"
         ></a-entity>
         <a-entity id="capsulePast"
+          class="pastProp"
           gltf-model="#capsuleObj"
           scale="1 1 1"
           position="0 0 0"
@@ -468,6 +484,7 @@
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
         ></a-entity>
         <a-entity id="capsuleGroundPast"
+          class="pastProp"
           gltf-model="#capsuleGroundObj"
           scale="1 1 1"
           position="0 0 0"
@@ -475,6 +492,7 @@
           shadow
         ></a-entity>
         <a-entity id="buttonLeftPast"
+          class="pastProp"
           gltf-model="#buttonLeftObj"
           scale="1 1 1"
           position="0 0 0"
@@ -485,6 +503,7 @@
           circles-interactive-object="type: highlight;"
         ></a-entity>
         <a-entity id="buttonRightPast"
+          class="pastProp"
           gltf-model="#buttonRightObj"
           scale="1 1 1"
           position="0 0 0"
@@ -509,6 +528,7 @@
        </a-entity>
 
        <a-entity id="screenPast"
+        class="pastProp"
         geometry="primitive: plane; width: 1.6; height: 0.9;"
         material="src: #screensaver"
         position="-50 1.9 -1.4"
@@ -517,17 +537,20 @@
       >
         <a-entity
           id="screenLightPast"
+          class="pastProp"
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPast; color: #ffffff"
           position="0 0 0.5"
         ></a-entity>
        </a-entity>
 
        <a-entity id="timeMachinePresent"
+        class="presentProp"
         scale="0.8 0.8 0.8"
         position="0 0 0"
         visible="true"
       >
       <a-entity id="presentTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0"
+          class="presentProp"
           circles-description=" title_text_front:       AI Image Generator Time Machine;
                                 description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
                                 title_text_back:        How to Time Travel;
@@ -537,6 +560,7 @@
                                 lookAtCamera            :true; "></a-entity>
         <a-entity
           id="machinePresent"
+          class="presentProp"
           gltf-model="#machineObj"
           scale="1 1 1"
           position="0 0 0"
@@ -549,6 +573,7 @@
 
           <a-entity
             id="keyboard"
+            class="presentProp"
             super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
@@ -565,6 +590,7 @@
         </a-entity>
         <a-entity
           id="capsulePresent"
+          class="presentProp"
           gltf-model="#capsuleObj"
           scale="1 1 1"
           position="0 0 0"
@@ -574,6 +600,7 @@
         ></a-entity>
         <a-entity
           id="capsuleGroundPresent"
+          class="presentProp"
           gltf-model="#capsuleGroundObj"
           scale="1 1 1"
           position="0 0 0"
@@ -582,6 +609,7 @@
         ></a-entity>
         <a-entity
           id="buttonLeftPresent"
+          class="presentProp"
           gltf-model="#buttonLeftObj"
           scale="1 1 1"
           position="0 0 0"
@@ -593,6 +621,7 @@
         ></a-entity>
         <a-entity
           id="buttonRightPresent"
+          class="presentProp"
           gltf-model="#buttonRightObj"
           scale="1 1 1"
           position="0 0 0"
@@ -619,6 +648,7 @@
        </a-entity>
 
        <a-entity id="screenPresent"
+        class="presentProp"
         geometry="primitive: plane; width: 1.6; height: 0.9;"
         material="src: #screensaver"
         position="0 1.9 -1.41"
@@ -626,18 +656,21 @@
         crossorigin="anonymous"
         ><a-entity
           id="screenLightPresent"
+          class="presentProp"
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
           position="0 0 0.5"
         ></a-entity>
        </a-entity>
 
        <a-entity id="timeMachineFuture"
+        class="futureProp"
         scale="0.8 0.8 0.8"
         position="50 0 0"
         visible="true"
         keep-keyboard
       >
       <a-entity id="futureTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0"
+          class="futureProp"
           circles-description=" title_text_front:       AI Image Generator Time Machine;
                                 description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
                                 title_text_back:        How to Time Travel;
@@ -649,6 +682,7 @@
 
         <a-entity
           id="keyboardFuture"
+          class="futureProp"
           super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
@@ -664,6 +698,7 @@
         ></a-entity>
         <a-entity
           id="machineFuture"
+          class="futureProp"
           gltf-model="#machineObj"
           scale="1 1 1"
           position="0 0 0"
@@ -672,6 +707,7 @@
         ></a-entity>
         <a-entity
           id="capsuleFuture"
+          class="futureProp"
           gltf-model="#capsuleObj"
           scale="1 1 1"
           position="0 0 0"
@@ -681,6 +717,7 @@
         ></a-entity>
         <a-entity
           id="capsuleGroundFuture"
+          class="futureProp"
           gltf-model="#capsuleGroundObj"
           scale="1 1 1"
           position="0 0 0"
@@ -689,6 +726,7 @@
         ></a-entity>
         <a-entity
           id="buttonLeftFuture"
+          class="futureProp"
           gltf-model="#buttonLeftObj"
           scale="1 1 1"
           position="0 0 0"
@@ -700,6 +738,7 @@
         ></a-entity>
         <a-entity
           id="buttonRightFuture"
+          class="futureProp"
           gltf-model="#buttonRightObj"
           scale="1 1 1"
           position="0 0 0"
@@ -726,6 +765,7 @@
        </a-entity>
 
        <a-entity id="screenFuture"
+        class="futureProp"
         geometry="primitive: plane; width: 1.6; height: 0.9;"
         material="src: #screensaver"
         position="50 1.9 -1.4"
@@ -734,6 +774,7 @@
       >
         <a-entity
           id="screenLightFuture"
+          class="futureProp"
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenFuture; color: #ffffff"
           position="0 0 0.5"
         ></a-entity>
