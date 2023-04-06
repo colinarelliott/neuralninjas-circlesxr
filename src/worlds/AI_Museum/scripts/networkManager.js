@@ -12,6 +12,9 @@ AFRAME.registerComponent('network-manager', {
         pastTP : {type: 'boolean', default: false},
         presentTP : {type: 'boolean', default: false},
         futureTP : {type: 'boolean', default: false},
+        imageUrl : {type: 'string', default: ''},
+        imageUpdated : {type: 'boolean', default: false},
+        imageGenerating : {type: 'boolean', default: false},
     },
 
     init: function () {
@@ -70,6 +73,9 @@ AFRAME.registerComponent('network-manager', {
                     if (syncData.data.pastTP !== undefined) {THIS.data.pastTP = syncData.data.pastTP};
                     if (syncData.data.presentTP !== undefined) {THIS.data.presentTP = syncData.data.presentTP};
                     if (syncData.data.futureTP !== undefined) {THIS.data.futureTP = syncData.data.futureTP};
+                    if (syncData.data.imageUrl !== undefined) {THIS.data.imageUrl = syncData.data.imageUrl};
+                    if (syncData.data.imageUpdated !== undefined) {THIS.data.imageUpdated = syncData.data.imageUpdated};
+                    if (syncData.data.imageGenerating !== undefined) {THIS.data.imageGenerating = syncData.data.imageGenerating};
                     //END SYNC VARIABLES
 
                 }
@@ -95,15 +101,18 @@ AFRAME.registerComponent('network-manager', {
         if (updateData.data.pastTP !== undefined) {THIS.data.pastTP = updateData.data.pastTP};
         if (updateData.data.presentTP !== undefined) {THIS.data.presentTP = updateData.data.presentTP};
         if (updateData.data.futureTP !== undefined) {THIS.data.futureTP = updateData.data.futureTP};
+        if (updateData.data.imageUrl !== undefined) {THIS.data.imageUrl = updateData.data.imageUrl};
+        if (updateData.data.imageUpdated !== undefined) {THIS.data.imageUpdated = updateData.data.imageUpdated};
+        if (updateData.data.imageGenerating !== undefined) {THIS.data.imageGenerating = updateData.data.imageGenerating};
 
         //send the update to the circles socket
         let dataToUpdate = THIS.data;
         THIS.socket.emit(CIRCLES.EVENTS.SEND_DATA_SYNC, {data: dataToUpdate, room: THIS.data.room, world: THIS.data.world});
     },
 
-    //this function is called every 500ms, so far just for debug
-    ticker: function () {
+    //debugging function to print the data to the console
+    ticker: function() {
         const THIS = this;
-        //console.log(THIS.data);
+        console.log(THIS.data);
     },
 });
