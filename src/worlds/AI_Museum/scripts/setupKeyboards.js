@@ -20,10 +20,9 @@ AFRAME.registerComponent("set-keyboard", {
       document.querySelector("#keyboardFuture").components["super-keyboard"];
     const imageGenerator = document.querySelector("[open-ai-image-gen]")
       .components["open-ai-image-gen"];
-    const scene = document.querySelector("a-scene");
 
     keyboard.addEventListener("superkeyboardchange", () => {
-      //the text changed, update the big prompt text?
+      setTimeout(CONTEXT.networkSync(), 200);
     });
 
     //When the user presses enter on the keyboard, generate an image
@@ -40,8 +39,9 @@ AFRAME.registerComponent("set-keyboard", {
       keyboardComponent.data.show = true;
       keyboard.setAttribute("visible", true);
     });
+
     keyboardPast.addEventListener("superkeyboardchange", () => {
-      //the text changed, update the big prompt text?
+      setTimeout(CONTEXT.networkSync(), 200);
     });
 
     //When the user presses enter on the keyboard, generate an image
@@ -59,7 +59,7 @@ AFRAME.registerComponent("set-keyboard", {
       keyboardPast.setAttribute("visible", true);
     });
     keyboardFuture.addEventListener("superkeyboardchange", () => {
-      //the text changed, update the big prompt text?
+      setTimeout(CONTEXT.networkSync(), 200);
     });
 
     //When the user presses enter on the keyboard, generate an image
@@ -70,7 +70,6 @@ AFRAME.registerComponent("set-keyboard", {
         n: 1,
         size: "1024x1024",
       });
-      //IDK HOW TO GET THE KEYBOARD TO STOP DISSAPEARING! I'M GONNA GO TO BED.
       keyboardFutureComponent.data.value = "";
       CONTEXT.data.keyboardFutureValue = "";
       keyboardFutureComponent.data.show = true;
@@ -78,16 +77,32 @@ AFRAME.registerComponent("set-keyboard", {
     });
   },
 
+  networkSync : function (data) {
+    const CONTEXT = this;
+    const networkManager = document.querySelector("#experience-manager").components["network-manager"];
+
+    //Send the keyboard value to the server
+    networkManager.sendUpdate({
+      data: { 
+        keyboardValue: CONTEXT.data.keyboardValue,
+        keyboardPastValue: CONTEXT.data.keyboardPastValue,
+        keyboardFutureValue: CONTEXT.data.keyboardFutureValue,
+      },
+    });
+  },
+
   tick: function () {
     const CONTEXT = this;
+
     const keyboardComponent =
       document.querySelector("#keyboard").components["super-keyboard"];
-    CONTEXT.data.keyboardValue = keyboardComponent.data.value;
     const keyboardPastComponent =
       document.querySelector("#keyboardPast").components["super-keyboard"];
-    CONTEXT.data.keyboardPastValue = keyboardPastComponent.data.value;
     const keyboardFutureComponent =
       document.querySelector("#keyboardFuture").components["super-keyboard"];
-    CONTEXT.data.keyboardFutureValue = keyboardFutureComponent.data.value;
+    
+    CONTEXT.data.keyboardValue = keyboardComponent.data.label;
+    CONTEXT.data.keyboardPastValue = keyboardPastComponent.data.label;
+    CONTEXT.data.keyboardFutureValue = keyboardFutureComponent.data.label;
   },
 });
