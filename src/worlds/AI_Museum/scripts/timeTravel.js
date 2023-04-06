@@ -57,7 +57,6 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
                 let pos = player.getAttribute('position');
                 player.setAttribute('position', `${pos.x + data.detail.x} ${pos.y} ${pos.z}`);
             }, 5000);
-            console.log("teleport event triggered");
         });
 
         //CUSTOM button-click event
@@ -68,10 +67,7 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
             loc.addEventListener('animation-finished', function () {
                 loc.removeAttribute('animation-mixer');
             }, { once: true }); //this animation is not playing
-            console.log(loc.getAttribute('animation-mixer'));
             document.querySelector(`#${data.detail.button}Sound`).components.sound.playSound();
-            console.log(`#${data.detail.button}Sound`);
-            console.log("button-click event triggered");
         });
 
         //CUSTOM initiate-teleport event
@@ -81,7 +77,6 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
             capsuleCurrent.addEventListener('animation-finished', function () {
                 capsuleCurrent.removeAttribute('animation-mixer');
             }, { once: true });
-            console.log("initiate-teleport event triggered");
         });
 
         //BUTTON CLICK LISTENERS next troubleshooting step: if getTPAllowed is true, then allow teleportation <
@@ -91,7 +86,10 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
         });
 
         buttonRightPast.addEventListener('click', function () {
+            //grab some other components
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
+            const optimize = document.querySelector('#experience-manager').components['optimizer'];
+
             if (networkManager.data.tpAllowed === true) {
                 networkManager.sendUpdate({
                     data: {
@@ -100,10 +98,15 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
                         presentTP: true,
                     } //set tpAllowed to false in networkManager
                 });
+                
                 CONTEXT.el.dispatchEvent(CONTEXT.clickPastRight);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpast);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportForward);
+
+                setTimeout(function () {
+                    optimize.showPresent(); //unhide the present museum partway through the teleportation
+                }, 3000);
 
                 setTimeout(function () {
                     //set tpAllowed to true after 5 seconds in networkManager
@@ -120,6 +123,8 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
 
         buttonLeftPresent.addEventListener('click', function () {
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
+            const optimize = document.querySelector('#experience-manager').components['optimizer'];
+
             if (networkManager.data.tpAllowed === true) {
                 networkManager.sendUpdate({
                     data: {
@@ -132,6 +137,10 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpast);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportBackward);
+
+                setTimeout(function () {
+                    optimize.showPast(); //unhide the present museum partway through the teleportation
+                }, 3000);
 
                 setTimeout(function () {
                     networkManager.sendUpdate({
@@ -147,6 +156,8 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
 
         buttonRightPresent.addEventListener('click', function () {
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
+            const optimize = document.querySelector('#experience-manager').components['optimizer'];
+
             if (networkManager.data.tpAllowed === true) {
                 //send data to networkManager
                 networkManager.sendUpdate({
@@ -163,6 +174,10 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportForward);
 
+                setTimeout(function () {
+                    optimize.showFuture(); //unhide the present museum partway through the teleportation
+                }, 3000);
+
                 //reset data in networkManager after 5 seconds
                 setTimeout(function () {
                     networkManager.sendUpdate({
@@ -178,6 +193,8 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
 
         buttonLeftFuture.addEventListener('click', function () {
             const networkManager = document.querySelector('#experience-manager').components['network-manager'];
+            const optimize = document.querySelector('#experience-manager').components['optimizer'];
+            
             if (networkManager.data.tpAllowed === true) {
                 networkManager.sendUpdate({
                     data: {
@@ -190,6 +207,10 @@ AFRAME.registerComponent('time-travel', { //attached to the experience-manager
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPfuture);
                 CONTEXT.el.dispatchEvent(CONTEXT.initTPpresent);
                 CONTEXT.el.dispatchEvent(CONTEXT.teleportBackward);
+
+                setTimeout(function () {
+                    optimize.showPresent(); //unhide the present museum partway through the teleportation
+                }, 3000);
 
                 setTimeout(function () {
                     networkManager.sendUpdate({
