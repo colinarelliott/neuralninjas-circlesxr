@@ -12,15 +12,16 @@ AFRAME.registerComponent("open-ai-image-gen", {
   init: function () {
     //initialize context and get nodes
     const CONTEXT = this;
+    const networkManager = document.querySelector("#experience-manager").components["network-manager"];
+
     CONTEXT.updateImageGenerators = CONTEXT.updateImageGenerators.bind(CONTEXT);
     CONTEXT.generateImage = CONTEXT.generateImage.bind(CONTEXT);
+    CONTEXT.imageGenerating = CONTEXT.imageGenerating.bind(CONTEXT);
+    CONTEXT.imageUpdated = CONTEXT.imageUpdated.bind(CONTEXT);
+
     CONTEXT.screenPast = document.querySelector("#screenPast");
     CONTEXT.screenPresent = document.querySelector("#screenPresent");
     CONTEXT.screenFuture = document.querySelector("#screenFuture");
-
-    //bind the functions to CONTEXT
-    CONTEXT.generateImage = CONTEXT.generateImage.bind(CONTEXT);
-    CONTEXT.imageGenerating = CONTEXT.imageGenerating.bind(CONTEXT);
 
     setInterval(function () {
       CONTEXT.updateImageGenerators();
@@ -120,9 +121,10 @@ AFRAME.registerComponent("open-ai-image-gen", {
 
   imageUpdated: function (imageUrl) {
     const CONTEXT = this;
-    const networkManager = document.querySelector("#experience-manager").components["network-manager"];
     //the image is updated, so we need to remove the loading circle
-    document.querySelector("#loadingCircle").remove();
+    if (document.querySelector("#loadingCircle") !== null) {
+      document.querySelector("#loadingCircle").remove();
+    }
 
     let herokuUrl = "https://murmuring-falls-73541.herokuapp.com/"
 
