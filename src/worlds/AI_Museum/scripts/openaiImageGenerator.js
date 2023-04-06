@@ -53,6 +53,10 @@ AFRAME.registerComponent("open-ai-image-gen", {
           CONTEXT.imageUpdated(networkManager.data.imageUrl);
       }, 200); // a little delay to make everyone sees it turn true
     }
+
+    if (networkManager.data.imageUrl !== "") {
+      CONTEXT.imageUpdated(networkManager.data.imageUrl);
+    }
   },
 
   generateImage: function (data) {
