@@ -8,21 +8,68 @@ AFRAME.registerComponent("open-ai-image-gen", {
     n: { type: "number", default: 1 },
     size: { type: "string", default: "1024x1024" },
   },
+
   init: function () {
     //initialize context and get nodes
     const CONTEXT = this;
+    const networkManager = document.querySelector("#experience-manager").components["network-manager"];
+
+    CONTEXT.updateImageGenerators = CONTEXT.updateImageGenerators.bind(CONTEXT);
     CONTEXT.generateImage = CONTEXT.generateImage.bind(CONTEXT);
+    CONTEXT.imageGenerating = CONTEXT.imageGenerating.bind(CONTEXT);
+    CONTEXT.imageUpdated = CONTEXT.imageUpdated.bind(CONTEXT);
+
     CONTEXT.screenPast = document.querySelector("#screenPast");
     CONTEXT.screenPresent = document.querySelector("#screenPresent");
     CONTEXT.screenFuture = document.querySelector("#screenFuture");
-    CONTEXT.generateImage(CONTEXT.data); //generates the ninja image at the beginning. can be removed later!
+
+    setInterval(function () {
+      CONTEXT.updateImageGenerators();
+    }, 50);
+  },
+
+  updateImageGenerators: function () {
+    const CONTEXT = this;
+    const networkManager = document.querySelector("#experience-manager").components["network-manager"];
+
+    if (networkManager.data.imageGenerating === true) {
+      setTimeout(function () {
+          networkManager.sendUpdate( {
+            data: {
+              imageGenerating: false,
+            }
+          });
+          CONTEXT.imageGenerating();
+      }, 200); // a little delay to make everyone sees it turn true
+    }
+
+    if (networkManager.data.imageUpdated === true) {
+      setTimeout(function () {
+          networkManager.sendUpdate( {
+            data: {
+              imageUpdated: false,
+            }
+          });
+          CONTEXT.imageUpdated(networkManager.data.imageUrl);
+      }, 200); // a little delay to make everyone sees it turn true
+    }
+
+    if (networkManager.data.imageUrl !== "") {
+      CONTEXT.imageUpdated(networkManager.data.imageUrl);
+    }
   },
 
   generateImage: function (data) {
+    const networkManager = document.querySelector("#experience-manager").components["network-manager"];
     let imageUrl = "";
-    let herokuUrl = "https://murmuring-falls-73541.herokuapp.com/"
     const hostname = window.location.origin;
     const CONTEXT = this;
+
+    networkManager.sendUpdate( {
+      data: {
+        imageGenerating: true,
+      }
+    });
 
     fetch(hostname+"/ai_image", {
       method: "POST",
@@ -40,24 +87,28 @@ AFRAME.registerComponent("open-ai-image-gen", {
     .then((data) => {
       console.log("Success:", data);
       imageUrl = data.url;
+      const networkManager = document.querySelector("#experience-manager").components["network-manager"];
+      setTimeout(function () {
+        networkManager.sendUpdate( {
+          data: {
+            imageUrl: imageUrl,
+            imageUpdated: true
+          }
+          
+        });
+      }, 200); // a little delay to make everyone sees it turn true
+      CONTEXT.imageUpdated(imageUrl);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 
-    //just in case we want to download it...
-    async function downloadImage(imageSrc) {
-      const image = await fetch(imageSrc);
-      const imageBlog = await image.blob();
-      const imageURL = URL.createObjectURL(imageBlog);
-    
-      const link = document.createElement('a');
-      link.href = imageURL;
-      link.download = 'image';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    CONTEXT.imageGenerating();
+  },
+
+  imageGenerating: function (data) {
+    const CONTEXT = this;
+    //the image is getting generated, so we need to show the loading circle
 
     //spawn a new entity with the loading circle video on it and then remove it when the image is loaded
     const loadingCircle = document.createElement("a-video");
@@ -70,17 +121,21 @@ AFRAME.registerComponent("open-ai-image-gen", {
     loadingCircle.setAttribute("id", "loadingCircle");
     document.querySelector("a-scene").appendChild(loadingCircle);
 
-    setTimeout(() => {
-      //set the image on the screens
-      CONTEXT.screenPast.setAttribute("material", "src: "+ herokuUrl+imageUrl);
-      CONTEXT.screenPresent.setAttribute("material", "src: "+ herokuUrl+imageUrl);
-      CONTEXT.screenFuture.setAttribute("material", "src: "+ herokuUrl+imageUrl);
-    }, 10000);
+  },
 
-    setTimeout(() => {
-      //remove the loading circle
+  imageUpdated: function (imageUrl) {
+    const CONTEXT = this;
+    //the image is updated, so we need to remove the loading circle
+    if (document.querySelector("#loadingCircle") !== null) {
       document.querySelector("#loadingCircle").remove();
-    }, 11000);
+    }
+
+    let herokuUrl = "https://murmuring-falls-73541.herokuapp.com/"
+
+    //set the image on the screens
+    CONTEXT.screenPast.setAttribute("material", "src: "+ herokuUrl+imageUrl);
+    CONTEXT.screenPresent.setAttribute("material", "src: "+ herokuUrl+imageUrl);
+    CONTEXT.screenFuture.setAttribute("material", "src: "+ herokuUrl+imageUrl);
   },
 });
 
