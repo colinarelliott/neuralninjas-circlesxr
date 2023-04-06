@@ -5,14 +5,16 @@ AFRAME.registerComponent("keep-keyboard", {
     const keyboardPast = document.querySelector("#keyboardPast");
     const keyboardFuture = document.querySelector("#keyboardFuture");
 
+    //listen for a click on the PRESENT keyboard, set the keyboard to show
     el.addEventListener("click", () => {
-      console.log("Clicked");
       keyboard.setAttribute("super-keyboard", "");
       keyboard.setAttribute(
         "super-keyboard",
         "hand: #mouseCursor;imagePath:./assets/images/; show:true;"
       );
     });
+
+    //listen for a click on the PAST keyboard, set the keyboard to show
     el.addEventListener("click", () => {
       keyboardPast.setAttribute("super-keyboard", "");
       keyboardPast.setAttribute(
@@ -20,8 +22,9 @@ AFRAME.registerComponent("keep-keyboard", {
         "hand: #mouseCursor;imagePath:./assets/images/; show:true;"
       );
     });
+
+    //listen for a click on the FUTURE keyboard, set the keyboard to show
     el.addEventListener("click", () => {
-      console.log("Clicked");
       keyboardFuture.setAttribute("super-keyboard", "");
       keyboardFuture.setAttribute(
         "super-keyboard",
@@ -29,22 +32,22 @@ AFRAME.registerComponent("keep-keyboard", {
       );
     });
 
+    //RESPAWN the keyboard when it is closed
     keyboard.addEventListener("superkeyboardinput", () => {
-      console.log(keyboard.getAttribute("super-keyboard").value);
       keyboard.setAttribute(
         "super-keyboard",
         "hand: #mouseCursor; imagePath:./; value: "
       );
     });
+    //RESPAWN the keyboard when it is closed (future)
     keyboardFuture.addEventListener("superkeyboardinput", () => {
-      console.log(keyboard.getAttribute("super-keyboard").value);
       keyboardFuture.setAttribute(
         "super-keyboard",
         "hand: #mouseCursor; imagePath:./; value: "
       );
     });
+    //RESPAWN the keyboard when it is closed (past)
     keyboardPast.addEventListener("superkeyboardinput", () => {
-      console.log(keyboard.getAttribute("super-keyboard").value);
       keyboardPast.setAttribute(
         "super-keyboard",
         "hand: #mouseCursor; imagePath:./; value: "
