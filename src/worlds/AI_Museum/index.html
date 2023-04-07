@@ -34,6 +34,9 @@
     <!--Navmesh Handler script-->
     <script src="./scripts/navMeshHandler.js"></script>
 
+    <!--Music Player script-->
+    <script src="./scripts/musicPlayer.js"></script>
+
     <!--Optimization script-->
     <script src="./scripts/optimizations.js"></script>
   </head>
@@ -43,7 +46,7 @@
     <circles-start-ui />
 
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
-    <a-scene id="scene" circles_scene_properties stats>
+  <a-scene id="scene" circles_scene_properties stats>
       <a-assets>
         <!-- ASSETS -->
 
@@ -87,38 +90,38 @@
         ></audio>
 
         <audio
-          id="presentMuseumMusic1"
+          id="presentMuseumMusic4"
           src="assets/music/presentMuseum_AfterRainfall_369.mp3"
           preload="auto"
           crossorigin="anonymous"
         ></audio>
         <audio
-          id="presentMuseumMusic2"
+          id="presentMuseumMusic5"
           src="assets/music/presentMuseum_EveryDayHasaKeystone_369.mp3"
           preload="auto"
           crossorigin="anonymous"
         ></audio>
         <audio
-          id="presentMuseumMusic3"
+          id="presentMuseumMusic6"
           src="assets/music/presentMuseum_ForestCanopy_369.mp3"
           preload="auto"
           crossorigin="anonymous"
         ></audio>
 
         <audio
-          id="futureMuseumMusic1"
+          id="futureMuseumMusic7"
           src="assets/music/futureMuseum_Atoms_DEX1200.mp3"
           preload="auto"
           crossorigin="anonymous"
         ></audio>
         <audio
-          id="futureMuseumMusic2"
+          id="futureMuseumMusic8"
           src="assets/music/futureMuseum_Frankel_Syntropy.mp3"
           preload="auto"
           crossorigin="anonymous"
         ></audio>
         <audio
-          id="futureMuseumMusic3"
+          id="futureMuseumMusic9"
           src="assets/music/futureMuseum_Peacewalker_ELFL.mp3"
           preload="auto"
           crossorigin="anonymous"
@@ -249,6 +252,25 @@
 
       <!--AI Image Generator-->
       <a-entity id="open-ai-image-gen" open-ai-image-gen></a-entity>
+
+      <!--Music Player-->
+      <a-entity id="music-player-present"
+        circles-sound="src: #presentMuseumMusic4; autoplay: true; loop: false; volume: 0.02; type: diegetic; state: 'play';"
+        music-player
+        position="0 5 -1"
+      ></a-entity>
+
+      <a-entity id="music-player-past"
+        circles-sound="src: #pastMuseumMusic1; autoplay: true; loop: false; volume: 0.02; type: diegetic; state: 'play';"
+        music-player
+        position="-50 5 -1"
+      ></a-entity>
+
+      <a-entity id="music-player-future"
+        circles-sound="src: #futureMuseumMusic7; autoplay: true; loop: false; volume: 0.02; type: diegetic; state: 'play';"
+        music-player
+        position="60 5 -1"
+      ></a-entity>
 
       <!--Circles Checkpoints-->
       <!-- TIME MACHINE CHECKPOINTS -->
@@ -573,15 +595,15 @@
           circles-interactive-object="type: highlight;"
         ></a-entity>
         <a-entity id="buttonLeftPastSound"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
           position="-1.667 1.773 -1.260"
         ></a-entity>
         <a-entity id="buttonRightPastSound"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
           position="1.667 1.773 -1.260"
         ></a-entity>
         <a-entity id="buttonSoundOnly"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
           visible="false"
         ></a-entity>
        </a-entity>
@@ -692,17 +714,17 @@
         ></a-entity>
         <a-entity
           id="buttonLeftPresentSound"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
           position="-1.667 1.773 -1.260"
         ></a-entity>
         <a-entity
           id="buttonRightPresentSound"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
           position="1.667 1.773 -1.260"
         ></a-entity>
         <a-entity
           id="buttonSoundOnly"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
         ></a-entity>
        </a-entity>
 
@@ -809,17 +831,17 @@
         ></a-entity>
         <a-entity
           id="buttonLeftFutureSound"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
           position="-1.667 1.773 -1.260"
         ></a-entity>
         <a-entity
           id="buttonRightFutureSound"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
           position="1.667 1.773 -1.260"
         ></a-entity>
         <a-entity
           id="buttonSoundOnlySound"
-          sound="src:#buttonSoundSrc; autoplay:false;"
+          sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
         ></a-entity>
        </a-entity>
 
