@@ -19,9 +19,9 @@ AFRAME.registerComponent("music-player", {
 
         //add a listener for when the song ends
         THIS.el.addEventListener("sound-ended", function (data) {
-            console.log("ended: " + data.detail.name);
+            console.log(data.detail);
             //if the song that ended was the one that this entity was playing
-            if (data.detail.name === THIS.music+THIS.numero) {
+            if (data.id === THIS.music+THIS.numero) {
 
                 //increment the song number
                 if (THIS.music === 'pastMuseumMusic') { 
@@ -54,45 +54,43 @@ AFRAME.registerComponent("music-player", {
 
         //if the player is in the past (x < -25) and the current museum is not the past museum so that these actions are not repeated
         if (THIS.playerPos.x < -25 && THIS.currentMuseum !== 'past') {
-            //set the current museum to past
-            THIS.currentMuseum = 'past';
             //set the music to pastMuseumMusic
             THIS.music = 'pastMuseumMusic';
             //set the song number to 1
             THIS.numero = 1;
             //set the src of the sound to the next song in the playlist (the past museum's song)
-            THIS.el.setAttribute("sound", "src:", "#pastMusic" + THIS.numero);
+            THIS.el.setAttribute("circles-sound", "src:", "#pastMuseumMusic" + THIS.numero);
 
         } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.currentMuseum !== 'present') {
-            THIS.currentMuseum = 'present';
             THIS.music = 'presentMuseumMusic';
             THIS.numero = 4;
-            THIS.el.setAttribute("sound", "src:", "#presentMusic" + THIS.numero);
+            THIS.el.setAttribute("circles-sound", "src:", "#presentMuseumMusic" + THIS.numero);
 
         } else if (THIS.playerPos.x > 25 && THIS.currentMuseum !== 'future') {
-            THIS.currentMuseum = 'future';
             THIS.music = 'futureMuseumMusic';
             THIS.numero = 7;
-            THIS.el.setAttribute("sound", "src:", "#futureMusic" + THIS.numero);
+            THIS.el.setAttribute("circles-sound", "src:", "#futureMuseumMusic" + THIS.numero);
         }
     },
 
-    //       SONG IDS
 
-    // pastMuseumMusic1: 1
-    // pastMuseumMusic2: 2
-    // pastMuseumMusic3: 3
-    // presentMuseumMusic1: 4
-    // presentMuseumMusic2: 5
-    // presentMuseumMusic3: 6
-    // futureMuseumMusic1: 7
-    // futureMuseumMusic2: 8
-    // futureMuseumMusic3: 9
 
     nowPlaying: function (id) {
         const songs = ["Antique Waves by Rand Aldo", "My Old Trawler by Lotus", "Partially Implied by Rand Aldo", "After Rainfall by 369", "Every Day Has a Keystone by 369", "Forest Canopy by 369", "Atoms by DEX 1200", "Frankel by Syntropy", "Peacewalker by ELFL"];
         console.log("Now playing: " + songs[id-1]);
         console.log("Music is from Epidemic Sound, licensed by Colin Elliott");
+
+        //       SONG IDS
+
+        // pastMuseumMusic1: 1
+        // pastMuseumMusic2: 2
+        // pastMuseumMusic3: 3
+        // presentMuseumMusic1: 4
+        // presentMuseumMusic2: 5
+        // presentMuseumMusic3: 6
+        // futureMuseumMusic1: 7
+        // futureMuseumMusic2: 8
+        // futureMuseumMusic3: 9
     },
 
 });
