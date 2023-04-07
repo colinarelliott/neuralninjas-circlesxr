@@ -112,7 +112,7 @@ AFRAME.registerComponent('network-manager', {
 
     //debugging function to print the data to the console
     ticker: function() {
-        const THIS = this;
-        console.log(THIS.data);
+        //const THIS = this;
+        //console.log(THIS.data);
     },
 });
