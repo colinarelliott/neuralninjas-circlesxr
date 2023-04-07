@@ -60,6 +60,9 @@
         <img id="midjourneylogo" src="assets/images/midjourneylogo.png" crossorigin="anonymous" preload="auto"/>
         <img id="stablediffusionlogo" src="assets/images/stablediffusionlogo.png" crossorigin="anonymous" preload="auto"/>
 
+        <!--past museum images-->
+        <img id="firstNeuralNetworkMachine" src="assets/images/firstNeuralNetworkMachine.png" crossorigin="anonymous" preload="auto"/>
+
         <!--time machine desktop background-->
         <img
           id="screensaver"
@@ -312,8 +315,8 @@
       <a-entity circles-checkpoint position="-50 0.1 -5"></a-entity>
       <a-entity circles-checkpoint position="-45 0.1 5"></a-entity>
       <a-entity circles-checkpoint position="-45 0.1 -5"></a-entity>
-      <a-entity circles-checkpoint position="-55 0.1 5"></a-entity>
-      <a-entity circles-checkpoint position="-55 0.1 -5"></a-entity>
+      <a-entity circles-checkpoint position="-54 0.1 2"></a-entity>
+      <a-entity circles-checkpoint position="-54 0.1 -2"></a-entity>
 
       <!--Environment-->
       <a-entity id="env"
@@ -372,7 +375,7 @@
           class="pastProp"
           gltf-model="#neuralNetwork"
           position="-55.19985 1.29681 -1.79894"
-          rotation="0 -90 0"
+          rotation="0 -270 0"
           scale="1 1 1"
           visible="true"
           circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
@@ -386,8 +389,10 @@
               label_visible:    true;
               arrow_position:   down;
               title:            Neural Network;
-              description:      This is a low-level illustration of a neural network, a machine learning model that can be used to classify data. \n The left nodes represent inputs, travelling through a set of middle 'weights' which shape the results and then on the far right are the output nodes.;
-              label_text:       Neural Network;
+              description:      While the foundational logic for AI development began in the 1940’s, the first machine to be capable of AI learning was the SNARC (Stochastic Neural Analog Reinforcement Calculator) Machine developed by Marvin Minsky and Dean Edmonds in 1951. This machine was built to solve... FLIP TO CONTINUE;
+              title_back:      Neural Networks (cont.);
+              description_back: mazes by simulating itself as a rat, with various physical switches that would “remember” the paths within the maze. This permitted a sort of “short-term” memory, that would be overwritten depending on the complexity of the maze or the number of mazes solved. - \n Model: Simple Neural Net Visualisation;
+              label_text:       Neural Networks \n(1951);
               volume:0.4;
               descriptionLookAt: true;" >
         ></a-entity>
@@ -402,6 +407,15 @@
         visible="true"
         >
 
+        <a-entity id="spotlight-past-1"
+          class="pastProp"
+          light="type: spot; color: #fff; intensity: 1; angle: 30; penumbra: 0.5; decay: 2; distance: 10;"
+          position="0 1 0"
+          rotation="45 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+
         <a-entity id="pedestal-past-1"
           class="pastProp"
           gltf-model="#past-museum-pedestal"
@@ -409,8 +423,46 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
-          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
+        <a-entity id="pedestal-past-5"
+          class="pastProp"
+          gltf-model="#past-museum-pedestal"
+          position="-7.5 -1 -4.5"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+
+        <a-entity id="firstNeuralNetworkMachineBillboard"
+          class="pastProp"
+          geometry="primitive: plane; width: 2; height: 1;"
+          material="src: #firstNeuralNetworkMachine;"
+          position="-7.5 2 -4.5"
+          rotation="0 0 0"
+          scale="0.5 0.5 0.5"
+          visible="true"
+          circles-lookat
+          circles-artefact="
+              inspectScale:     1 1 1;
+              textRotationY:    0;
+              textLookAt:       true; 
+              inspectRotation:  0 0 0;
+              label_offset:     0 0.5 0;
+              label_visible:    true;
+              arrow_position:   down;
+              title:            Neural Network;
+              description_on: false;
+              label_text: First Neural \n Network Machine ">
+          <a-entity id="billboardBorder"
+            class="pastProp"
+            geometry="primitive: plane; width: 2; height: 1"
+            position="0 0 -0.01"
+            rotation="0 0 0"
+            scale="1.1 1.1 1.1"
+            visible="true"
+          ></a-entity>
+        </a-entity>
+
 
         <!--TEMPORARY TESTING
         <a-entity id="network-cube"
@@ -431,7 +483,6 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
-          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
 
         <a-entity id="pedestal-past-3"
@@ -441,7 +492,6 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
-          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
           
         <a-entity id="pedestal-past-4"
@@ -451,7 +501,6 @@
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
-          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         ></a-entity>
       </a-entity>
 
