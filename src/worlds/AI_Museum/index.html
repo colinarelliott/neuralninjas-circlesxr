@@ -104,7 +104,7 @@
         <audio
           id="presentMuseumMusic6"
           src="assets/music/presentMuseum_ForestCanopy_369.mp3"
-          preload="auto"
+          preload="true"
           crossorigin="anonymous"
         ></audio>
 
@@ -255,19 +255,19 @@
 
       <!--Music Player-->
       <a-entity id="music-player-present"
-        circles-sound="src: #buttonSoundSrc; autoplay: true; loop: false; volume: 0.02; type: basic-diegetic; state: play;" 
+        sound="src: #buttonSoundSrc; autoplay: true; loop: false; volume: 0.02;" 
         music-player
         position="0 5 -1"
       ></a-entity> <!--debugging step: go back to normal sound and try that to see if you can just get looping working-->
 
       <a-entity id="music-player-past"
-        circles-sound="src: #pastMuseumMusic1; autoplay: true; loop: false; volume: 0.02; type: basic-diegetic; state: play;"
+        sound="src: #pastMuseumMusic1; autoplay: true; loop: false; volume: 0.02;"
         music-player
         position="-50 5 -1"
       ></a-entity>
 
       <a-entity id="music-player-future"
-        circles-sound="src: #futureMuseumMusic7; autoplay: true; loop: false; volume: 0.02; type: basic-diegetic; state: play;"
+        sound="src: #futureMuseumMusic7; autoplay: true; loop: false; volume: 0.02;"
         music-player
         position="60 5 -1"
       ></a-entity>

@@ -2,9 +2,8 @@
 
 AFRAME.registerComponent("music-player", {
     schema: {
-        music: { type: "string", default: "presentMuseumMusic", oneOf: ["pastMuseumMusic", "presentMuseumMusic", "futureMuseumMusic"] },
+        music: { type: "string", default: "", oneOf: ["pastMuseumMusic", "presentMuseumMusic", "futureMuseumMusic"] },
         numero: { type: "number", default: 0 },
-        currentMuseum: { type: "string", default: "present", oneOf: ["past", "present", "future"] },
     },
 
     init: function () {
@@ -19,9 +18,8 @@ AFRAME.registerComponent("music-player", {
 
         //add a listener for when the song ends
         THIS.el.addEventListener("sound-ended", function (data) {
-            console.log(data.detail);
             //if the song that ended was the one that this entity was playing
-            if (data.id === THIS.music+THIS.numero) {
+            if (data.detail.name === "sound") {
 
                 //increment the song number
                 if (THIS.music === 'pastMuseumMusic') { 
@@ -53,27 +51,33 @@ AFRAME.registerComponent("music-player", {
         THIS.playerPos = THIS.player.getAttribute("position");
 
         //if the player is in the past (x < -25) and the current museum is not the past museum so that these actions are not repeated
-        if (THIS.playerPos.x < -25 && THIS.currentMuseum !== 'past') {
+        if (THIS.playerPos.x < -25 && THIS.music !== 'pastMuseumMusic') {
+            THIS.nowPlaying(THIS.numero);
             //set the music to pastMuseumMusic
             THIS.music = 'pastMuseumMusic';
             //set the song number to 1
             THIS.numero = 1;
             //set the src of the sound to the next song in the playlist (the past museum's song)
-            THIS.el.setAttribute("circles-sound", "src:", "#pastMuseumMusic" + THIS.numero);
+            THIS.el.setAttribute("sound", "src: #pastMuseumMusic" + THIS.numero);
 
-        } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.currentMuseum !== 'present') {
+        } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.music !== 'presentMuseumMusic') {
+            THIS.nowPlaying(THIS.numero);
             THIS.music = 'presentMuseumMusic';
             THIS.numero = 4;
-            THIS.el.setAttribute("circles-sound", "src:", "#presentMuseumMusic" + THIS.numero);
+            THIS.el.setAttribute("sound", "src: #presentMuseumMusic" + THIS.numero);
 
-        } else if (THIS.playerPos.x > 25 && THIS.currentMuseum !== 'future') {
+        } else if (THIS.playerPos.x > 25 && THIS.music !== 'futureMuseumMusic') {
+            THIS.nowPlaying(THIS.numero);
             THIS.music = 'futureMuseumMusic';
             THIS.numero = 7;
-            THIS.el.setAttribute("circles-sound", "src:", "#futureMuseumMusic" + THIS.numero);
+            THIS.el.setAttribute("sound", "src: #futureMuseumMusic" + THIS.numero);
         }
+
+        //remove the sound component so that the sound can be played again
+        THIS.el.removeAttribute("sound");
+        //add the sound component back
+        THIS.el.setAttribute("sound", "src: #"+THIS.music+THIS.numero+"; autoplay: true; loop: false; volume: 0.02;");
     },
-
-
 
     nowPlaying: function (id) {
         const songs = ["Antique Waves by Rand Aldo", "My Old Trawler by Lotus", "Partially Implied by Rand Aldo", "After Rainfall by 369", "Every Day Has a Keystone by 369", "Forest Canopy by 369", "Atoms by DEX 1200", "Frankel by Syntropy", "Peacewalker by ELFL"];
