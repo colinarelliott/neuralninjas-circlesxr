@@ -288,7 +288,7 @@
       <a-entity circles-checkpoint position="-5.5 0.1 -8"></a-entity>
       <a-entity circles-checkpoint position="5.5 0.1 -8"></a-entity>
       <a-entity circles-checkpoint position="0 0.1 -12.75"></a-entity>
-      <a-entity circles-checkpoint position="-6 0.1 7.5"></a-entity>
+      <a-entity circles-checkpoint position="-5 0.1 7.5"></a-entity>
       <a-entity circles-checkpoint position="0 0.1 7.5"></a-entity>
       <a-entity circles-checkpoint position="6 0.1 7.5"></a-entity>
       <a-entity circles-checkpoint position="-5 0.1 0"></a-entity>
@@ -490,11 +490,62 @@
                 circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
       ></a-entity>
 
+      <a-entity id="modernTechnologiesDescription"
+        circles-description="
+          title_text_front: Image Generators;
+          description_text_front: Today, there are multiple AI image generators available to the public for free. These include Artbreeder (2018), DALL-E (2021), Stable Diffusion (2022) and Midjourney (2022). These programs are open-access, albeit surrounded in controversy due to the sourcing of their learning input.;
+          arrow_position: up;
+          title_text_back: Learn More;
+          description_text_back: Click on the floating logos to learn more about the image generators.;"
+        position="-6.5 0.6 7.5"
+        scale="0.7 0.7 0.7"
+          ></a-entity>
+
       <a-entity id="cubeShelf"
         class="presentProp"
         geometry="primitive: box; width: 2; height: 0.2; depth: 7"
         material="color: #222222"
         position="-8 0.5 7.5"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="cubeShelf2"
+        class="presentProp"
+        geometry="primitive: box; width: 2; height: 0.2; depth: 7"
+        material="color: #222222"
+        position="8 0.5 7.5"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="cubeShelf3"
+        class="presentProp"
+        geometry="primitive: box; width: 2; height: 0.2; depth: 7"
+        material="color: #222222"
+        position="8 0.5 0"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="cubeShelf4"
+        class="presentProp"
+        geometry="primitive: box; width: 2; height: 0.2; depth: 7"
+        material="color: #222222"
+        position="8 0.5 -7.5"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="cubeShelf5"
+        class="presentProp"
+        geometry="primitive: box; width: 2; height: 0.2; depth: 7"
+        material="color: #222222"
+        position="-8 0.5 -7.5"
         rotation="0 0 0"
         scale="1 1 1"
         visible="true"
