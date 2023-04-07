@@ -483,11 +483,10 @@
       <a-entity id="modernTechnologiesText"
                 class="presentProp"
                 text="value: MODERN AI IMAGE GENERATORS; color: #DDD; font: mozillavr;"
-                position="-9 4 6"
+                position="-9 4 6.25"
                 rotation="0 90 0"
                 scale="10 10 10"
                 visible="true"
-                circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
       ></a-entity>
 
       <a-entity id="modernTechnologiesDescription"
@@ -505,11 +504,13 @@
         class="presentProp"
         geometry="primitive: box; width: 2; height: 0.2; depth: 7"
         material="color: #222222"
-        position="-8 0.5 7.5"
+        position="-8 0.5 8"
         rotation="0 0 0"
         scale="1 1 1"
         visible="true"
       ></a-entity>
+
+      <!--end modern ai image tech-->
 
       <a-entity id="cubeShelf2"
         class="presentProp"
@@ -519,6 +520,15 @@
         rotation="0 0 0"
         scale="1 1 1"
         visible="true"
+      ></a-entity>
+
+      <a-entity id="usesExhibitText"
+                class="presentProp"
+                text="value: USES FOR AI IMAGERY; color: #DDD; font: mozillavr;"
+                position="-9 4 -10.25"
+                rotation="0 90 0"
+                scale="10 10 10"
+                visible="true"
       ></a-entity>
 
       <a-entity id="cubeShelf3"
@@ -560,7 +570,6 @@
         scale="1 1 1"
         visible="true"
         circles-lookat="target: #Player1;"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         circles-artefact=
               "label_on: true;
               inspectScale: 0.5 0.5 0.5;
@@ -582,7 +591,6 @@
         rotation="0 0 0"
         scale="1.1 1.1 1.1"
         visible="true"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
       ></a-entity>
       </a-entity>
 
@@ -595,7 +603,6 @@
         scale="1 1 1"
         visible="true"
         circles-lookat="target: #Player1;"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         circles-artefact=
               "label_on: true;
               inspectScale: 0.5 0.5 0.5;
@@ -617,7 +624,6 @@
         rotation="0 0 0"
         scale="1.1 1.1 1.1"
         visible="true"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
       ></a-entity>
       </a-entity>
 
@@ -630,7 +636,6 @@
         scale="1 1 1"
         visible="true"
         circles-lookat="target: #Player1;"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         circles-artefact=
               "label_on: true;
               inspectScale: 0.5 0.5 0.5;
@@ -652,7 +657,6 @@
         rotation="0 0 0"
         scale="1.1 1.1 1.1"
         visible="true"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
       ></a-entity>
       </a-entity>
 
@@ -667,7 +671,6 @@
         scale="1 1 1"
         visible="true"
         circles-lookat="target: #Player1;"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
         circles-artefact=
               "label_on: true;
               inspectScale: 0.5 0.5 0.5;
@@ -687,7 +690,6 @@
         rotation="0 0 0"
         scale="1.1 1.1 1.1"
         visible="true"
-        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
       ></a-entity>
       </a-entity>
 
@@ -958,6 +960,18 @@
           class="presentProp"
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
           position="0 0 0.5"
+        ></a-entity>
+        <a-entity
+          id="lightPresentExhibit1"
+          class="presentProp"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf; color: #ffffff"
+          position="-5 1 8.5"
+        ></a-entity>
+        <a-entity
+          id="lightPresentExhibit2"
+          class="presentProp"
+          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf2; color: #ffffff"
+          position="-5 1 -10.5"
         ></a-entity>
        </a-entity>
 
