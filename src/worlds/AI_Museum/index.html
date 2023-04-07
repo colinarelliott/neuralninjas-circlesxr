@@ -53,8 +53,14 @@
         <!--FROM HERE: http://texturify.com/stock-photo/sky081-9480.html-->
         <img id="sphericalEnvMap" src="assets/images/sphericalEnvMap.jpg" crossorigin="anonymous" />
 
-        <img id="openailogo" src="assets/images/openai.png" crossorigin="anonymous" />
+        <!--modern museum images-->
+        <img id="openailogo" src="assets/images/openai.png" crossorigin="anonymous" preload="auto"/>
+        <img id="artbreederlogo" src="assets/images/artbreederlogo.png" crossorigin="anonymous" preload="auto"/>
+        <img id="dallelogo" src="assets/images/dallelogo.png" crossorigin="anonymous" preload="auto"/>
+        <img id="midjourneylogo" src="assets/images/midjourneylogo.png" crossorigin="anonymous" preload="auto"/>
+        <img id="stablediffusionlogo" src="assets/images/stablediffusionlogo.png" crossorigin="anonymous" preload="auto"/>
 
+        <!--time machine desktop background-->
         <img
           id="screensaver"
           src="assets/images/windowsXP.jpg"
@@ -472,6 +478,167 @@
       ></a-entity>
 
       <!--end present museum artefacts-->
+
+      <!--Modern AI Imagen Technologies-->
+      <a-entity id="modernTechnologiesText"
+                class="presentProp"
+                text="value: MODERN AI IMAGE GENERATORS; color: #DDD; font: mozillavr;"
+                position="-9 4 6"
+                rotation="0 90 0"
+                scale="10 10 10"
+                visible="true"
+                circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+      ></a-entity>
+
+      <a-entity id="cubeShelf"
+        class="presentProp"
+        geometry="primitive: box; width: 2; height: 0.2; depth: 7"
+        material="color: #222222"
+        position="-8 0.5 7.5"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="artbreederBillboard"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        material="src: #artbreederlogo"
+        position="-8 1.5 10"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+        circles-lookat="target: #Player1;"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+        circles-artefact=
+              "label_on: true;
+              inspectScale: 0.5 0.5 0.5;
+              label_offset: 0 1.3 0;
+              label_text: Artbreeder (2018);
+              lookAtCamera: true;
+              descriptionLookAt: true;
+              description_offset: 0 1.5 0;
+              title: Artbreeder;
+              title_back: Artbreeder (cont.);
+              description: Artbreeder uses a process called 'generative adversarial networks' (GANs), which involves two neural networks competing against each other to create images that are both realistic and imaginative. With Artbreeder, users can blend and remix images, tweak various settings... FLIP TO CONTINUE;
+              description_back: and evolve them over time to create unique, original pieces of art. It is a popular tool among artists, designers, and creatives who are interested in exploring the potential of AI-generated art.;
+              desc_arrow_position: down;
+              "
+      ><a-entity id="billboardBorder"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        position="0 0 -0.01"
+        rotation="0 0 0"
+        scale="1.1 1.1 1.1"
+        visible="true"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+      ></a-entity>
+      </a-entity>
+
+      <a-entity id="dalleBillboard"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        material="src: #dallelogo"
+        position="-8.5 1.5 8.5"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+        circles-lookat="target: #Player1;"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+        circles-artefact=
+              "label_on: true;
+              inspectScale: 0.5 0.5 0.5;
+              label_offset: 0 1.3 0;
+              label_text: Dall-E (2021);
+              lookAtCamera: true;
+              descriptionLookAt: true;
+              description_offset: 0 1.5 0;
+              title: DALL-E;
+              title_back: DALL-E (cont.);
+              description: DALL-E uses machine learning algorithms to create original images from textual descriptions. It was trained on a large dataset of images and text, allowing it to understand and interpret natural language commands to generate corresponding images. Users can input a textual description... FLIP TO CONTINUE;
+              description_back: such as 'a giraffe wearing a cowboy hat and boots,' and DALL-E will generate a corresponding image that matches the description.;
+              desc_arrow_position: down;
+              "
+      ><a-entity id="billboardBorder"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        position="0 0 -0.01"
+        rotation="0 0 0"
+        scale="1.1 1.1 1.1"
+        visible="true"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+      ></a-entity>
+      </a-entity>
+
+      <a-entity id="stableDiffusionBillboard"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        material="src: #stablediffusionlogo"
+        position="-8.5 1.5 7"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+        circles-lookat="target: #Player1;"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+        circles-artefact=
+              "label_on: true;
+              inspectScale: 0.5 0.5 0.5;
+              label_offset: 0 1.3 0;
+              label_text: Stable Diffusion \n(2022);
+              lookAtCamera: true;
+              descriptionLookAt: true;
+              description_offset: 0 1.5 0;
+              title: Stable Diffusion;
+              title_back: Stable Diffusion (cont.);
+              description: is a text-to-image synthesis algorithm that uses a latent diffusion model and a technique called CLIP to generate images from text prompts. The algorithm works by adding noise to an image and then training a neural network to remove the noise and bring the image into focus if it matches the text... FLIP TO CONTINUE;
+              description_back:  The algorithm learns the statistical associations between words and images through contrastive language-image pre-training.;
+              desc_arrow_position: down;
+              "
+      ><a-entity id="billboardBorder"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        position="0 0 -0.01"
+        rotation="0 0 0"
+        scale="1.1 1.1 1.1"
+        visible="true"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+      ></a-entity>
+      </a-entity>
+
+      <!--uses a process called "generative adversarial networks" (GANs), which involves two neural networks competing against each other to create images that are both realistic and imaginative. With Artbreeder, users can blend and remix images, tweak various settings, and evolve them over time to create unique, original pieces of art. It is a popular tool among artists, designers, and creatives who are interested in exploring the potential of AI-generated art.-->
+
+      <a-entity id="midjourneyBillboard"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        material="src: #midjourneylogo"
+        position="-8 1.5 5.5"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+        circles-lookat="target: #Player1;"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+        circles-artefact=
+              "label_on: true;
+              inspectScale: 0.5 0.5 0.5;
+              label_offset: 0 1.3 0;
+              label_text: Midjourney (2022);
+              lookAtCamera: true;
+              descriptionLookAt: true;
+              description_offset: 0 1.5 0;
+              title: Midjourney;
+              title_back: Midjourney (cont.);
+              description: is a research lab that, according to their site, 'explores new mediums of thought'. It has a text-to-image AI that can generate artwork based on text prompts with a large private image model behind it. The AI is trained to map the prompt to a representation space and has a bias towards... FLIP TO CONTINUE;
+              description_back:  creating painterly, aesthetically-pleasing images. The AI can be accessed by messaging a bot in the chat app Discord or by using a web app that shows a gallery of images. It is free to try or costs $10/month for a basic plan.;">
+      <a-entity id="billboardBorder"
+        class="presentProp"
+        geometry="primitive: plane; width: 1.5; height: 1.5"
+        position="0 0 -0.01"
+        rotation="0 0 0"
+        scale="1.1 1.1 1.1"
+        visible="true"
+        circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
+      ></a-entity>
+      </a-entity>
 
       <a-entity id="museumPresent"
         gltf-model="#present-museum-model"
