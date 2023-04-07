@@ -15,9 +15,10 @@ AFRAME.registerComponent('network-manager', {
         imageUrl : {type: 'string', default: ''},
         imageUpdated : {type: 'boolean', default: false},
         imageGenerating : {type: 'boolean', default: false},
-        keyboardValue : {type: 'string', default: ''},
-        keyboardPastValue : {type: 'string', default: ''},
-        keyboardFutureValue : {type: 'string', default: ''},
+        keyboardPresentVisible : {type: 'boolean', default: true},
+        keyboardPastVisible : {type: 'boolean', default: true},
+        keyboardFutureVisible : {type: 'boolean', default: true},
+        imageGenAllowed : {type: 'boolean', default: true},
     },
 
     init: function () {
@@ -79,9 +80,10 @@ AFRAME.registerComponent('network-manager', {
                     if (syncData.data.imageUrl !== undefined) {THIS.data.imageUrl = syncData.data.imageUrl};
                     if (syncData.data.imageUpdated !== undefined) {THIS.data.imageUpdated = syncData.data.imageUpdated};
                     if (syncData.data.imageGenerating !== undefined) {THIS.data.imageGenerating = syncData.data.imageGenerating};
-                    if (syncData.data.keyboardValue !== undefined) {THIS.data.keyboardValue = syncData.data.keyboardValue}
-                    if (syncData.data.keyboardPastValue !== undefined) {THIS.data.keyboardPastValue = syncData.data.keyboardPastValue}
-                    if (syncData.data.keyboardFutureValue !== undefined) {THIS.data.keyboardFutureValue = syncData.data.keyboardFutureValue}
+                    if (syncData.data.keyboardPresentVisible !== undefined) {THIS.data.keyboardPresentVisible = syncData.data.keyboardPresentVisible};
+                    if (syncData.data.keyboardPastVisible !== undefined) {THIS.data.keyboardPastVisible = syncData.data.keyboardPastVisible};
+                    if (syncData.data.keyboardFutureVisible !== undefined) {THIS.data.keyboardFutureVisible = syncData.data.keyboardFutureVisible};
+                    if (syncData.data.imageGenAllowed !== undefined) {THIS.data.imageGenAllowed = syncData.data.imageGenAllowed};
                     //END SYNC VARIABLES
 
                 }
@@ -110,9 +112,11 @@ AFRAME.registerComponent('network-manager', {
         if (updateData.data.imageUrl !== undefined) {THIS.data.imageUrl = updateData.data.imageUrl};
         if (updateData.data.imageUpdated !== undefined) {THIS.data.imageUpdated = updateData.data.imageUpdated};
         if (updateData.data.imageGenerating !== undefined) {THIS.data.imageGenerating = updateData.data.imageGenerating};
-        if (updateData.data.keyboardValue !== undefined) {THIS.data.keyboardValue = updateData.data.keyboardValue};
-        if (updateData.data.keyboardPastValue !== undefined) {THIS.data.keyboardPastValue = updateData.data.keyboardPastValue};
-        if (updateData.data.keyboardFutureValue !== undefined) {THIS.data.keyboardFutureValue = updateData.data.keyboardFutureValue};
+        if (updateData.data.keyboardPresentVisible !== undefined) {THIS.data.keyboardPresentVisible = updateData.data.keyboardPresentVisible};
+        if (updateData.data.keyboardPastVisible !== undefined) {THIS.data.keyboardPastVisible = updateData.data.keyboardPastVisible};
+        if (updateData.data.keyboardFutureVisible !== undefined) {THIS.data.keyboardFutureVisible = updateData.data.keyboardFutureVisible};
+        if (updateData.data.imageGenAllowed !== undefined) {THIS.data.imageGenAllowed = updateData.data.imageGenAllowed};
+
         //END SYNC VARIABLES
 
         //send the update to the circles socket
