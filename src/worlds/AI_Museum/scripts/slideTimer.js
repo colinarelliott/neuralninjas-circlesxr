@@ -1,3 +1,7 @@
+//simple slide incrementer script
+
+/* busted rn
+
 AFRAME.registerComponent('slide-timer', {
     schema: {
         slideNum: {type: 'number', default: 1},
@@ -50,3 +54,5 @@ AFRAME.registerComponent('slide-timer', {
         THIS.data.slideNum = 1;
     }
 });
+
+*/
