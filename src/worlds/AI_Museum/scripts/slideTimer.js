@@ -1,6 +1,7 @@
 //simple slide incrementer script
 
-/* busted rn
+
+/*
 
 AFRAME.registerComponent('slide-timer', {
     schema: {
@@ -36,7 +37,9 @@ AFRAME.registerComponent('slide-timer', {
         const THIS = this;
         const billboard = document.querySelector('#UseCaseBillboard');
 
-        billboard.setAttribute('material', 'src: #UseCase' + THIS.data.slideNum);
+        let copy = billboard.cloneNode(true);
+        copy.setAttribute('material', 'src: #UseCase' + THIS.data.slideNum);
+        billboard.parentNode.replaceChild(copy, billboard);
     },
 
     incrementSlide: function () {
