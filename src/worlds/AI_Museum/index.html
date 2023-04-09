@@ -300,35 +300,35 @@
       <a-entity circles-checkpoint position="-50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
 
       <!--PRESENT MUSEUM CHECKPOINTS-->
-      <a-entity circles-checkpoint position="-5.5 0.1 -8"></a-entity>
-      <a-entity circles-checkpoint position="5.5 0.1 -8"></a-entity>
-      <a-entity circles-checkpoint position="0 0.1 -12.75"></a-entity>
-      <a-entity circles-checkpoint position="-5 0.1 7.5"></a-entity>
-      <a-entity circles-checkpoint position="0 0.1 7.5"></a-entity>
-      <a-entity circles-checkpoint position="6 0.1 7.5"></a-entity>
-      <a-entity circles-checkpoint position="-5 0.1 0"></a-entity>
-      <a-entity circles-checkpoint position="5 0.1 0"></a-entity>
+      <a-entity circles-checkpoint position="-5.5 0.1 -8" class="presentProp"></a-entity>
+      <a-entity circles-checkpoint position="5.5 0.1 -8" class="presentProp"></a-entity>
+      <a-entity circles-checkpoint position="0 0.1 -12.75" class="presentProp"></a-entity>
+      <a-entity circles-checkpoint position="-5 0.1 7.5" class="presentProp"></a-entity>
+      <a-entity circles-checkpoint position="0 0.1 7.5" class="presentProp"></a-entity>
+      <a-entity circles-checkpoint position="6 0.1 7.5" class="presentProp"></a-entity>
+      <a-entity circles-checkpoint position="-5 0.1 0" class="presentProp"></a-entity>
+      <a-entity circles-checkpoint position="5 0.1 0" class="presentProp"></a-entity>
 
       <!--FUTURE MUSEUM CHECKPOINTS-->
-      <a-entity circles-checkpoint position="59 0.1 -4"></a-entity>
-      <a-entity circles-checkpoint position="69 0.1 -1"></a-entity>
-      <a-entity circles-checkpoint position="72 0.1 -8"></a-entity>
-      <a-entity circles-checkpoint position="72 0.1 8"></a-entity>
-      <a-entity circles-checkpoint position="66 0.1 3"></a-entity>
-      <a-entity circles-checkpoint position="78.5 0.1 3"></a-entity>
-      <a-entity circles-checkpoint position="49 0.1 -7.5"></a-entity>
-      <a-entity circles-checkpoint position="42 0.1 1"></a-entity>
-      <a-entity circles-checkpoint position="51 0.1 9"></a-entity>
+      <a-entity circles-checkpoint position="59 0.1 -4" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="69 0.1 -1" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="72 0.1 -8" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="72 0.1 8" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="66 0.1 3" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="78.5 0.1 3" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="49 0.1 -7.5" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="42 0.1 1" class="futureProp"></a-entity>
+      <a-entity circles-checkpoint position="51 0.1 9" class="futureProp"></a-entity>
 
       <!--PAST MUSEUM CHECKPOINTS-->
-      <a-entity circles-checkpoint position="-55 0.1 0"></a-entity>
-      <a-entity circles-checkpoint position="-45 0.1 0"></a-entity>
-      <a-entity circles-checkpoint position="-50 0.1 5"></a-entity>
-      <a-entity circles-checkpoint position="-50 0.1 -5"></a-entity>
-      <a-entity circles-checkpoint position="-45 0.1 5"></a-entity>
-      <a-entity circles-checkpoint position="-45 0.1 -5"></a-entity>
-      <a-entity circles-checkpoint position="-54 0.1 2"></a-entity>
-      <a-entity circles-checkpoint position="-54 0.1 -2"></a-entity>
+      <a-entity circles-checkpoint position="-55 0.1 0" class="pastProp"></a-entity>
+      <a-entity circles-checkpoint position="-45 0.1 0" class="pastProp"></a-entity>
+      <a-entity circles-checkpoint position="-50 0.1 5" class="pastProp"></a-entity>
+      <a-entity circles-checkpoint position="-50 0.1 -5" class="pastProp"></a-entity>
+      <a-entity circles-checkpoint position="-45 0.1 5" class="pastProp"></a-entity>
+      <a-entity circles-checkpoint position="-45 0.1 -5" class="pastProp"></a-entity>
+      <a-entity circles-checkpoint position="-54 0.1 2" class="pastProp"></a-entity>
+      <a-entity circles-checkpoint position="-54 0.1 -2" class="pastProp"></a-entity>
 
       <!--Environment-->
       <a-entity id="env"
@@ -440,6 +440,15 @@
           class="pastProp"
           gltf-model="#past-museum-pedestal"
           position="-7.5 -1 -4.5"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+        ></a-entity>
+
+        <a-entity id="chandelier"
+          class="pastProp"
+          gltf-model="#chandelier"
+          position="0 8.5 0"
           rotation="0 0 0"
           scale="1 1 1"
           visible="true"
