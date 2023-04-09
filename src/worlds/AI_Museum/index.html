@@ -168,14 +168,14 @@
 
         <a-asset-item
           id="chandelier"
-          src="assets/models/chandelier.gltf"
+          src="assets/models/chandelier.glb"
           crossorigin="anonymous"
           response-type="arraybuffer"
         ></a-asset-item>
 
         <a-asset-item
           id="plant"
-          src="assets/models/plant.gltf"
+          src="assets/models/plant.glb"
           crossorigin="anonymous"
           response-type="arraybuffer"
         ></a-asset-item>
@@ -592,12 +592,6 @@
                 visible="true"
       ></a-entity>
 
-      <a-entity id="useCaseButtonRight"
-        class="presentProp"
-        circles-button="type: cylinder; pedastalColor: #222222;"
-        position="5.5 4 -8.15"
-        ></a-entity>
-
       <a-entity id="UseCaseBillboard"
         class="presentProp"
         geometry="primitive: plane; width: 4; height: 1"
@@ -811,7 +805,6 @@
           rotation="0 0 0"
           scale="0.4 0.4 0.4"
           visible="true"
-          circles-sphere-env-map="src:#sphericalEnvMap"
         ></a-entity>
 
         <a-entity id="bench-2"
@@ -821,8 +814,15 @@
           rotation="0 0 0"
           scale="0.4 0.4 0.4"
           visible="true"
-          circles-sphere-env-map="src:#sphericalEnvMap"
         ></a-entity>
+
+        <a-entity id="plant1" class="presentProp" gltf-model="assets/models/plant.glb" position="-4.15 -0.25 -14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
+
+        <a-entity id="plant2" class="presentProp" gltf-model="assets/models/plant.glb" position="4 -0.25 -14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
+
+        <a-entity id="plant3" class="presentProp" gltf-model="assets/models/plant.glb" position="-4.15 -0.25 14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
+
+        <a-entity id="plant4" class="presentProp" gltf-model="assets/models/plant.glb" position="4 -0.25 14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
 
       </a-entity>
 
