@@ -72,6 +72,12 @@
         <img id="UseCase8" src="assets/images/UseCase8.png" crossorigin="anonymous" preload="auto"/>
         <img id="UseCase9" src="assets/images/UseCase9.png" crossorigin="anonymous" preload="auto"/>
 
+        <!--AI images for modern museum-->
+        <img id="AI_Art_Museum" src="assets/images/ai_images/AI_Art_Museum.png" crossorigin="anonymous" preload="auto"/>
+        <img id="Artificial_Intelligence" src="assets/images/ai_images/Artificial_Intelligence_Image_Generation_Museum.png" crossorigin="anonymous" preload="auto"/>
+        <img id="Hallway_of_Museum" src="assets/images/ai_images/Hallway_of_Museum_but_the_paintings_are_examples_of_AI_Generated Art.png" crossorigin="anonymous" preload="auto"/>
+        <img id="Midjourney_Museum" src="assets/images/ai_images/Midjourney_Museum.png" crossorigin="anonymous" preload="auto"/>
+
         <!--past museum images-->
         <img id="firstNeuralNetworkMachine" src="assets/images/firstNeuralNetworkMachine.png" crossorigin="anonymous" preload="auto"/>
 
@@ -157,6 +163,41 @@
           loop="false"
           preload="auto"
         ></video>
+
+        <!--CC0 Assets from Sketchfab-->
+        <a-asset-item
+          id="statueOfMaleFigure"
+          src="assets/models/statue_of_male_figure.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+
+        <!--CC-BY Assets from Sketchfab. Sources are linked here: https://skfb.ly/oFTSD -->
+        <a-asset-item id="polaroid"
+          src="assets/models/low_poly_polaroid.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item id="brain"
+          src="assets/models/brain.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item id="gear_cog"
+          src="assets/models/gear_cog.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item id="data_sculpture"
+          src="assets/models/data_sculpture.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item id="cathode_ray_tube"
+          src="assets/models/cathode_ray_tv.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
 
         <!--Nadia's Assets-->
         <a-asset-item
@@ -366,7 +407,6 @@
           rotation="0 -90 0"
           scale="1 1 1"
           visible="true"
-          circles-sphere-env-map="src:#sphericalEnvMap; format:RGBAFormat;"
           circles-artefact="
               inspectScale:     1 1 1;
               textRotationY:    0;
@@ -547,17 +587,43 @@
         visible="true"
       ></a-entity>
 
-      <a-entity
+    <a-entity
       id="lightPresentExhibit1"
       class="presentProp"
       light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf; color: #ffffff"
-      position="-5 1 8.5"
+      position="-5 2 8.5"
     ></a-entity>
     <a-entity
       id="lightPresentExhibit2"
       class="presentProp"
-      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf5; color: #ffffff"
-      position="-5 1 -11.5"
+      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #UseCaseBillboard; color: #ffffff"
+      position="-5 1 -9.5"
+    ></a-entity>
+    <a-entity
+      id="lightPresentExhibit3"
+      class="presentProp"
+      light="type: spot; intensity: 1; angle:  45; penumbra: 0.2; color: #ffffff;"
+      position="0 2 -14.5"
+      rotation="0 0 0"
+    ></a-entity>
+
+    <a-entity
+      id="lightPresentExhibit4"
+      class="presentProp"
+      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf4; color: #ffffff"
+      position="5 1 -8.5"
+    ></a-entity>
+    <a-entity
+      id="lightPresentExhibit5"
+      class="presentProp"
+      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf3; color: #ffffff"
+      position="5 1 -1.5"
+    ></a-entity>
+    <a-entity
+      id="lightPresentExhibit6"
+      class="presentProp"
+      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf2; color: #ffffff"
+      position="5 1 8.5"
     ></a-entity>
 
       <!--Modern AI Imagen Technologies-->
@@ -568,6 +634,102 @@
                 rotation="0 90 0"
                 scale="10 10 10"
                 visible="true"
+      ></a-entity>
+
+      <!--AI Imagining this Museum-->
+      <a-entity id="thisMuseumText"
+                class="presentProp"
+                text="value: WE ASKED AI TO SHOW US WHAT THIS MUSEUM MIGHT LOOK LIKE\n\n ... IT DIDN'T UNDERSTAND THE ASSIGNMENT. \n\n (Images below c/o Midjourney V5); color: #DDD; font: mozillavr; align: center; wrapCount: 30;"
+                position="0 6 12.25"
+                rotation="0 180 0"
+                scale="10 10 10"
+                visible="true"
+      ></a-entity>
+      <a-entity id="aiImage1"
+                class="presentProp"
+                geometry="primitive: plane; width: 1; height: 1"
+                material="src: #Midjourney_Museum"
+                position="4.5 2 12.25"
+                rotation="0 180 0"
+                scale="2.5 2.5 2.5"
+                visible="true"
+                ><a-entity id="aiImage1Light"
+                          class="presentProp"
+                          light="type: spot; intensity: 0.5; angle:  90; penumbra: 0.2; target: #aiImage1; color: #ffffff"
+                          position="0 0 1"
+                ></a-entity>
+      </a-entity>
+      <a-entity id="aiImageLabel1"
+                class="presentProp"
+                position="-4.5 0.5 12"
+                rotation="0 0 0"
+                scale="1 1 1"
+                visible="true"
+                circles-label="text: Hallway of Museum\n w/ AI Art on Walls; lookAtCamera: true; arrow_position: up;"
+      ></a-entity>
+      <a-entity id="aiImage2"
+                class="presentProp"
+                geometry="primitive: plane; width: 1; height: 1"
+                material="src: #Artificial_Intelligence"
+                position="1.5 2 12.25"
+                rotation="0 180 0"
+                scale="2.5 2.5 2.5"
+                visible="true"
+            ><a-entity id="aiImage1Light"
+            class="presentProp"
+            light="type: spot; intensity: 0.5; angle:  90; penumbra: 0.2; target: #aiImage2; color: #ffffff"
+            position="0 0 1"
+      ></a-entity></a-entity>
+      <a-entity id="aiImageLabel2"
+                class="presentProp"
+                position="-1.5 0.5 12"
+                rotation="0 0 0"
+                scale="1 1 1"
+                visible="true"
+                circles-label="text: AI Art Museum; lookAtCamera: true; arrow_position: up;"
+      ></a-entity>
+      <a-entity id="aiImage3"
+                class="presentProp"
+                geometry="primitive: plane; width: 1; height: 1"
+                material="src: #AI_Art_Museum"
+                position="-1.5 2 12.25"
+                rotation="0 180 0"
+                scale="2.5 2.5 2.5"
+                visible="true"
+            ><a-entity id="aiImage1Light"
+            class="presentProp"
+            light="type: spot; intensity: 0.5; angle:  90; penumbra: 0.2; target: #aiImage3; color: #ffffff"
+            position="0 0 1"
+      ></a-entity></a-entity>
+      <a-entity id="aiImageLabel3"
+                class="presentProp"
+                position="1.5 0.5 12"
+                rotation="0 0 0"
+                scale="1 1 1"
+                visible="true"
+                circles-label="text: Artificial Intelligence \n Image Gen Museum; lookAtCamera: true; arrow_position: up;"
+      ></a-entity>
+      <a-entity id="aiImage4"
+                class="presentProp"
+                geometry="primitive: plane; width: 1; height: 1"
+                material="src: #Hallway_of_Museum"
+                position="-4.5 2 12.25"
+                rotation="0 180 0"
+                scale="2.5 2.5 2.5"
+                visible="true"
+        ><a-entity id="aiImage1Light"
+        class="presentProp"
+        light="type: spot; intensity: 0.5; angle:  90; penumbra: 0.2; target: #aiImage4; color: #ffffff"
+        position="0 0 1"
+      ></a-entity>
+    </a-entity>
+    <a-entity id="aiImageLabel4"
+                class="presentProp"
+                position="4.5 0.5 12"
+                rotation="0 0 0"
+                scale="1 1 1"
+                visible="true"
+                circles-label="text: Midjourney Museum; lookAtCamera: true; arrow_position: up;"
       ></a-entity>
 
       <a-entity id="modernTechnologiesDescription"
@@ -606,7 +768,7 @@
       <a-entity id="usesExhibitText"
                 class="presentProp"
                 text="value: USES FOR AI IMAGERY; color: #DDD; font: mozillavr;"
-                position="-9 4 -10.5"
+                position="-9 3 -10.5"
                 rotation="0 90 0"
                 scale="10 10 10"
                 visible="true"
@@ -617,11 +779,10 @@
         class="presentProp"
         geometry="primitive: plane; width: 4; height: 1"
         material="src: #UseCase1"
-        position="-7.5 1.75 -8"
+        position="-9 1.75 -8"
         rotation="0 90 0"
         scale="1 1 1"
-        animation="property: opacity; from: 0; to: 1; dur: 1000; easing: easeInQuad"
-        circles-lookat>
+        animation="property: opacity; from: 0; to: 1; dur: 1000; easing: easeInQuad">
         <a-entity id="billboardBorder"
             class="pastProp"
             geometry="primitive: plane; width: 3.8; height: 1"
@@ -632,6 +793,36 @@
           ></a-entity>
       </a-entity>
 
+      <a-entity id="scaler" scale="0.8 0.8 0.8">
+        <a-entity id="statueOfMale"
+          class="presentProp"
+          gltf-model="#statueOfMaleFigure"
+          position="2.2 3 -8"
+          rotation="0 0 0"
+          scale="0.8 0.8 0.8"
+          visible="true"
+          animation="
+            property: rotation;
+            to: 0 360 0;
+            dur: 2000;
+            easing: easeInQuad;
+            loop: false;
+            startEvents: click;
+            "
+        ></a-entity>
+      </a-entity>
+
+      <a-entity id="maleStatueDesc"
+        position="0 0.8 -15"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+        circles-description="
+          title_text_front: Statue of Male Figure;
+          description_text_front: This model of a statue is CC0 licensed meaning it's very likely that this model will be included in the datasets of the 3D object generators of the future. \n\n Skynet or not, the human image in all its forms will always live on in these AI models.;
+          arrow_position: up;
+        ">
+      </a-entity>
       <a-entity id="cubeShelf3"
         class="presentProp"
         geometry="primitive: box; width: 2; height: 0.2; depth: 7"
@@ -645,10 +836,62 @@
       <a-entity id="processExhibitText"
                 class="presentProp"
                 text="value: HOW DOES DIFFUSION WORK?; color: #DDD; font: mozillavr;"
-                position="8.5 3.5 -2"
+                position="8.5 3.5 -4"
                 rotation="0 270 0"
                 scale="10 10 10"
                 visible="true"
+      ></a-entity>
+
+      <a-entity id="polaroid_camera"
+        class="presentProp"
+        gltf-model="#polaroid"
+        position="8 1.2 -9"
+        rotation="0 270 0"
+        scale="3 3 3"
+        visible="true"
+        circles-artefact="
+            inspectScale: 1 1 1;
+            label_text: Step 1.\nLots of Images;
+            label_offset: 0 1.125 0;
+            descriptionLookAt: true;
+            title: 1. Large Image Datasets;
+            description: Every AI generated image starts with a huge amount of images (often scraped from the internet), so you'll need lots of nice reference images that resemble what you want to eventually make. In addition to that, you'll need to tag the images appropriately so that the AI can 'learn' what you want it to.;
+        "
+      ></a-entity>
+
+      <a-entity id="brain-model"
+          class="presentProp"
+          gltf-model="#brain"
+          material="color: #00AA00"
+          position="8 1 -6"
+          rotation="0 0 0"
+          scale="1.5 1.5 1.5"
+          visible="true"
+          circles-artefact="
+            inspectScale: 1 1 1;
+            label_text: Step 2.\nMachine Learning;
+            label_offset: 0 1.2 0;
+            descriptionLookAt: true;
+            title: 2. Train on the Images;
+            description: The AI then uses the tagged images to train itself to generate new images that resemble the ones in the dataset. Similar to the processes of deep learning that allow computers to recognize text characters (OCR), computers can be taught to recognize images.;
+            "
+      ></a-entity>
+
+      <a-entity id="data-sculpture"
+          class="presentProp"
+          gltf-model="#data_sculpture"
+          position="8 1 0"
+          rotation="0 0 0"
+          scale="1 1 1"
+          visible="true"
+          circles-artefact="
+            inspectScale: 1 1 1;
+            label_text: Step 3.\nLatent Space;
+            label_offset: 0 1.2 0;
+            descriptionLookAt: true;
+            title: 3. Generate New Images;
+            description: The process of training results in a 'latent space' of images that the AI can generate, kind of like an infinite sided die of possibilities of image relationships. The AI can then generate new images by sampling from this space. The more images you train the AI on, the more complex the latent space becomes, and the more complex the images that the AI can generate.;
+            "
       ></a-entity>
 
       <a-entity id="cubeShelf4"
@@ -668,16 +911,6 @@
                 rotation="0 270 0"
                 scale="10 10 10"
                 visible="true"
-      ></a-entity>
-
-      <a-entity id="cubeShelf5"
-        class="presentProp"
-        geometry="primitive: box; width: 2; height: 0.2; depth: 7"
-        material="color: #222222"
-        position="-8 0.5 -7.5"
-        rotation="0 0 0"
-        scale="1 1 1"
-        visible="true"
       ></a-entity>
 
       <a-entity id="artbreederBillboard"
@@ -841,9 +1074,9 @@
 
         <a-entity id="plant2" class="presentProp" gltf-model="assets/models/plant.glb" position="4 -0.25 -14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
 
-        <a-entity id="plant3" class="presentProp" gltf-model="assets/models/plant.glb" position="-4.15 -0.25 14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
+        <a-entity id="plant3" class="presentProp" gltf-model="assets/models/plant.glb" position="-8.15 -0.25 14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
 
-        <a-entity id="plant4" class="presentProp" gltf-model="assets/models/plant.glb" position="4 -0.25 14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
+        <a-entity id="plant4" class="presentProp" gltf-model="assets/models/plant.glb" position="8 -0.25 14.5" rotation="" scale="0.5 0.5 0.5"></a-entity>
 
       </a-entity>
 
@@ -906,7 +1139,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
         ></a-entity>
         <a-entity id="capsuleGroundPast"
@@ -915,7 +1147,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
         ></a-entity>
         <a-entity id="buttonLeftPast"
           class="pastProp"
@@ -923,7 +1154,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           class="button interactive"
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
@@ -934,7 +1164,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           class="button interactive"
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
@@ -991,7 +1220,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           set-keyboard
           keep-keyboard
         >
@@ -1021,7 +1249,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
         ></a-entity>
         <a-entity
@@ -1031,7 +1258,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
         ></a-entity>
         <a-entity
           id="buttonLeftPresent"
@@ -1040,7 +1266,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           class="button interactive"
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
@@ -1052,7 +1277,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           class="button interactive"
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
@@ -1129,7 +1353,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
         ></a-entity>
         <a-entity
           id="capsuleFuture"
@@ -1138,7 +1361,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
         ></a-entity>
         <a-entity
@@ -1148,7 +1370,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
         ></a-entity>
         <a-entity
           id="buttonLeftFuture"
@@ -1157,7 +1378,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           class="button interactive"
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
@@ -1169,7 +1389,6 @@
           scale="1 1 1"
           position="0 0 0"
           visible="true"
-          shadow
           class="button interactive"
           animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
           circles-interactive-object="type: highlight;"
