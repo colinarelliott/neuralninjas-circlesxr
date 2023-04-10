@@ -76,6 +76,14 @@ AFRAME.registerComponent("set-keyboard", {
       keyboardFutureComponent.data.show = true;
       keyboardFuture.setAttribute("visible", true);
     });
+
+    //if the user is using a Meta Quest headset, set the keyboards to interact with the quest controllers
+    if (navigator.userAgent.includes("Quest")) {
+      //change the keyboards' interactive hands to VR hands!
+      keyboard.setAttribute('super-keyboard', 'hand: #hand');
+      keyboardFuture.setAttribute('super-keyboard', 'hand: #hand');
+      keyboardPast.setAttribute('super-keyboard', 'hand: #hand');
+    }
   },
 
   tick: function () {
