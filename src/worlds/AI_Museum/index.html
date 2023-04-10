@@ -547,7 +547,18 @@
         visible="true"
       ></a-entity>
 
-      <!--end present museum artefacts-->
+      <a-entity
+      id="lightPresentExhibit1"
+      class="presentProp"
+      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf; color: #ffffff"
+      position="-5 1 8.5"
+    ></a-entity>
+    <a-entity
+      id="lightPresentExhibit2"
+      class="presentProp"
+      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf5; color: #ffffff"
+      position="-5 1 -11.5"
+    ></a-entity>
 
       <!--Modern AI Imagen Technologies-->
       <a-entity id="modernTechnologiesText"
@@ -595,24 +606,25 @@
       <a-entity id="usesExhibitText"
                 class="presentProp"
                 text="value: USES FOR AI IMAGERY; color: #DDD; font: mozillavr;"
-                position="-9 4 -10.25"
+                position="-9 4 -10.5"
                 rotation="0 90 0"
                 scale="10 10 10"
                 visible="true"
       ></a-entity>
 
-      <a-entity id="UseCaseBillboard"
+      <a-entity id="billboardWrapper" slide-timer="duration: 5000; numberOfSlides: 9;">
+        <a-entity id="UseCaseBillboard"
         class="presentProp"
         geometry="primitive: plane; width: 4; height: 1"
         material="src: #UseCase1"
-        position="-7.5 1.5 -7.5"
+        position="-7.5 1.75 -8"
+        rotation="0 90 0"
         scale="1 1 1"
-        slide-timer="duration: 2000; numberOfSlides: 9;"
         animation="property: opacity; from: 0; to: 1; dur: 1000; easing: easeInQuad"
         circles-lookat>
         <a-entity id="billboardBorder"
             class="pastProp"
-            geometry="primitive: plane; width: 4; height: 1"
+            geometry="primitive: plane; width: 3.8; height: 1"
             position="0 0 -0.01"
             rotation="0 0 0"
             scale="1.2 1.2 1.2"
@@ -1073,18 +1085,6 @@
           class="presentProp"
           light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
           position="0 0 0.5"
-        ></a-entity>
-        <a-entity
-          id="lightPresentExhibit1"
-          class="presentProp"
-          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf; color: #ffffff"
-          position="-5 1 8.5"
-        ></a-entity>
-        <a-entity
-          id="lightPresentExhibit2"
-          class="presentProp"
-          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf2; color: #ffffff"
-          position="-5 1 -10.5"
         ></a-entity>
        </a-entity>
 
