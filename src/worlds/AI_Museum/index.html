@@ -198,6 +198,16 @@
           crossorigin="anonymous"
           response-type="arraybuffer"
         ></a-asset-item>
+        <a-asset-item id="library-shelf"
+          src="assets/models/library2.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
+        <a-asset-item id="gavel"
+          src="assets/models/gavel.glb"
+          crossorigin="anonymous"
+          response-type="arraybuffer"
+        ></a-asset-item>
 
         <!--Nadia's Assets-->
         <a-asset-item
@@ -622,7 +632,7 @@
     <a-entity
       id="lightPresentExhibit6"
       class="presentProp"
-      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #cubeShelf2; color: #ffffff"
+      light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #library; color: #ffffff"
       position="5 1 8.5"
     ></a-entity>
 
@@ -755,16 +765,6 @@
 
       <!--end modern ai image tech-->
 
-      <a-entity id="cubeShelf2"
-        class="presentProp"
-        geometry="primitive: box; width: 2; height: 0.2; depth: 7"
-        material="color: #222222"
-        position="8 0.5 7.5"
-        rotation="0 0 0"
-        scale="1 1 1"
-        visible="true"
-      ></a-entity>
-
       <a-entity id="usesExhibitText"
                 class="presentProp"
                 text="value: USES FOR AI IMAGERY; color: #DDD; font: mozillavr;"
@@ -890,9 +890,9 @@
             inspectPosition: 0 -0.5 0;
             label_text: Step 3.\nLatent Space;
             label_offset: 0 1.75 0;
-            description_offset: 0 0.5 0;
+            description_offset: 0 1.75 0;
             descriptionLookAt: true;
-            title: 3. Generate New Images;
+            title: 3. Space for New Images;
             description: The process of training results in a 'latent space' of images that the AI can generate. The AI can then generate new images by sampling from this space. The more images you train the AI on, the more complex the latent space becomes, and the more complex the images that the AI can generate.;
             "
       ></a-entity>
@@ -927,11 +927,33 @@
 
       <a-entity id="controversyExhibitText"
                 class="presentProp"
-                text="value: WHY DO PEOPLE DISLIKE MODERN AI IMAGE GENERATION?; color: #DDD; font: mozillavr; align: right;"
-                position="8.5 3 7"
+                text="value: WHY DO PEOPLE DISLIKE \nMODERN AI IMAGE \nGENERATION?; color: #DDD; font: mozillavr; align: right;"
+                position="8.5 3.5 3.5"
                 rotation="0 270 0"
                 scale="8 8 8"
                 visible="true"
+      ></a-entity>
+
+      <a-entity id="library"
+        class="presentProp"
+        gltf-model="#library-shelf"
+        position="8 0.1 10"
+        rotation="0 0 0"
+        scale="1.3 1.3 1.3"
+        visible="true"
+      ></a-entity>
+
+      <a-entity id="controversy-description"
+        class="presentProp"
+        position="8 1.5 6.5"
+        rotation="0 -90 0"
+        circles-description="
+          title_text_front: Controversy;
+          description_text_front: Much like a library, it all comes down to the sources. The source images for these large models that create images are often scraped from the internet. 
+          This is exactly the problem or potential problem that is being debated in the courts right now. Learn more in the future museum.;
+          arrow_position: right;
+          lookAtCamera: false;
+        "
       ></a-entity>
 
       <a-entity id="artbreederBillboard"
@@ -1107,7 +1129,19 @@
         rotation="0 0 0"
         scale="1 1 1"
         visible="true"
+      >
+
+      <a-entity id="gavel-model"
+        class="futureProp"
+        gltf-model="#gavel"
+        position="25 2 -3"
+        rotation="0 90 0"
+        scale="0.3 0.3 0.3"
+        visible="true"
       ></a-entity>
+    
+    
+    </a-entity>
 
       <a-entity id="timeMachinePast"
         class="pastProp"
