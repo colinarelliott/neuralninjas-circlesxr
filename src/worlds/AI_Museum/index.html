@@ -640,9 +640,9 @@
       <a-entity id="thisMuseumText"
                 class="presentProp"
                 text="value: WE ASKED AI TO SHOW US WHAT THIS MUSEUM MIGHT LOOK LIKE\n\n ... IT DIDN'T UNDERSTAND THE ASSIGNMENT. \n\n (Images below c/o Midjourney V5); color: #DDD; font: mozillavr; align: center; wrapCount: 30;"
-                position="0 6 12.25"
+                position="0 5 12.25"
                 rotation="0 180 0"
-                scale="10 10 10"
+                scale="6 6 6"
                 visible="true"
       ></a-entity>
       <a-entity id="aiImage1"
@@ -836,7 +836,7 @@
       <a-entity id="processExhibitText"
                 class="presentProp"
                 text="value: HOW DOES DIFFUSION WORK?; color: #DDD; font: mozillavr;"
-                position="8.5 3.5 -4"
+                position="8.5 3.5 -2"
                 rotation="0 270 0"
                 scale="10 10 10"
                 visible="true"
@@ -852,7 +852,7 @@
         circles-artefact="
             inspectScale: 1 1 1;
             label_text: Step 1.\nLots of Images;
-            label_offset: 0 1.125 0;
+            label_offset: 0 0.75 0;
             descriptionLookAt: true;
             title: 1. Large Image Datasets;
             description: Every AI generated image starts with a huge amount of images (often scraped from the internet), so you'll need lots of nice reference images that resemble what you want to eventually make. In addition to that, you'll need to tag the images appropriately so that the AI can 'learn' what you want it to.;
@@ -865,10 +865,11 @@
           material="color: #00AA00"
           position="8 1 -6"
           rotation="0 0 0"
-          scale="1.5 1.5 1.5"
+          scale="1.2 1.2 1.2"
           visible="true"
           circles-artefact="
             inspectScale: 1 1 1;
+            inspectRotation: 0 90 0;
             label_text: Step 2.\nMachine Learning;
             label_offset: 0 1.2 0;
             descriptionLookAt: true;
@@ -880,18 +881,38 @@
       <a-entity id="data-sculpture"
           class="presentProp"
           gltf-model="#data_sculpture"
-          position="8 1 0"
-          rotation="0 0 0"
-          scale="1 1 1"
+          position="8 0.75 -2"
+          rotation="0 -90 0"
+          scale="0.6 0.6 0.6"
           visible="true"
           circles-artefact="
-            inspectScale: 1 1 1;
+            inspectScale: 0.5 0.5 0.5;
+            inspectPosition: 0 -0.5 0;
             label_text: Step 3.\nLatent Space;
-            label_offset: 0 1.2 0;
+            label_offset: 0 1.75 0;
+            description_offset: 0 0.5 0;
             descriptionLookAt: true;
             title: 3. Generate New Images;
-            description: The process of training results in a 'latent space' of images that the AI can generate, kind of like an infinite sided die of possibilities of image relationships. The AI can then generate new images by sampling from this space. The more images you train the AI on, the more complex the latent space becomes, and the more complex the images that the AI can generate.;
+            description: The process of training results in a 'latent space' of images that the AI can generate. The AI can then generate new images by sampling from this space. The more images you train the AI on, the more complex the latent space becomes, and the more complex the images that the AI can generate.;
             "
+      ></a-entity>
+
+      <a-entity id="cathode-ray-tv"
+          class="presentProp"
+          gltf-model="#cathode_ray_tube"
+          position="8 1.5 2"
+          rotation="0 -90 0"
+          scale="0.6 0.6 0.6"
+          visible="true"
+          circles-artefact="
+            inspectScale: 0.5 0.5 0.5;
+            inspectPosition: 0 0 0;
+            label_text: Step 4.\nDiffusion;
+            label_offset: 0 1 0;
+            description_offset: 0 0.5 0;
+            descriptionLookAt: true;
+            title: 4. Diffuse the Images;
+            description: The AI then uses a variety of algorithms (depending on which you're using) to diffuse the images. The AI will often use a combination of techniques such as adding noise (like a CRT tv screen), blurring, and adding artifacts to the images, followed by iterative interpretation of the noise into an image using it's neural network.;"
       ></a-entity>
 
       <a-entity id="cubeShelf4"
@@ -906,10 +927,10 @@
 
       <a-entity id="controversyExhibitText"
                 class="presentProp"
-                text="value: WHY DO PEOPLE DISLIKE MODERN AI IMAGE GENERATION?; color: #DDD; font: mozillavr;"
-                position="8.5 3.5 7"
+                text="value: WHY DO PEOPLE DISLIKE MODERN AI IMAGE GENERATION?; color: #DDD; font: mozillavr; align: right;"
+                position="8.5 3 7"
                 rotation="0 270 0"
-                scale="10 10 10"
+                scale="8 8 8"
                 visible="true"
       ></a-entity>
 
