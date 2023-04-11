@@ -40,9 +40,9 @@ AFRAME.registerComponent("open-ai-image-gen", {
             }
           });
           //one for each screen
-          CONTEXT.imageGenerating(0, 1.9, -1.4);
-          CONTEXT.imageGenerating(-50, 1.9, -1.4);
-          CONTEXT.imageGenerating(50, 1.9, -1.4);
+          CONTEXT.imageGenerating(0, 1.9, -1.39);
+          CONTEXT.imageGenerating(-50, 1.9, -1.39);
+          CONTEXT.imageGenerating(50, 1.9, -1.39);
       }, 200); // a little delay to make everyone sees it turn true
     }
 
@@ -106,9 +106,9 @@ AFRAME.registerComponent("open-ai-image-gen", {
       console.error("Error:", error);
     });
 
-    CONTEXT.imageGenerating(0, 1.9, -1.4);
-    CONTEXT.imageGenerating(-50, 1.9, -1.4);
-    CONTEXT.imageGenerating(50, 1.9, -1.4);
+    CONTEXT.imageGenerating(0, 1.9, -1.39);
+    CONTEXT.imageGenerating(-50, 1.9, -1.39);
+    CONTEXT.imageGenerating(50, 1.9, -1.39);
   },
 
   imageGenerating: function (x, y, z) {
