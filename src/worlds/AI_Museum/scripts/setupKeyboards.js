@@ -34,7 +34,6 @@ AFRAME.registerComponent("set-keyboard", {
         n: 1,
         size: "1024x1024",
       });
-      //IDK HOW TO GET THE KEYBOARD TO STOP DISSAPEARING! I'M GONNA GO TO BED.
       keyboardComponent.data.value = "";
       CONTEXT.data.keyboardValue = "";
       keyboardComponent.data.show = true;
@@ -52,7 +51,6 @@ AFRAME.registerComponent("set-keyboard", {
         n: 1,
         size: "1024x1024",
       });
-      //IDK HOW TO GET THE KEYBOARD TO STOP DISSAPEARING! I'M GONNA GO TO BED.
       keyboardPastComponent.data.value = "";
       CONTEXT.data.keyboardPastValue = "";
       keyboardPastComponent.data.show = true;
@@ -70,7 +68,6 @@ AFRAME.registerComponent("set-keyboard", {
         n: 1,
         size: "1024x1024",
       });
-      //IDK HOW TO GET THE KEYBOARD TO STOP DISSAPEARING! I'M GONNA GO TO BED.
       keyboardFutureComponent.data.value = "";
       CONTEXT.data.keyboardFutureValue = "";
       keyboardFutureComponent.data.show = true;

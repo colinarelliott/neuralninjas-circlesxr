@@ -39,7 +39,10 @@ AFRAME.registerComponent("open-ai-image-gen", {
               imageGenerating: false,
             }
           });
-          CONTEXT.imageGenerating();
+          //one for each screen
+          CONTEXT.imageGenerating(0, 1.9, -1.4);
+          CONTEXT.imageGenerating(-50, 1.9, -1.4);
+          CONTEXT.imageGenerating(50, 1.9, -1.4);
       }, 200); // a little delay to make everyone sees it turn true
     }
 
@@ -103,17 +106,19 @@ AFRAME.registerComponent("open-ai-image-gen", {
       console.error("Error:", error);
     });
 
-    CONTEXT.imageGenerating();
+    CONTEXT.imageGenerating(0, 1.9, -1.4);
+    CONTEXT.imageGenerating(-50, 1.9, -1.4);
+    CONTEXT.imageGenerating(50, 1.9, -1.4);
   },
 
-  imageGenerating: function (data) {
+  imageGenerating: function (x, y, z) {
     const CONTEXT = this;
     //the image is getting generated, so we need to show the loading circle
 
     //spawn a new entity with the loading circle video on it and then remove it when the image is loaded
     const loadingCircle = document.createElement("a-video");
     loadingCircle.setAttribute("src", "#loading-circle");
-    loadingCircle.setAttribute("position", "0 1.9 -1.4");
+    loadingCircle.setAttribute("position", {x, y, z});
     loadingCircle.setAttribute("width", "1.6");
     loadingCircle.setAttribute("height", "0.9");
     loadingCircle.setAttribute("rotation", "0 0 0");
