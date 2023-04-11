@@ -7,7 +7,6 @@ AFRAME.registerComponent('network-manager', {
         room: {type: 'string', default: ''},
 
         //INSERT ALL VARIABLES TO BE SYNCED HERE... also further down...
-        cubeColor: {type: 'string', default: 'red'},
         tpAllowed : {type: 'boolean', default: true},
         pastTP : {type: 'boolean', default: false},
         presentTP : {type: 'boolean', default: false},
@@ -68,7 +67,7 @@ AFRAME.registerComponent('network-manager', {
                 if (syncData.world === THIS.data.world) {
                     
                     //INSERT ALL VARIABLES TO BE SYNCED HERE... also in the schema and below
-                    if (syncData.data.cubeColor !== undefined) {THIS.data.cubeColor = syncData.data.cubeColor}; //if statement checks if there is an incoming value to update
+                    //if statement checks if there is an incoming value to update
                     if (syncData.data.tpAllowed !== undefined) {THIS.data.tpAllowed = syncData.data.tpAllowed};
                     if (syncData.data.pastTP !== undefined) {THIS.data.pastTP = syncData.data.pastTP};
                     if (syncData.data.presentTP !== undefined) {THIS.data.presentTP = syncData.data.presentTP};
@@ -96,7 +95,6 @@ AFRAME.registerComponent('network-manager', {
         const THIS = this;
 
         //INSERT ALL VARIABLES TO BE SYNCED HERE... also in the schema and above
-        if (updateData.data.cubeColor !== undefined) {THIS.data.cubeColor = updateData.data.cubeColor};
         if (updateData.data.tpAllowed !== undefined) {THIS.data.tpAllowed = updateData.data.tpAllowed};
         if (updateData.data.pastTP !== undefined) {THIS.data.pastTP = updateData.data.pastTP};
         if (updateData.data.presentTP !== undefined) {THIS.data.presentTP = updateData.data.presentTP};
