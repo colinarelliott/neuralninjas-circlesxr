@@ -10,7 +10,7 @@
 
 AFRAME.registerComponent('nav-mesh-handler', {
     schema: {
-        currentMesh: { type: 'string', default: '#present-nav-mesh', oneOf: ['#past-nav-mesh', '#present-nav-mesh', '#future-nav-mesh'] },
+        currentMesh: { type: 'string', default: '#present-nav-mesh', oneOf: ['#past-nav-mesh', '#present-nav-mesh', '#future-nav-mesh', '#teleporting-nav-mesh'] },
     },
     init: function () {
         const THIS = this;
@@ -32,27 +32,53 @@ AFRAME.registerComponent('nav-mesh-handler', {
     tick: function () {
         const THIS = this;
 
+        const networkManager = document.querySelector('#experience-manager').components['network-manager'];
+
         //get the player's position
         THIS.playerPos = THIS.player.getAttribute('position');
-        
-        if (THIS.playerPos.x < -25 && THIS.currentMesh !== '#past-nav-mesh') {
-            THIS.currentMesh = '#past-nav-mesh';
-            //set the properties of the navmesh to the past museum
-            THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-            THIS.createNavMesh('-50 0.02 0', '0.58 0.58 0.58', '#past-nav-mesh');
-            console.log("PAST NAVMESH LOADED");
-        } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.currentMesh !== '#present-nav-mesh') {
-            THIS.currentMesh = '#present-nav-mesh';
-            //set the properties of the navmesh to the present museum
-            THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-            THIS.createNavMesh('0 0.02 0', '0.78 0.78 0.78', '#present-nav-mesh');
-            console.log("PRESENT NAVMESH LOADED");
-        } else if (THIS.playerPos.x > 25 && THIS.currentMesh !== '#future-nav-mesh') {
-            THIS.currentMesh = '#future-nav-mesh';
-            //set the properties of the navmesh to the future museum
-            THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-            THIS.createNavMesh('50 0.02 0', '0.98 0.98 0.98', '#future-nav-mesh');
-            console.log("FUTURE NAVMESH LOADED");
+
+        if (networkManager.data.tpAllowed === false) {
+            //if the player is in the past museum, load the past navmesh
+            if (THIS.playerPos.x < -25 && THIS.currentMesh !== '#teleporting-nav-mesh') {
+                THIS.currentMesh = '#teleporting-nav-mesh';
+                //set the properties of the navmesh to the past museum
+                THIS.navMesh.parentNode.removeChild(THIS.navMesh);
+                THIS.createNavMesh('-50 0.02 0', '0.58 0.58 0.58', '#teleporting-nav-mesh');
+                console.log("PAST NAVMESH LOADED");
+            } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.currentMesh !== '#teleporting-nav-mesh') {
+                THIS.currentMesh = '#present-nav-mesh';
+                //set the properties of the navmesh to the present museum
+                THIS.navMesh.parentNode.removeChild(THIS.navMesh);
+                THIS.createNavMesh('0 0.02 0', '0.78 0.78 0.78', '#teleporting-nav-mesh');
+                console.log("PRESENT NAVMESH LOADED");
+            } else if (THIS.playerPos.x > 25 && THIS.currentMesh !== '#teleporting-nav-mesh') {
+                THIS.currentMesh = '#teleporting-nav-mesh';
+                //set the properties of the navmesh to the future museum
+                THIS.navMesh.parentNode.removeChild(THIS.navMesh);
+                THIS.createNavMesh('50 0.02 0', '0.58 0.58 0.58', '#teleporting-nav-mesh');
+                console.log("FUTURE NAVMESH LOADED");
+            }
+        } else {
+            //if the player is in the past museum, load the past navmesh
+            if (THIS.playerPos.x < -25 && THIS.currentMesh !== '#past-nav-mesh') {
+                THIS.currentMesh = '#past-nav-mesh';
+                //set the properties of the navmesh to the past museum
+                THIS.navMesh.parentNode.removeChild(THIS.navMesh);
+                THIS.createNavMesh('-50 0.02 0', '0.58 0.58 0.58', '#past-nav-mesh');
+                console.log("PAST NAVMESH LOADED");
+            } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.currentMesh !== '#present-nav-mesh') {
+                THIS.currentMesh = '#present-nav-mesh';
+                //set the properties of the navmesh to the present museum
+                THIS.navMesh.parentNode.removeChild(THIS.navMesh);
+                THIS.createNavMesh('0 0.02 0', '0.78 0.78 0.78', '#present-nav-mesh');
+                console.log("PRESENT NAVMESH LOADED");
+            } else if (THIS.playerPos.x > 25 && THIS.currentMesh !== '#future-nav-mesh') {
+                THIS.currentMesh = '#future-nav-mesh';
+                //set the properties of the navmesh to the future museum
+                THIS.navMesh.parentNode.removeChild(THIS.navMesh);
+                THIS.createNavMesh('50 0.02 0', '0.98 0.98 0.98', '#future-nav-mesh');
+                console.log("FUTURE NAVMESH LOADED");
+            }
         }
     },
 
