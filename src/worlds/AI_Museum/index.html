@@ -150,17 +150,13 @@ All sources are from Sketchfab.com
         response-type="arraybuffer"></a-asset-item>
       <a-asset-item id="brain" src="assets/models/brain.glb" crossorigin="anonymous"
         response-type="arraybuffer"></a-asset-item>
-      <a-asset-item id="gear_cog" src="assets/models/gear_cog.glb" crossorigin="anonymous"
-        response-type="arraybuffer"></a-asset-item>
       <a-asset-item id="data_sculpture" src="assets/models/data_sculpture.glb" crossorigin="anonymous"
         response-type="arraybuffer"></a-asset-item>
       <a-asset-item id="cathode_ray_tube" src="assets/models/cathode_ray_tv.glb" crossorigin="anonymous"
         response-type="arraybuffer"></a-asset-item>
       <a-asset-item id="library-shelf" src="assets/models/library2.glb" crossorigin="anonymous"
         response-type="arraybuffer"></a-asset-item>
-      <a-asset-item id="gavel" src="assets/models/gavel.glb" crossorigin="anonymous"S
-        response-type="arraybuffer"></a-asset-item>
-      <a-asset-item id="easel" src="assets/models/easel_low_poly.glb" crossorigin="anonymous"
+      <a-asset-item id="gavel" src="assets/models/gavel.glb" crossorigin="anonymous" S
         response-type="arraybuffer"></a-asset-item>
 
       <!--Nadia's Assets-->
@@ -191,17 +187,10 @@ All sources are from Sketchfab.com
       <a-asset-item id="present-museum-model" src="assets/models/museum_Present.gltf"
         crossorigin="anonymous"></a-asset-item>
 
-        <a-asset-item
-          id="future-museum-model"
-          src="assets/models/museum_Future.gltf"
-          crossorigin="anonymous"
-        ></a-asset-item>
+      <a-asset-item id="future-museum-model" src="assets/models/museum_Future.gltf"
+        crossorigin="anonymous"></a-asset-item>
 
-        <a-asset-item
-          id="robot-model"
-          src="assets/models/robot.gltf"
-          crossorigin="anonymous"
-        ></a-asset-item>
+      <a-asset-item id="robot-model" src="assets/models/robot.gltf" crossorigin="anonymous"></a-asset-item>
 
       <!--Nav Meshes-->
       <a-asset-item id="future-nav-mesh" src="assets/models/navmeshes/Navmesh_Future.gltf"></a-entity>
@@ -249,7 +238,8 @@ All sources are from Sketchfab.com
     <!--Circles Checkpoints-->
 
     <!-- TIME MACHINE CHECKPOINTS -->
-    <a-entity circles-checkpoint circles-spawnpoint position="0 0.02 0" scale="4.75 4.75 4.75"></a-entity> <!--spawn at midpoint, present museum-->
+    <a-entity circles-checkpoint circles-spawnpoint position="0 0.02 0" scale="4.75 4.75 4.75"></a-entity>
+    <!--spawn at midpoint, present museum-->
     <a-entity circles-checkpoint position="50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
     <a-entity circles-checkpoint position="-50 0.02 0" scale="4.75 4.75 4.75"></a-entity>
 
@@ -288,7 +278,7 @@ All sources are from Sketchfab.com
     <a-entity id="env" position="0 -2 0"
       environment="preset: forest; groundYScale: 0; dressing: none; skyType: gradient; skyColor: #00CCEE; horizonColor: #FFAA90; groundColor: #444444; groundColor2: #333333;"></a-entity>
 
-      <!--Skyboxes-->
+    <!--Skyboxes-->
     <a-entity id='skyBoxPresent' class="presentProp" rotation='0 90 0' position="0 12.5 -7"
       geometry='primitive:sphere; radius:25; segments-height:24; segments-width:24;'
       material='shader:flat; src:#sphericalEnvMap; side:back;'>
@@ -360,10 +350,10 @@ All sources are from Sketchfab.com
     <a-entity id="pedestal-past-drawGuessMachine" class="pastProp" gltf-model="#past-museum-pedestal"
       position="-56.5 -0.65 1.8" rotation="0 0 0" scale="0.8 0.8 0.8" visible="true"></a-entity>
 
-      <!--end past museum artefacts-->
-      <!--please note that these aren't parented to the museum model because of a flaw in circles that messes with the labels-->
+    <!--end past museum artefacts-->
+    <!--please note that these aren't parented to the museum model because of a flaw in circles that messes with the labels-->
 
-      <!--past museum-->
+    <!--past museum-->
     <a-entity id="museumPast" gltf-model="#past-museum-model" position="-50 0.01 0" rotation="0 0 0" scale="0.6 0.6 0.6"
       visible="true">
 
@@ -737,97 +727,40 @@ All sources are from Sketchfab.com
 
       </a-entity>
 
-      <a-entity id="museumFuture"
-        gltf-model="#future-museum-model"
-        position="50 0.01 0"
-        rotation="0 0 0"
-        scale="1 1 1"
-        visible="true"
-      >
+      <a-entity id="museumFuture" gltf-model="#future-museum-model" position="50 0.01 0" rotation="0 0 0" scale="1 1 1"
+        visible="true">
 
-      <a-entity id="robot"
-        gltf-model="#robot-model"
-        position="50 0.01 0"
-        rotation="0 0 0"
-        scale="1 1 1"
-        visible="true"
-        animation-mixer
-      >
+        <a-entity id="robot" gltf-model="#robot-model" position="50 0.01 0" rotation="0 0 0" scale="1 1 1"
+          visible="true" animation-mixer>
 
-        <a-entity id="gavel-model" class="futureProp" gltf-model="#gavel" position="25 2 -3" rotation="0 90 0"
-          scale="0.3 0.3 0.3" visible="true"></a-entity>
+          <a-entity id="gavel-model" class="futureProp" gltf-model="#gavel" position="25 2 -3" rotation="0 90 0"
+            scale="0.3 0.3 0.3" visible="true"></a-entity>
 
-        <a-entity id="comingSoonText" class="futureProp"
-          text="value: Coming Soon!\n The results of the current AI image litigations shall determine the future of AI image generation as we know it.; align: center; width: 2.5; color: #DDD; opacity: 1; wrapCount: 50; letterSpacing: 0.1; baseline: top; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;"
-          position="10 4 0" rotation="0 -90 0" scale="10 10 10" visible="true"></a-entity>
+          <a-entity id="comingSoonText" class="futureProp"
+            text="value: Coming Soon!\n The results of the current AI image litigations shall determine the future of AI image generation as we know it.; align: center; width: 2.5; color: #DDD; opacity: 1; wrapCount: 50; letterSpacing: 0.1; baseline: top; font: https://cdn.aframe.io/fonts/Exo2Bold.fnt;"
+            position="10 4 0" rotation="0 -90 0" scale="10 10 10" visible="true"></a-entity>
 
 
-      </a-entity>
-
-      <a-entity id="timeMachinePast" class="pastProp" scale="0.8 0.8 0.8" position="-50 0 0" visible="true"
-        keep-keyboard>
-        <a-entity id="pastTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0" class="pastProp"
-          circles-description=" title_text_front:       AI Image Generator Time Machine;
-                                description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
-                                title_text_back:        How to Time Travel;
-                                description_text_back:  Click the large red buttons to travel to the past or future of AI image generation museums.;
-                                offset:                 0 0 0;
-                                arrow_position:         down;
-                                lookAtCamera            :true; "></a-entity>
-        <a-entity id="machinePast" class="pastProp" gltf-model="#machineObj" position="0 0 0" rotation="0 0 0"
-          scale="1 1 1" visible="true"></a-entity>
-        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-
-        <a-entity id="hand" laser-controls="hand: right">
-          <a-sphere radius="0.03"></a-sphere>
         </a-entity>
-        <a-entity id="keyboardPast" class="pastProp" super-keyboard="
-              hand: #mouseCursor; 
-              imagePath:./assets/images/; 
-              keyColor: #AAA; 
-              keyBgColor: #000;
-              keyHoverColor: #CCC;
-              keyPressColor: #FFF;
-              inputColor: #FFF;
-              " position="0 1.608 -1.00" rotation="-80 0 0" scale="1.5 1.5 1.5"></a-entity>
-        <a-entity id="capsulePast" class="pastProp" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0"
-          visible="true" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-        <a-entity id="capsuleGroundPast" class="pastProp" gltf-model="#capsuleGroundObj" scale="1 1 1" position="0 0 0"
-          visible="true"></a-entity>
-        <a-entity id="buttonLeftPast" class="pastProp" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0"
-          visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
-          circles-interactive-object="type: highlight;"></a-entity>
-        <a-entity id="buttonRightPast" class="pastProp" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0"
-          visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
-          circles-interactive-object="type: highlight;"></a-entity>
-        <a-entity id="buttonLeftPastSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
-          position="-1.667 1.773 -1.260"></a-entity>
-        <a-entity id="buttonRightPastSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
-          position="1.667 1.773 -1.260"></a-entity>
-        <a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
-          visible="false"></a-entity>
-      </a-entity>
 
-      <a-entity id="screenPast" class="pastProp" geometry="primitive: plane; width: 1.6; height: 0.9;"
-        material="src: #screensaver" position="-50 1.9 -1.4" scale="1.1 1.1 1.1" crossorigin="anonymous">
-        <a-entity id="screenLightPast" class="pastProp"
-          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPast; color: #ffffff"
-          position="0 0 0.5"></a-entity>
-      </a-entity>
-
-      <a-entity id="timeMachinePresent" class="presentProp" scale="0.8 0.8 0.8" position="0 0 0" visible="true">
-        <a-entity id="presentTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0" class="presentProp"
-          circles-description=" title_text_front:       AI Image Generator Time Machine;
+        <a-entity id="timeMachinePast" class="pastProp" scale="0.8 0.8 0.8" position="-50 0 0" visible="true"
+          keep-keyboard>
+          <a-entity id="pastTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0" class="pastProp"
+            circles-description=" title_text_front:       AI Image Generator Time Machine;
                                 description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
                                 title_text_back:        How to Time Travel;
                                 description_text_back:  Click the large red buttons to travel to the past or future of AI image generation museums.;
                                 offset:                 0 0 0;
                                 arrow_position:         down;
                                 lookAtCamera            :true; "></a-entity>
-        <a-entity id="machinePresent" class="presentProp" gltf-model="#machineObj" scale="1 1 1" position="0 0 0"
-          visible="true" set-keyboard keep-keyboard>
+          <a-entity id="machinePast" class="pastProp" gltf-model="#machineObj" position="0 0 0" rotation="0 0 0"
+            scale="1 1 1" visible="true"></a-entity>
+          <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
 
-          <a-entity id="keyboard" class="presentProp" super-keyboard="
+          <a-entity id="hand" laser-controls="hand: right">
+            <a-sphere radius="0.03"></a-sphere>
+          </a-entity>
+          <a-entity id="keyboardPast" class="pastProp" super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
               keyColor: #AAA; 
@@ -836,44 +769,44 @@ All sources are from Sketchfab.com
               keyPressColor: #FFF;
               inputColor: #FFF;
               " position="0 1.608 -1.00" rotation="-80 0 0" scale="1.5 1.5 1.5"></a-entity>
+          <a-entity id="capsulePast" class="pastProp" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0"
+            visible="true" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
+          <a-entity id="capsuleGroundPast" class="pastProp" gltf-model="#capsuleGroundObj" scale="1 1 1"
+            position="0 0 0" visible="true"></a-entity>
+          <a-entity id="buttonLeftPast" class="pastProp" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0"
+            visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+            circles-interactive-object="type: highlight;"></a-entity>
+          <a-entity id="buttonRightPast" class="pastProp" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0"
+            visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+            circles-interactive-object="type: highlight;"></a-entity>
+          <a-entity id="buttonLeftPastSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
+            position="-1.667 1.773 -1.260"></a-entity>
+          <a-entity id="buttonRightPastSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
+            position="1.667 1.773 -1.260"></a-entity>
+          <a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
+            visible="false"></a-entity>
         </a-entity>
-        <a-entity id="capsulePresent" class="presentProp" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0"
-          visible="true" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-        <a-entity id="capsuleGroundPresent" class="presentProp" gltf-model="#capsuleGroundObj" scale="1 1 1"
-          position="0 0 0" visible="true"></a-entity>
-        <a-entity id="buttonLeftPresent" class="presentProp" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0"
-          visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
-          circles-interactive-object="type: highlight;"></a-entity>
-        <a-entity id="buttonRightPresent" class="presentProp" gltf-model="#buttonRightObj" scale="1 1 1"
-          position="0 0 0" visible="true" class="button interactive"
-          animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
-          circles-interactive-object="type: highlight;"></a-entity>
-        <a-entity id="buttonLeftPresentSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
-          position="-1.667 1.773 -1.260"></a-entity>
-        <a-entity id="buttonRightPresentSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
-          position="1.667 1.773 -1.260"></a-entity>
-        <a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"></a-entity>
-      </a-entity>
 
-      <a-entity id="screenPresent" class="presentProp" geometry="primitive: plane; width: 1.6; height: 0.9;"
-        material="src: #screensaver" position="0 1.9 -1.41" scale="1.1 1.1 1.1" crossorigin="anonymous"><a-entity
-          id="screenLightPresent" class="presentProp"
-          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
-          position="0 0 0.5"></a-entity>
-      </a-entity>
+        <a-entity id="screenPast" class="pastProp" geometry="primitive: plane; width: 1.6; height: 0.9;"
+          material="src: #screensaver" position="-50 1.9 -1.4" scale="1.1 1.1 1.1" crossorigin="anonymous">
+          <a-entity id="screenLightPast" class="pastProp"
+            light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPast; color: #ffffff"
+            position="0 0 0.5"></a-entity>
+        </a-entity>
 
-      <a-entity id="timeMachineFuture" class="futureProp" scale="0.8 0.8 0.8" position="50 0 0" visible="true"
-        keep-keyboard>
-        <a-entity id="futureTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0" class="futureProp"
-          circles-description=" title_text_front:       AI Image Generator Time Machine;
+        <a-entity id="timeMachinePresent" class="presentProp" scale="0.8 0.8 0.8" position="0 0 0" visible="true">
+          <a-entity id="presentTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0" class="presentProp"
+            circles-description=" title_text_front:       AI Image Generator Time Machine;
                                 description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
                                 title_text_back:        How to Time Travel;
                                 description_text_back:  Click the large red buttons to travel to the past or future of AI image generation museums.;
                                 offset:                 0 0 0;
                                 arrow_position:         down;
                                 lookAtCamera            :true; "></a-entity>
+          <a-entity id="machinePresent" class="presentProp" gltf-model="#machineObj" scale="1 1 1" position="0 0 0"
+            visible="true" set-keyboard keep-keyboard>
 
-        <a-entity id="keyboardFuture" class="futureProp" super-keyboard="
+            <a-entity id="keyboard" class="presentProp" super-keyboard="
               hand: #mouseCursor; 
               imagePath:./assets/images/; 
               keyColor: #AAA; 
@@ -882,31 +815,79 @@ All sources are from Sketchfab.com
               keyPressColor: #FFF;
               inputColor: #FFF;
               " position="0 1.608 -1.00" rotation="-80 0 0" scale="1.5 1.5 1.5"></a-entity>
-        <a-entity id="machineFuture" class="futureProp" gltf-model="#machineObj" scale="1 1 1" position="0 0 0"
-          visible="true"></a-entity>
-        <a-entity id="capsuleFuture" class="futureProp" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0"
-          visible="true" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
-        <a-entity id="capsuleGroundFuture" class="futureProp" gltf-model="#capsuleGroundObj" scale="1 1 1"
-          position="0 0 0" visible="true"></a-entity>
-        <a-entity id="buttonLeftFuture" class="futureProp" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0"
-          visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
-          circles-interactive-object="type: highlight;"></a-entity>
-        <a-entity id="buttonRightFuture" class="futureProp" gltf-model="#buttonRightObj" scale="1 1 1" position="0 0 0"
-          visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
-          circles-interactive-object="type: highlight;"></a-entity>
-        <a-entity id="buttonLeftFutureSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
-          position="-1.667 1.773 -1.260"></a-entity>
-        <a-entity id="buttonRightFutureSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
-          position="1.667 1.773 -1.260"></a-entity>
-        <a-entity id="buttonSoundOnlySound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"></a-entity>
-      </a-entity>
+          </a-entity>
+          <a-entity id="capsulePresent" class="presentProp" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0"
+            visible="true" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
+          <a-entity id="capsuleGroundPresent" class="presentProp" gltf-model="#capsuleGroundObj" scale="1 1 1"
+            position="0 0 0" visible="true"></a-entity>
+          <a-entity id="buttonLeftPresent" class="presentProp" gltf-model="#buttonLeftObj" scale="1 1 1"
+            position="0 0 0" visible="true" class="button interactive"
+            animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+            circles-interactive-object="type: highlight;"></a-entity>
+          <a-entity id="buttonRightPresent" class="presentProp" gltf-model="#buttonRightObj" scale="1 1 1"
+            position="0 0 0" visible="true" class="button interactive"
+            animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+            circles-interactive-object="type: highlight;"></a-entity>
+          <a-entity id="buttonLeftPresentSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
+            position="-1.667 1.773 -1.260"></a-entity>
+          <a-entity id="buttonRightPresentSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
+            position="1.667 1.773 -1.260"></a-entity>
+          <a-entity id="buttonSoundOnly" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"></a-entity>
+        </a-entity>
 
-      <a-entity id="screenFuture" class="futureProp" geometry="primitive: plane; width: 1.6; height: 0.9;"
-        material="src: #screensaver" position="50 1.9 -1.4" scale="1.1 1.1 1.1" crossorigin="anonymous">
-        <a-entity id="screenLightFuture" class="futureProp"
-          light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenFuture; color: #ffffff"
-          position="0 0 0.5"></a-entity>
-      </a-entity>
+        <a-entity id="screenPresent" class="presentProp" geometry="primitive: plane; width: 1.6; height: 0.9;"
+          material="src: #screensaver" position="0 1.9 -1.41" scale="1.1 1.1 1.1" crossorigin="anonymous"><a-entity
+            id="screenLightPresent" class="presentProp"
+            light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenPresent; color: #ffffff"
+            position="0 0 0.5"></a-entity>
+        </a-entity>
+
+        <a-entity id="timeMachineFuture" class="futureProp" scale="0.8 0.8 0.8" position="50 0 0" visible="true"
+          keep-keyboard>
+          <a-entity id="futureTimeMachineInfo" position="0 4.25 -1.75" rotation="0 90 0" class="futureProp"
+            circles-description=" title_text_front:       AI Image Generator Time Machine;
+                                description_text_front: \nThis is the OpenAI Dall-E powered Image Generator & Time Machine. It is a machine that can generate images from text input on the keyboard. It also acts as your portal to the future and past of AI image generation museums.;
+                                title_text_back:        How to Time Travel;
+                                description_text_back:  Click the large red buttons to travel to the past or future of AI image generation museums.;
+                                offset:                 0 0 0;
+                                arrow_position:         down;
+                                lookAtCamera            :true; "></a-entity>
+
+          <a-entity id="keyboardFuture" class="futureProp" super-keyboard="
+              hand: #mouseCursor; 
+              imagePath:./assets/images/; 
+              keyColor: #AAA; 
+              keyBgColor: #000;
+              keyHoverColor: #CCC;
+              keyPressColor: #FFF;
+              inputColor: #FFF;
+              " position="0 1.608 -1.00" rotation="-80 0 0" scale="1.5 1.5 1.5"></a-entity>
+          <a-entity id="machineFuture" class="futureProp" gltf-model="#machineObj" scale="1 1 1" position="0 0 0"
+            visible="true"></a-entity>
+          <a-entity id="capsuleFuture" class="futureProp" gltf-model="#capsuleObj" scale="1 1 1" position="0 0 0"
+            visible="true" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"></a-entity>
+          <a-entity id="capsuleGroundFuture" class="futureProp" gltf-model="#capsuleGroundObj" scale="1 1 1"
+            position="0 0 0" visible="true"></a-entity>
+          <a-entity id="buttonLeftFuture" class="futureProp" gltf-model="#buttonLeftObj" scale="1 1 1" position="0 0 0"
+            visible="true" class="button interactive" animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+            circles-interactive-object="type: highlight;"></a-entity>
+          <a-entity id="buttonRightFuture" class="futureProp" gltf-model="#buttonRightObj" scale="1 1 1"
+            position="0 0 0" visible="true" class="button interactive"
+            animation-mixer="clip: none; loop: once; clampWhenFinished: true;"
+            circles-interactive-object="type: highlight;"></a-entity>
+          <a-entity id="buttonLeftFutureSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
+            position="-1.667 1.773 -1.260"></a-entity>
+          <a-entity id="buttonRightFutureSound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"
+            position="1.667 1.773 -1.260"></a-entity>
+          <a-entity id="buttonSoundOnlySound" sound="src:#buttonSoundSrc; autoplay:false; volume: 0.3;"></a-entity>
+        </a-entity>
+
+        <a-entity id="screenFuture" class="futureProp" geometry="primitive: plane; width: 1.6; height: 0.9;"
+          material="src: #screensaver" position="50 1.9 -1.4" scale="1.1 1.1 1.1" crossorigin="anonymous">
+          <a-entity id="screenLightFuture" class="futureProp"
+            light="type: spot; intensity: 1; angle:  90; penumbra: 0.2; target: #screenFuture; color: #ffffff"
+            position="0 0 0.5"></a-entity>
+        </a-entity>
   </a-scene>
   <circles-end-scripts />
 </body>
