@@ -43,19 +43,19 @@ AFRAME.registerComponent('nav-mesh-handler', {
                 THIS.currentMesh = '#teleporting-nav-mesh';
                 //set the properties of the navmesh to the past museum
                 THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-                THIS.createNavMesh('-50 0.02 0', '0.58 0.58 0.58', '#teleporting-nav-mesh');
+                THIS.createNavMesh('-50 0.02 0', '0.6 0.6 0.6', '#teleporting-nav-mesh');
                 console.log("PAST NAVMESH LOADED");
             } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.currentMesh !== '#teleporting-nav-mesh') {
                 THIS.currentMesh = '#present-nav-mesh';
                 //set the properties of the navmesh to the present museum
                 THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-                THIS.createNavMesh('0 0.02 0', '0.78 0.78 0.78', '#teleporting-nav-mesh');
+                THIS.createNavMesh('0 0.02 0', '0.8 0.8 0.8', '#teleporting-nav-mesh');
                 console.log("PRESENT NAVMESH LOADED");
             } else if (THIS.playerPos.x > 25 && THIS.currentMesh !== '#teleporting-nav-mesh') {
                 THIS.currentMesh = '#teleporting-nav-mesh';
                 //set the properties of the navmesh to the future museum
                 THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-                THIS.createNavMesh('50 0.02 0', '0.58 0.58 0.58', '#teleporting-nav-mesh');
+                THIS.createNavMesh('50 0.02 0', '0.6 0.6 0.6', '#teleporting-nav-mesh');
                 console.log("FUTURE NAVMESH LOADED");
             }
         } else {
@@ -64,19 +64,19 @@ AFRAME.registerComponent('nav-mesh-handler', {
                 THIS.currentMesh = '#past-nav-mesh';
                 //set the properties of the navmesh to the past museum
                 THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-                THIS.createNavMesh('-50 0.02 0', '0.58 0.58 0.58', '#past-nav-mesh');
+                THIS.createNavMesh('-50 0.02 0', '0.6 0.6 0.6', '#past-nav-mesh');
                 console.log("PAST NAVMESH LOADED");
             } else if (THIS.playerPos.x > -25 && THIS.playerPos.x < 25 && THIS.currentMesh !== '#present-nav-mesh') {
                 THIS.currentMesh = '#present-nav-mesh';
                 //set the properties of the navmesh to the present museum
                 THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-                THIS.createNavMesh('0 0.02 0', '0.78 0.78 0.78', '#present-nav-mesh');
+                THIS.createNavMesh('0 0.02 0', '0.8 0.8 0.8', '#present-nav-mesh');
                 console.log("PRESENT NAVMESH LOADED");
             } else if (THIS.playerPos.x > 25 && THIS.currentMesh !== '#future-nav-mesh') {
                 THIS.currentMesh = '#future-nav-mesh';
                 //set the properties of the navmesh to the future museum
                 THIS.navMesh.parentNode.removeChild(THIS.navMesh);
-                THIS.createNavMesh('50 0.02 0', '0.98 0.98 0.98', '#future-nav-mesh');
+                THIS.createNavMesh('50 0.02 0', '1 1 1', '#future-nav-mesh');
                 console.log("FUTURE NAVMESH LOADED");
             }
         }
