@@ -281,6 +281,12 @@
           crossorigin="anonymous"
         ></a-asset-item>
 
+        <a-asset-item
+          id="robot-model"
+          src="assets/models/robot.gltf"
+          crossorigin="anonymous"
+        ></a-asset-item>
+
         <!--Nav Meshes-->
         <a-asset-item id="future-nav-mesh"
           src="assets/models/navmeshes/Navmesh_Future.gltf"
@@ -1133,6 +1139,15 @@
         rotation="0 0 0"
         scale="1 1 1"
         visible="true"
+      >
+
+      <a-entity id="robot"
+        gltf-model="#robot-model"
+        position="50 0.01 0"
+        rotation="0 0 0"
+        scale="1 1 1"
+        visible="true"
+        animation-mixer
       >
 
       <a-entity id="gavel-model"
