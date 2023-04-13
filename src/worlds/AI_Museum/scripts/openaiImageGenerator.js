@@ -1,3 +1,7 @@
+//this component is responsible for the image generation using openai's api 
+//it also updates the image on the screens
+//and sends the updates to the network manager
+
 AFRAME.registerComponent("open-ai-image-gen", {
   schema: {
     //schema contains data for request so that it's accessible to other components
@@ -62,6 +66,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
     }
   },
 
+  //this function is called when the image is being generated
   generateImage: function (data) {
     const networkManager = document.querySelector("#experience-manager").components["network-manager"];
     let imageUrl = "";
@@ -74,6 +79,7 @@ AFRAME.registerComponent("open-ai-image-gen", {
       }
     });
 
+    //fetch the image from the api (located in ../node_server/routes/router.js)
     fetch(hostname+"/ai_image", {
       method: "POST",
       headers: {

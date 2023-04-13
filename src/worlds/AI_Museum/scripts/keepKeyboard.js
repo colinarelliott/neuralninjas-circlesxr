@@ -1,3 +1,5 @@
+// Keeps the keyboard from disappearing
+
 AFRAME.registerComponent("keep-keyboard", {
   init: function () {
     let el = this.el;

@@ -1,4 +1,4 @@
-// Description: This script is used to play music in the museums in sequence like a "playlist"
+// This script facilitates three different playlists for each museum, different music in each.
 
 AFRAME.registerComponent("music-player", {
     schema: {
